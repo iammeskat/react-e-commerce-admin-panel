@@ -1,0 +1,6 @@
+#profile
+    photo property nei
+
+
+#employe
+    photo property nei

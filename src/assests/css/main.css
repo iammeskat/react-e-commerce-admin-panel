@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "~react-image-gallery/styles/css/image-gallery.css";
+
+@layer components {
+  .container-fluid {
+    @apply w-full px-4 mx-auto;
+  }
+  .active {
+    @apply bg-gray-900;
+  }
+  .other {
+    @apply -mt-8 ml-9 pl-3  w-44 border-l-[1rem] border-gray-800 !absolute md:!static md:!block h-full hidden;
+  }
+  .ck-editor__editable {
+    min-height: 200px;
+  }
+  #preview-image img {
+    @apply border shadow rounded h-32 w-32;
+  }
+}
+
+@layer utilities {
+  .scrollbar::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    @apply bg-gray-900 rounded-full;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-gray-700 rounded-full;
+    border: 3px solid rgb(17 24 39 / var(--tw-bg-opacity));
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-500;
+  }
+
+  .scrollbar-reviews::-webkit-scrollbar {
+    width: 5px;
+  }
+  .scrollbar-reviews::-webkit-scrollbar-track {
+    @apply bg-gray-200 rounded-full;
+  }
+
+  .scrollbar-reviews::-webkit-scrollbar-thumb {
+    @apply bg-gray-400 rounded-full;
+    /* border: 3px solid rgb(17 24 39 / var(--tw-bg-opacity)); */
+  }
+
+  .scrollbar-reviews::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-500;
+  }
+}
