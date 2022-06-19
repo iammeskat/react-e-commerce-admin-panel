@@ -4,12 +4,14 @@ import ProductReviews from "./ProductReviews";
 const ProductRatingsReviews = (props) => {
   const { reviews } = props;
   const totalReviews = reviews.length;
-  const avgRating = (
-    reviews.reduce(
-      (accumulator, current) => accumulator + Number(current.rating),
-      0
-    ) / totalReviews
-  ).toFixed(2);
+  const avgRating = totalReviews
+    ? (
+        reviews.reduce(
+          (accumulator, current) => accumulator + Number(current.rating),
+          0
+        ) / totalReviews
+      ).toFixed(2)
+    : "0.0";
   const getStars = () => {
     let stars = [0, 0, 0, 0, 0];
     for (let i = 0; i < reviews.length; i++) {

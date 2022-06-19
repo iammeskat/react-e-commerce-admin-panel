@@ -1,9 +1,16 @@
 import { useContext } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
+import FormAdmin from "./form/FormAdmin";
 import FormBanner from "./form/FormBanner";
 import FormBrand from "./form/FormBrand";
 import FormCategory from "./form/FormCategory";
+import FormCustomer from "./form/FormCustomer";
+import FormDeal from "./form/FormDeal";
+import FormDealer from "./form/FormDealer";
+import FormEmployee from "./form/FormEmployee";
+import FormOffer from "./form/FormOffer";
 import FormSlider from "./form/FormSlider";
+import FormVoucher from "./form/FormVoucher";
 
 const Modal = () => {
   const contextData = useContext(GlobalContext);
@@ -17,8 +24,22 @@ const Modal = () => {
         return <FormSlider />;
       case "banner":
         return <FormBanner />;
+      case "admin":
+        return <FormAdmin />;
+      case "customer":
+        return <FormCustomer />;
+      case "offer":
+        return <FormOffer />;
+      case "voucher":
+        return <FormVoucher />;
+      case "dealer":
+        return <FormDealer />;
+      case "deal":
+        return <FormDeal />;
+      case "employee":
+        return <FormEmployee />;
       default:
-        return <h1>Something went wrong. Please reload thi page</h1>;
+        return <h1>Something went wrong. Please reload this page</h1>;
     }
   };
 

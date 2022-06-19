@@ -5,7 +5,7 @@ const BtnModal = (props) => {
   return (
     <>
       <button
-        className="flex items-center space-x-2 bg-indigo-700 text-slate-100 h-8 px-1.5 rounded hover:bg-indigo-600"
+        className="flex items-center space-x-1o bg-indigo-700 font-medium text-slate-100 h-8 px-1.5 rounded hover:bg-indigo-600"
         onClick={onClickHandler}
       >
         <IconPlus />

@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useAlert } from "react-alert";
+import { Link } from "react-router-dom";
 import config from "../../config/config";
 import { GlobalContext } from "../../context/GlobalContext";
-import BtnCreate from "../common/form/BtnCreate";
+import BtnModal from "../common/form/BtnModal";
 import InputSearch from "../common/form/InputSearch";
 import PageFooter from "../common/PageFooter";
 import PageHeader from "../common/PageHeader";
@@ -36,37 +37,23 @@ const OfferList = () => {
 
   const columnData = [
     {
-      path: "productName",
-      label: "Product Name",
       content: (data) => (
-        <div className="flex items-center space-x-2">
-          <img
-            className="h-10 w-10 rounded-full border-2 border-gray-200"
-            src="../images/product.webp"
-            alt=""
-          />
-          <h1>{data.name}</h1>
-        </div>
+        <Link to={`./${data._id}`}>
+          <div className="flex items-center space-x-2">
+            <img
+              className="h-10 w-10 rounded-full border-2 border-gray-200"
+              src="../images/product.webp"
+              alt=""
+            />
+            <h1 className="hover:text-indigo-600">{data.name}</h1>
+          </div>
+        </Link>
       ),
     },
+    { content: (data) => data.discountAmount },
+    { content: (data) => data.startDate.split("T")[0] },
+    { content: (data) => data.endDate.split("T")[0] },
     {
-      path: "discount",
-      label: "Discount",
-      content: (data) => data.discountAmount,
-    },
-    {
-      path: "startDate",
-      label: "Starting Date",
-      content: (data) => data.startDate.split("T")[0],
-    },
-    {
-      path: "endDatet",
-      label: "Ending Date",
-      content: (data) => data.endDate.split("T")[0],
-    },
-    {
-      path: "status",
-      label: "status",
       content: (data) => {
         if (data.status === "active") {
           return (
@@ -84,11 +71,23 @@ const OfferList = () => {
     },
 
     {
-      path: "action",
-      label: "Action",
       content: (data) => (
         <>
-          <BtnProductEdit />{" "}
+          <BtnProductEdit
+            title="Offer"
+            onClickHandler={() =>
+              contextData.handleModal("offer", "update", {
+                _id: data._id,
+                name: data.name,
+                startDate: data.startDate.split("T")[0],
+                endDate: data.endDate.split("T")[0],
+                description: data.description,
+                discountAmount: data.discountAmount,
+                limit: data.limit,
+                status: data.status,
+              })
+            }
+          />{" "}
           <BtnProductDelete
             handler={() =>
               contextData.handlerDeleteModal(() =>
@@ -194,7 +193,10 @@ const OfferList = () => {
         title="OFFERS"
         render={
           <>
-            <BtnCreate title="Create Product" to="./create" />
+            <BtnModal
+              title="Offer"
+              onClickHandler={() => contextData.handleModal("offer", "create")}
+            />
           </>
         }
       />

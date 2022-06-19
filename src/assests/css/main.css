@@ -11,7 +11,7 @@
     @apply bg-gray-900;
   }
   .other {
-    @apply -mt-8 ml-9 pl-3  w-44 border-l-[1rem] border-gray-800 !absolute md:!static md:!block h-full hidden;
+    @apply -mt-8 ml-9 pl-3  w-44 border-l-[1rem] border-gray-800 !absolute md:!static md:!block h-full hidden hover:bg-gray-90  px-8 py-0.5 rounded-b-lg rounded-l-none rounded-t-lg rounded-r-none;
   }
   .ck-editor__editable {
     min-height: 200px;

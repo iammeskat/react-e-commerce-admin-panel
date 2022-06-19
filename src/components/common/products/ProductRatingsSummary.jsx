@@ -8,6 +8,10 @@ const ProductRatingsSummary = (props) => {
         <div className="w-full flex justify-between items-center bg-gray-100 p-3 text-sm text-gray-600 rounded-md">
           <div className="flex text-yellow-500">
             <IconStarYellow />
+            <IconStarYellow />
+            <IconStarYellow />
+            <IconStarYellow />
+            <IconStarYellow />
           </div>
           <span>{avgRating} Out of 5</span>
         </div>

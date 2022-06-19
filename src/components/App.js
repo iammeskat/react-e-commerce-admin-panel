@@ -28,6 +28,11 @@ function App() {
     data:{},
     delete: {show: false, callback:null},
   });
+  const [activeTab, setActiveTab] = useState(0);
+  const handleActiveTab =(indx) => {
+    // setActiveTab(indx);
+    setActiveTab(() => (indx))
+  }
   const handleSidebar = () => {
     let sidebarData = { ...sidebar };
     if (sidebarData.isSmall) {
@@ -82,7 +87,7 @@ function App() {
   
   return (
     <>
-      <GlobalContext.Provider value={{sidebar, handleSidebar, showMobileSidebar, modal, handleModal, handlerDeleteModal}}>
+      <GlobalContext.Provider value={{sidebar, handleSidebar, showMobileSidebar, modal, handleModal, handlerDeleteModal, activeTab, handleActiveTab}}>
         <main className="flex">
           <Sidebar />
           <div

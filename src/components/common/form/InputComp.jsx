@@ -1,5 +1,6 @@
 const InputComp = (props) => {
   const { label, id, placeholder, name, type, value, handler, errMsg } = props;
+  // console.log(value);
   return (
     <div className="flex flex-col">
       <label
@@ -16,7 +17,7 @@ const InputComp = (props) => {
         placeholder={placeholder}
         value={value}
         onChange={(e) => handler(name, e.target.value)}
-        // required
+        autoComplete="off"
       />
       {errMsg && <small className="text-red-500">{errMsg}</small>}
     </div>

@@ -17,9 +17,9 @@ import TableHeader from "../common/table/TableHeader";
 const ProductList = () => {
   const alert = useAlert();
   const contextData = useContext(GlobalContext);
-  const [products, setProducts] = useState();
-  const [brands, setBrands] = useState();
-  const [categories, setCategories] = useState();
+  const [products, setProducts] = useState([]);
+  const [brands, setBrands] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [options, setOptions] = useState({
     activePage: 1,
     pageCount: 20,
@@ -44,8 +44,6 @@ const ProductList = () => {
 
   const columnData = [
     {
-      path: "productName",
-      label: "Product Name",
       content: (product) => (
         <div>
           <Link
@@ -67,39 +65,13 @@ const ProductList = () => {
         </div>
       ),
     },
+    { content: (product) => product.category[0]["name"] },
+    { content: (product) => product.brand.name },
+    { content: (product) => product.quantity },
+    { content: (product) => "sale" },
+    { content: (product) => product.createdAt.split("T")[0] },
+    { content: (product) => product.price },
     {
-      path: "category",
-      label: "Category",
-      content: (product) => product.category[0]["name"],
-    },
-    {
-      path: "brand",
-      label: "Brand",
-      content: (product) => product.brand.name,
-    },
-    {
-      path: "quantity",
-      label: "Quantity",
-      content: (product) => product.quantity,
-    },
-    {
-      path: "sale",
-      label: "Sale",
-      content: (product) => "sale",
-    },
-    {
-      path: "createdAt",
-      label: "Created At",
-      content: (product) => product.createdAt.split("T")[0],
-    },
-    {
-      path: "price",
-      label: "Price",
-      content: (product) => product.price,
-    },
-    {
-      path: "status",
-      label: "status",
       content: (product) => {
         if (product.status === "active") {
           return (
@@ -116,8 +88,6 @@ const ProductList = () => {
       },
     },
     {
-      path: "action",
-      label: "Action",
       content: (product) => (
         <div className="flex space-x-2">
           <Link to={`${product._id}/update`}>

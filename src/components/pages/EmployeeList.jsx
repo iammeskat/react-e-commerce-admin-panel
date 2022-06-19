@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import config from "../../config/config";
 import { GlobalContext } from "../../context/GlobalContext";
-import BtnCreate from "../common/form/BtnCreate";
+import BtnModal from "../common/form/BtnModal";
 import InputSearch from "../common/form/InputSearch";
 import PageFooter from "../common/PageFooter";
 import PageHeader from "../common/PageHeader";
@@ -28,7 +28,7 @@ const EmployeeList = () => {
   const columnHeader = [
     "NAME",
     "NID",
-    "EMAIL",
+    // "EMAIL",
     "PHONE",
     "SALARY",
     "SHIFT",
@@ -37,40 +37,14 @@ const EmployeeList = () => {
   ];
 
   const columnData = [
-    {
-      path: "name",
-      label: "name",
-      content: (data) => data.name,
-    },
-    {
-      path: "nid",
-      label: "nid",
-      content: (data) => data.nid,
-    },
-    {
-      path: "email",
-      label: "email",
-      content: (data) => data.email,
-    },
-    {
-      path: "phone",
-      label: "Phone",
-      content: (data) => data.phone,
-    },
+    { content: (data) => data.name },
+    { content: (data) => data.nid },
+    // { content: (data) => data.email },
+    { content: (data) => data.phone },
 
+    { content: (data) => data.salary },
+    { content: (data) => data.shift },
     {
-      path: "salary",
-      label: "salary",
-      content: (data) => data.salary,
-    },
-    {
-      path: "shift",
-      label: "shift",
-      content: (data) => data.shift,
-    },
-    {
-      path: "status",
-      label: "status",
       content: (data) => {
         if (data.status === "active") {
           return (
@@ -87,11 +61,15 @@ const EmployeeList = () => {
       },
     },
     {
-      path: "action",
-      label: "Action",
       content: (data) => (
         <>
-          <BtnProductEdit />{" "}
+          <BtnProductEdit
+            title="Offer"
+            onClickHandler={() => {
+              delete data.__v;
+              contextData.handleModal("employee", "update", data);
+            }}
+          />{" "}
           <BtnProductDelete
             handler={() =>
               contextData.handlerDeleteModal(() =>
@@ -194,15 +172,17 @@ const EmployeeList = () => {
   let paginatedItems = data ? paginateItems(filteredItems) : [];
 
   return data ? (
-    <div
-      id="main-section"
-      className="flex flex-col grow px-3 md:px-6 py-3 space-y-4 bg-slate-200 transition-all duration-200"
-    >
+    <div className="flex flex-col grow px-3 md:px-6 py-3 space-y-4 bg-slate-200 transition-all duration-200">
       <PageHeader
         title="EMPLOYEES"
         render={
           <>
-            <BtnCreate title="Create Product" to="./create" />
+            <BtnModal
+              title="Employee"
+              onClickHandler={() =>
+                contextData.handleModal("employee", "create")
+              }
+            />
           </>
         }
       />

@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useAlert } from "react-alert";
+import { Link } from "react-router-dom";
 import config from "../../config/config";
 import { GlobalContext } from "../../context/GlobalContext";
-import BtnCreate from "../common/form/BtnCreate";
+import BtnModal from "../common/form/BtnModal";
 import InputSearch from "../common/form/InputSearch";
 import PageFooter from "../common/PageFooter";
 import PageHeader from "../common/PageHeader";
@@ -36,28 +37,16 @@ const VoucherList = () => {
 
   const columnData = [
     {
-      path: "discount",
-      label: "Discount",
-      content: (data) => data.code,
+      content: (data) => (
+        <Link to={`./${data._id}`}>
+          <p className="uppercase hover:text-indigo-500">{data.code}</p>
+        </Link>
+      ),
     },
+    { content: (data) => data.discounted_amount },
+    { content: (data) => data.start_form.split("T")[0] },
+    { content: (data) => data.expired_in.split("T")[0] },
     {
-      path: "discounted_amount",
-      label: "Discount",
-      content: (data) => data.discounted_amount,
-    },
-    {
-      path: "start_form",
-      label: "Starting Date",
-      content: (data) => data.start_form.split("T")[0],
-    },
-    {
-      path: "endDatet",
-      label: "Ending Date",
-      content: (data) => data.expired_in.split("T")[0],
-    },
-    {
-      path: "status",
-      label: "status",
       content: (data) => {
         if (data.status === "active") {
           return (
@@ -75,11 +64,23 @@ const VoucherList = () => {
     },
 
     {
-      path: "action",
-      label: "Action",
       content: (data) => (
         <>
-          <BtnProductEdit />{" "}
+          <BtnProductEdit
+            title="Offer"
+            onClickHandler={() =>
+              contextData.handleModal("voucher", "update", {
+                _id: data._id,
+                code: data.code,
+                discounted_amount: data.discounted_amount,
+                min_shopping_amount: data.min_shopping_amount,
+                start_form: data.start_form.split("T")[0],
+                expired_in: data.expired_in.split("T")[0],
+                offer_limit: data.offer_limit,
+                status: data.status,
+              })
+            }
+          />{" "}
           <BtnProductDelete
             handler={() =>
               contextData.handlerDeleteModal(() =>
@@ -185,7 +186,12 @@ const VoucherList = () => {
         title="VOUCHERS"
         render={
           <>
-            <BtnCreate title="Create Product" to="./create" />
+            <BtnModal
+              title="Voucher"
+              onClickHandler={() =>
+                contextData.handleModal("voucher", "create")
+              }
+            />
           </>
         }
       />

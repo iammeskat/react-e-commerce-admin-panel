@@ -13,7 +13,7 @@ import FilterOption from "../common/table/FilterOption";
 import Table from "../common/table/Table";
 import TableHeader from "../common/table/TableHeader";
 
-const DealerList = () => {
+const AdminList = () => {
   const alert = useAlert();
   const contextData = useContext(GlobalContext);
   const [data, setData] = useState();
@@ -26,25 +26,30 @@ const DealerList = () => {
   });
 
   const columnHeader = [
-    "COMPANY",
-    "representative",
-    "PHONE",
-    // "EMAIL",
-    "ADDRESS",
+    "NAME",
+    "EMAIL",
     "STATUS",
+    "created at",
+    "updated at",
     "ACTION",
   ];
 
   const columnData = [
-    { content: (data) => data.company },
-    { content: (data) => data.name },
-    { content: (data) => data.phone },
-    // {
-    //   path: "email",
-    //   label: "Email",
-    //   content: (data) => data.email,
-    // },
-    { content: (data) => data.address },
+    {
+      content: (data) => (
+        <div className="flex items-center space-x-2">
+          <img
+            className="h-10 w-10 rounded-full border-2 border-gray-200"
+            src="../images/product.webp"
+            alt=""
+          />
+          <h1>{data.name}</h1>
+        </div>
+      ),
+    },
+    {
+      content: (data) => data.email,
+    },
     {
       content: (data) => {
         if (data.status === "active") {
@@ -61,20 +66,21 @@ const DealerList = () => {
           );
       },
     },
+    { content: (data) => data.createdAt.split("T")[0] },
+    { content: (data) => data.updatedAt.split("T")[0] },
     {
       content: (data) => (
         <>
           <BtnProductEdit
-            title="Offer"
-            onClickHandler={() => {
-              delete data.__v;
-              contextData.handleModal("dealer", "update", data);
-            }}
+            title="Admin"
+            onClickHandler={() =>
+              contextData.handleModal("admin", "update", data)
+            }
           />{" "}
           <BtnProductDelete
             handler={() =>
               contextData.handlerDeleteModal(() =>
-                deleteItem(data._id, data.title)
+                deleteItem(data._id, data.name)
               )
             }
           />
@@ -83,14 +89,14 @@ const DealerList = () => {
     },
   ];
 
-  // fetch banners
+  // fetch admins
   useEffect(() => {
     let isLoaded = true;
     axios
-      .get(`${config.SERVER_URL}/api/admin/dealers`)
+      .get(`${config.SERVER_URL}/api/admin/users/admins`)
       .then((res) => {
-        isLoaded && setData(res.data.data.dealer);
-        console.log(res.data.data.dealer);
+        isLoaded && setData(res.data.data.admins);
+        console.log(res.data.data.admins);
       })
       .catch((error) => console.log(error));
     return () => (isLoaded = false);
@@ -98,7 +104,7 @@ const DealerList = () => {
 
   const deleteItem = (itemId, itemName) => {
     axios
-      .delete(`${config.SERVER_URL}/api/admin/dealers/${itemId}`)
+      .delete(`http://localhost:3050/api/admin/users/${itemId}`)
       .then((res) => {
         const tempData = data.filter((item) => {
           if (item._id === itemId) return false;
@@ -138,9 +144,8 @@ const DealerList = () => {
     if (searchKey !== "all") {
       const tempItems = filteredItems.filter((item) => {
         if (
-          item.company.toLowerCase().includes(searchKey.toLowerCase()) ||
-          item.phone.toLowerCase().includes(searchKey.toLowerCase()) ||
-          item.name.toLowerCase().includes(searchKey.toLowerCase())
+          item.name.toLowerCase().includes(searchKey.toLowerCase()) ||
+          item.email.toLowerCase().includes(searchKey.toLowerCase())
         ) {
           return true;
         } else return false;
@@ -177,12 +182,12 @@ const DealerList = () => {
       className="flex flex-col grow px-3 md:px-6 py-3 space-y-4 bg-slate-200 transition-all duration-200"
     >
       <PageHeader
-        title="DEALERS"
+        title="admins"
         render={
           <>
             <BtnModal
-              title="Dealer"
-              onClickHandler={() => contextData.handleModal("dealer", "create")}
+              title="Admin"
+              onClickHandler={() => contextData.handleModal("admin", "create")}
             />
           </>
         }
@@ -191,12 +196,12 @@ const DealerList = () => {
         <div className="overflow-x-auto">
           <div className="bg-white shadow-lg rounded-sm border border-gray-200 mb-2 min-w-[60rem] h-[34rem] overflow-y-auto relative">
             <TableHeader
-              tableName="DEALER LIST"
+              tableName="admin LIST"
               numberOfItem={filteredItems.length}
               filterOptions={
                 <>
                   <InputSearch
-                    placeholder="Search slider..."
+                    placeholder="Search cutomers..."
                     handler={search}
                   />
                   <FilterOption
@@ -250,8 +255,8 @@ const DealerList = () => {
       </div>
     </div>
   ) : (
-    ""
+    "Something went wrong"
   );
 };
 
-export default DealerList;
+export default AdminList;

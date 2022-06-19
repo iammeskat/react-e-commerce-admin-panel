@@ -4,7 +4,7 @@ const Table = (props) => {
     <table className="table-auto min-w-full divide-y font-medium text-gray-800 divide-gray-200">
       <thead className="sticky top-0 shadow-sm text-xs uppercase font-semibold text-left text-gray-500 bg-gray-50">
         <tr>
-          <th className="px-2 first:pl-6 last:pr-6 py-3 whitespace-nowrap w-px">
+          <th className=" first:pl-6 last:pr-6 py-3 whitespace-nowrap w-px">
             SL
           </th>
 
@@ -12,7 +12,7 @@ const Table = (props) => {
             return (
               <th
                 key={indx}
-                className="px-2 first:pl-6 last:pr-6 py-3 whitespace-nowrap"
+                className=" first:pl-6 last:pr-6 py-3 whitespace-nowrap uppercase"
               >
                 {item}
               </th>

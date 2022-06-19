@@ -14,6 +14,7 @@ import Table from "../common/table/Table";
 import TableHeader from "../common/table/TableHeader";
 
 const CustomerList = () => {
+  console.log("render");
   const alert = useAlert();
   const contextData = useContext(GlobalContext);
   const [data, setData] = useState();
@@ -37,8 +38,6 @@ const CustomerList = () => {
 
   const columnData = [
     {
-      path: "productName",
-      label: "Product Name",
       content: (data) => (
         <div className="flex items-center space-x-2">
           <img
@@ -50,29 +49,11 @@ const CustomerList = () => {
         </div>
       ),
     },
+    { content: (data) => data.email },
+    { content: (data) => data.profile.phone },
+    { content: (data) => data.profile.city },
+    { content: (data) => data.profile.country },
     {
-      path: "email",
-      label: "email",
-      content: (data) => data.email,
-    },
-    {
-      path: "phone",
-      label: "Phone",
-      content: (data) => data.profile.phone,
-    },
-    {
-      path: "city",
-      label: "city",
-      content: (data) => data.profile.city,
-    },
-    {
-      path: "country",
-      label: "country",
-      content: (data) => data.profile.country,
-    },
-    {
-      path: "status",
-      label: "status",
       content: (data) => {
         if (data.status === "active") {
           return (
@@ -93,7 +74,17 @@ const CustomerList = () => {
       label: "Action",
       content: (data) => (
         <>
-          <BtnProductEdit />{" "}
+          <BtnProductEdit
+            title="Admin"
+            onClickHandler={() =>
+              contextData.handleModal("customer", "update", {
+                name: data.name,
+                email: data.email,
+                _id: data._id,
+                status: data.status,
+              })
+            }
+          />{" "}
           <BtnProductDelete
             handler={() =>
               contextData.handlerDeleteModal(() =>
@@ -201,10 +192,10 @@ const CustomerList = () => {
   return data ? (
     <div
       id="main-section"
-      className="flex flex-col grow px-3 md:px-6 py-3 space-y-4 bg-slate-200 transition-all duration-200"
+      className="flex flex-col grow px-3 md:px-6 py-3 space-y-4 bg-slate-200m transition-all duration-200"
     >
       <PageHeader
-        title="EMPLOYEES"
+        title="customers"
         render={
           <>
             <BtnCreate title="Create Product" to="./create" />
@@ -215,12 +206,12 @@ const CustomerList = () => {
         <div className="overflow-x-auto">
           <div className="bg-white shadow-lg rounded-sm border border-gray-200 mb-2 min-w-[60rem] h-[34rem] overflow-y-auto relative">
             <TableHeader
-              tableName="EMPLOYEE LIST"
+              tableName="customer LIST"
               numberOfItem={filteredItems.length}
               filterOptions={
                 <>
                   <InputSearch
-                    placeholder="Search slider..."
+                    placeholder="Search cutomers..."
                     handler={search}
                   />
                   <FilterOption

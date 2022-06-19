@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import config from "../../config/config";
 import { GlobalContext } from "../../context/GlobalContext";
-import BtnCreate from "../common/form/BtnCreate";
+import BtnModal from "../common/form/BtnModal";
 import InputSearch from "../common/form/InputSearch";
 import PageFooter from "../common/PageFooter";
 import PageHeader from "../common/PageHeader";
@@ -200,7 +200,10 @@ const DealList = () => {
         title="DEALS"
         render={
           <>
-            <BtnCreate title="Create Product" to="./create" />
+            <BtnModal
+              title="Deal"
+              onClickHandler={() => contextData.handleModal("deal", "create")}
+            />
           </>
         }
       />
