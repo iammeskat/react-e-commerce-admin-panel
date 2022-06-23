@@ -1,6 +1,12 @@
+import { useState } from "react";
+import SkeletonTable from "../SkeletonTable";
 const Table = (props) => {
+  const [timeCount, setTimeCount] = useState(0);
+  setTimeout(() => {
+    setTimeCount(1);
+  }, 400);
   const { columnHeader, columns, items, activePage, pageCount } = props;
-  return (
+  return items.length && timeCount ? (
     <table className="table-auto min-w-full divide-y font-medium text-gray-800 divide-gray-200">
       <thead className="sticky top-0 shadow-sm text-xs uppercase font-semibold text-left text-gray-900 bg-gray-50">
         <tr>
@@ -33,6 +39,8 @@ const Table = (props) => {
         ))}
       </tbody>
     </table>
+  ) : (
+    <SkeletonTable length={columnHeader.length} />
   );
 };
 

@@ -786,6 +786,34 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 33.5rem;
 }
 
+.h-1 {
+  height: 0.25rem;
+}
+
+.h-0\.5 {
+  height: 0.125rem;
+}
+
+.\!h-0\.5 {
+  height: 0.125rem !important;
+}
+
+.\!h-0 {
+  height: 0px !important;
+}
+
+.h-\[10px\] {
+  height: 10px;
+}
+
+.h-7 {
+  height: 1.75rem;
+}
+
+.h-14 {
+  height: 3.5rem;
+}
+
 .max-h-\[15rem\] {
   max-height: 15rem;
 }
@@ -896,6 +924,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .w-px {
   width: 1px;
+}
+
+.w-14 {
+  width: 3.5rem;
+}
+
+.w-7 {
+  width: 1.75rem;
 }
 
 .min-w-\[16rem\] {
@@ -1972,6 +2008,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 .first\:text-gray-900:first-child {
   --tw-text-opacity: 1;
   color: rgb(17 24 39 / var(--tw-text-opacity));
+}
+
+.last\:float-right:last-child {
+  float: right;
 }
 
 .last\:pr-6:last-child {

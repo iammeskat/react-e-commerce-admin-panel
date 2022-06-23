@@ -1,3 +1,5 @@
+import SkeletonExample from "../common/SkeletonExample";
+
 const Home = () => {
   return (
     <div className="flex flex-col grow px-3 md:px-6 py-3 space-y-4 bg-slate-200 transition-all duration-200">
@@ -24,15 +26,7 @@ const Home = () => {
         {/* <div className="h-96 flex items-center justify-center">
           <h1>Write your code here</h1>
         </div> */}
-        <div className="w-60 h-24 border-2 rounded-md mx-auto mt-20 mb-20">
-          <div className="flex animate-pulse flex-row items-center h-full justify-center space-x-5">
-            <div className="w-12 bg-gray-300 h-12 rounded-full "></div>
-            <div className="flex flex-col space-y-3">
-              <div className="w-36 bg-gray-300 h-6 rounded-md "></div>
-              <div className="w-24 bg-gray-300 h-6 rounded-md "></div>
-            </div>
-          </div>
-        </div>
+        <SkeletonExample />
       </div>
       {/* <!-- end body  --> */}
       {/* <!-- end main body section  --> */}

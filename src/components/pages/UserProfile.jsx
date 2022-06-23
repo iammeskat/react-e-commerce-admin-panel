@@ -26,7 +26,7 @@ const CreateProduct = () => {
     >
       {/* <PageHeader title="user Profile" /> */}
       <div className="flex space-x-4">
-        <div className="w-[25rem] shadow rounded flex flex-col space-y-4 bg-slate-100 py-2 text-gray-800">
+        <div className="w-[25rem] shadow rounded flex flex-col space-y-4 bg-white py-2 text-gray-800">
           <div className="flex flex-col items-center space-y-4">
             <img
               className="w-34 aspect-square rounded-full"
