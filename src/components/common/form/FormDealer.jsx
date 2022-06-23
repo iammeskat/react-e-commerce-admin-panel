@@ -124,7 +124,10 @@ const FormDealer = () => {
               : "Update Dealer"}
           </span>
         </div>
-        <form onSubmit={(e) => formSubmitHandler(e)} className="space-y-2">
+        <form
+          onSubmit={(e) => formSubmitHandler(e)}
+          className="space-y-2 bg-slate-100 p-2 rounded"
+        >
           <div className="grid grid-cols-2 gap-2">
             <InputComp
               handler={handleFormData}

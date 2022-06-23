@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useAlert } from "react-alert";
-import { Link } from "react-router-dom";
 import config from "../../config/config";
 import { GlobalContext } from "../../context/GlobalContext";
 import BtnModal from "../common/form/BtnModal";
@@ -10,14 +9,16 @@ import PageFooter from "../common/PageFooter";
 import PageHeader from "../common/PageHeader";
 import BtnProductDelete from "../common/table/BtnProductDelete";
 import BtnProductEdit from "../common/table/BtnProductEdit";
+import BtnSorting from "../common/table/BtnSorting";
 import FilterOption from "../common/table/FilterOption";
+import ItemImg from "../common/table/ItemImg";
 import Table from "../common/table/Table";
 import TableHeader from "../common/table/TableHeader";
 
 const OfferList = () => {
   const alert = useAlert();
   const contextData = useContext(GlobalContext);
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const [options, setOptions] = useState({
     activePage: 1,
     pageCount: 20,
@@ -38,16 +39,7 @@ const OfferList = () => {
   const columnData = [
     {
       content: (data) => (
-        <Link to={`./${data._id}`}>
-          <div className="flex items-center space-x-2">
-            <img
-              className="h-10 w-10 rounded-full border-2 border-gray-200"
-              src="../images/product.webp"
-              alt=""
-            />
-            <h1 className="hover:text-indigo-600">{data.name}</h1>
-          </div>
-        </Link>
+        <ItemImg link={`./${data._id}`} imgLink={""} title={data.name} />
       ),
     },
     { content: (data) => data.discountAmount },
@@ -72,7 +64,7 @@ const OfferList = () => {
 
     {
       content: (data) => (
-        <>
+        <div className="text-right pr-6">
           <BtnProductEdit
             title="Offer"
             onClickHandler={() =>
@@ -95,7 +87,7 @@ const OfferList = () => {
               )
             }
           />
-        </>
+        </div>
       ),
     },
   ];
@@ -184,10 +176,10 @@ const OfferList = () => {
   let filteredItems = data ? filterItems() : [];
   let paginatedItems = data ? paginateItems(filteredItems) : [];
 
-  return data ? (
+  return (
     <div
       id="main-section"
-      className="flex flex-col grow px-3 md:px-6 py-3 space-y-4 bg-slate-200 transition-all duration-200"
+      className="flex flex-col grow px-3 md:px-6 py-3 space-y-4  transition-all duration-200"
     >
       <PageHeader
         title="OFFERS"
@@ -202,7 +194,7 @@ const OfferList = () => {
       />
       <div className="">
         <div className="overflow-x-auto">
-          <div className="bg-white shadow-lg rounded-sm border border-gray-200 mb-2 min-w-[60rem] h-[34rem] overflow-y-auto relative">
+          <div className="bg-white shadow-lg rounded-sm border border-gray-200 mb-2 min-w-[60rem] h-[33.5rem] overflow-y-auto relative">
             <TableHeader
               tableName="OFFER LIST"
               numberOfItem={filteredItems.length}
@@ -219,22 +211,7 @@ const OfferList = () => {
                     ]}
                     onChangeHandler={setFilterOptions}
                   />
-                  <button className="bg-gray-200 p-2 rounded-full">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"
-                      />
-                    </svg>
-                  </button>
+                  <BtnSorting />
                 </>
               }
             />
@@ -259,8 +236,6 @@ const OfferList = () => {
         )}
       </div>
     </div>
-  ) : (
-    ""
   );
 };
 

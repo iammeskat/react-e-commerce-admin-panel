@@ -9,6 +9,7 @@ import PageFooter from "../common/PageFooter";
 import PageHeader from "../common/PageHeader";
 import BtnProductDelete from "../common/table/BtnProductDelete";
 import BtnProductEdit from "../common/table/BtnProductEdit";
+import BtnSorting from "../common/table/BtnSorting";
 import FilterOption from "../common/table/FilterOption";
 import Table from "../common/table/Table";
 import TableHeader from "../common/table/TableHeader";
@@ -16,7 +17,7 @@ import TableHeader from "../common/table/TableHeader";
 const DealList = () => {
   const alert = useAlert();
   const contextData = useContext(GlobalContext);
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const [options, setOptions] = useState({
     activePage: 1,
     pageCount: 20,
@@ -38,33 +39,20 @@ const DealList = () => {
 
   const columnData = [
     {
-      path: "dealer.company",
-      label: "Dealer",
-      content: (data) => data.dealer.company,
+      content: (data) => (
+        <h1
+          onClick={() => contextData.handleModal("dealDetails", "show", data)}
+          className="text-gray-900 hover:text-indigo-600 cursor-pointer"
+        >
+          {data.dealer.company}
+        </h1>
+      ),
     },
+    { content: (data) => data.dealer.name },
+    { content: (data) => data.products.length },
+    { content: (data) => data.deal_value },
+    { content: (data) => data.due },
     {
-      path: "dealer.name",
-      label: "Manager",
-      content: (data) => data.dealer.name,
-    },
-    {
-      path: "dealer.name",
-      label: "Manager",
-      content: (data) => data.products.length,
-    },
-    {
-      path: "deal_value",
-      label: "Amount",
-      content: (data) => data.deal_value,
-    },
-    {
-      path: "due",
-      label: "Due",
-      content: (data) => data.due,
-    },
-    {
-      path: "status",
-      label: "status",
       content: (data) => {
         if (data.payment_status === "paid") {
           return (
@@ -80,18 +68,19 @@ const DealList = () => {
           );
       },
     },
-    {
-      path: "createdAt",
-      label: "Created At",
-      content: (data) => data.createdAt.split("T")[0],
-    },
+    { content: (data) => data.createdAt.split("T")[0] },
 
     {
-      path: "action",
-      label: "Action",
       content: (data) => (
-        <>
-          <BtnProductEdit />{" "}
+        <div className="text-right pr-6">
+          <BtnProductEdit
+            title="Deal"
+            onClickHandler={() => {
+              delete data.__v;
+              data.date = data.date.split("T")[0];
+              contextData.handleModal("deal", "update", data);
+            }}
+          />{" "}
           <BtnProductDelete
             handler={() =>
               contextData.handlerDeleteModal(() =>
@@ -99,7 +88,7 @@ const DealList = () => {
               )
             }
           />
-        </>
+        </div>
       ),
     },
   ];
@@ -191,10 +180,10 @@ const DealList = () => {
   let filteredItems = data ? filterItems() : [];
   let paginatedItems = data ? paginateItems(filteredItems) : [];
 
-  return data ? (
+  return (
     <div
       id="main-section"
-      className="flex flex-col grow px-3 md:px-6 py-3 space-y-4 bg-slate-200 transition-all duration-200"
+      className="flex flex-col grow px-3 md:px-6 py-3 space-y-4 transition-all duration-200"
     >
       <PageHeader
         title="DEALS"
@@ -209,7 +198,7 @@ const DealList = () => {
       />
       <div className="">
         <div className="overflow-x-auto">
-          <div className="bg-white shadow-lg rounded-sm border border-gray-200 mb-2 min-w-[60rem] h-[34rem] overflow-y-auto relative">
+          <div className="bg-white shadow-lg rounded-sm border border-gray-200 mb-2 min-w-[60rem] h-[33.5rem] overflow-y-auto relative">
             <TableHeader
               tableName="DEAL LIST"
               numberOfItem={filteredItems.length}
@@ -229,22 +218,7 @@ const DealList = () => {
                     ]}
                     onChangeHandler={setFilterOptions}
                   />
-                  <button className="bg-gray-200 p-2 rounded-full">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"
-                      />
-                    </svg>
-                  </button>
+                  <BtnSorting />
                 </>
               }
             />
@@ -269,8 +243,6 @@ const DealList = () => {
         )}
       </div>
     </div>
-  ) : (
-    ""
   );
 };
 

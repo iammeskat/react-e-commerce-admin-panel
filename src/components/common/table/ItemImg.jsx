@@ -17,7 +17,9 @@ const ItemImg = (props) => {
           }
           alt=""
         />
-        {title && <p>{title}</p>}
+        {title && (
+          <h1 className=" text-gray-900 hover:text-blue-600">{title}</h1>
+        )}
       </Link>
     </div>
   );

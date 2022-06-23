@@ -34,7 +34,7 @@ const OrderDetails = () => {
 
   return (
     data && (
-      <div className="flex flex-col grow px-3 md:px-6 py-3 space-y-4 bg-slate-200 transition-all duration-200">
+      <div className="flex flex-col grow px-3 md:px-6 py-3 space-y-4  transition-all duration-200">
         <PageHeader
           title="ORDER DETAILS"
           render={

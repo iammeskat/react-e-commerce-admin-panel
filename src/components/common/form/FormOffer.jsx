@@ -125,7 +125,10 @@ const FormOffer = () => {
         {/* <h1 className="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">
           Enter Admin Info
         </h1> */}
-        <form onSubmit={(e) => formSubmitHandler(e)} className="space-y-2">
+        <form
+          onSubmit={(e) => formSubmitHandler(e)}
+          className="space-y-2 bg-slate-100 p-2 rounded"
+        >
           <InputComp
             handler={handleFormData}
             errMsg={errors.name}

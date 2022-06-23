@@ -17,6 +17,7 @@ import ProductDetails from "../pages/ProductDetails";
 import ProductList from "../pages/ProductList";
 import ProductUpdate from "../pages/ProductUpdate";
 import SliderList from "../pages/Slider";
+import UserProfile from "../pages/UserProfile";
 import VoucherDetails from "../pages/VoucherDetails";
 import VoucherList from "../pages/VoucherList";
 const MainRoutes = () => {
@@ -25,6 +26,7 @@ const MainRoutes = () => {
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/customers" element={<CustomerList />} />
+        <Route exact path="/customers/:id" element={<UserProfile />} />
         <Route exact path="/admins" element={<AdminList />} />
         <Route exact path="/products" element={<ProductList />} />
         <Route exact path="/products/create" element={<CreateProduct />} />

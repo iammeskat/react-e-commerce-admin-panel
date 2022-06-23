@@ -10,7 +10,7 @@ import Table from "./table/Table";
 import TableHeader from "./table/TableHeader";
 
 const UserTableForVoucher = (props) => {
-  //   console.log(props.users);
+  // console.log(props.users);
   const alert = useAlert();
   const [users, setUsers] = useState([...props.users]);
   const [selectedUsers, setSelectedUsers] = useState([]);
@@ -47,17 +47,20 @@ const UserTableForVoucher = (props) => {
   ];
   if (props.section === "users") {
     columnData.push({
-      content: (data) =>
-        options.showExistinUser ? (
-          <BtnProductDelete handler={() => removeUsers(data._id)} />
-        ) : (
-          <input
-            className="h-6 w-6 float-center"
-            type="checkbox"
-            checked={selectedUsers.includes(data._id)}
-            onChange={() => selectProduct(data._id)}
-          />
-        ),
+      content: (data) => (
+        <div className="text-right pr-6">
+          {options.showExistinUser ? (
+            <BtnProductDelete handler={() => removeUsers(data._id)} />
+          ) : (
+            <input
+              className="h-6 w-6 float-center"
+              type="checkbox"
+              checked={selectedUsers.includes(data._id)}
+              onChange={() => selectProduct(data._id)}
+            />
+          )}
+        </div>
+      ),
     });
   }
 

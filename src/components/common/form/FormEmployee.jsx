@@ -119,7 +119,7 @@ const FormEmployee = () => {
   return (
     <div className="mx-auto w-[34rem]">
       <div className="relative py-5 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">
-        <div className="w-full flex justify-start items-center space-x-2 text-gray-600 mb-3">
+        <div className="w-full flex justify-start items-center space-x-2  text-gray-600 mb-3">
           <IconPlusItem />
           <span className="text-2xl font-bold">
             {contextData.modal.mode === "create"
@@ -127,7 +127,10 @@ const FormEmployee = () => {
               : "Update Employee"}
           </span>
         </div>
-        <form onSubmit={(e) => formSubmitHandler(e)} className="space-y-2">
+        <form
+          onSubmit={(e) => formSubmitHandler(e)}
+          className="space-y-2 bg-slate-100 p-2 rounded"
+        >
           <InputComp
             handler={handleFormData}
             errMsg={errors.name}

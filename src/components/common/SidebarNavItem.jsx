@@ -14,11 +14,20 @@ const SidebarNavItem = (props) => {
   return (
     <li>
       <div
-        className={`group rounded p-1 hover:bg-gray-900  ${
+        className={`fgroup rounded p-1 hover:bg-gray-900  ${
           contextData.activeTab === indx ? "bg-gray-900" : ""
-        }`}
+        } pl-0 flex space-x-1`}
       >
-        <div className="flex justify-between items-center">
+        <div className="w-[0.20rem] flex items-center">
+          <div
+            className={`bg-blue-600 w-full rounded-r-lg ${
+              contextData.activeTab === indx
+                ? "h-full transition-all duration-500"
+                : "h-0"
+            }`}
+          ></div>
+        </div>
+        <div className="grow flex justify-between items-center">
           <NavLink
             to={to}
             className={(st) => {

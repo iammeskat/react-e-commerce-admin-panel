@@ -5,19 +5,20 @@ import config from "../../config/config";
 import { GlobalContext } from "../../context/GlobalContext";
 import BtnModal from "../common/form/BtnModal";
 import InputSearch from "../common/form/InputSearch";
-import IconOrderDesc from "../common/icons/IconOrderDesc";
 import PageFooter from "../common/PageFooter";
 import PageHeader from "../common/PageHeader";
 import BtnProductDelete from "../common/table/BtnProductDelete";
 import BtnProductEdit from "../common/table/BtnProductEdit";
+import BtnSorting from "../common/table/BtnSorting";
 import FilterOption from "../common/table/FilterOption";
+import ItemImg from "../common/table/ItemImg";
 import Table from "../common/table/Table";
 import TableHeader from "../common/table/TableHeader";
 
 const CategoryList = () => {
   const alert = useAlert();
   const contextData = useContext(GlobalContext);
-  const [categories, setCategories] = useState();
+  const [categories, setCategories] = useState([]);
   const [options, setOptions] = useState({
     activePage: 1,
     pageCount: 20,
@@ -33,7 +34,6 @@ const CategoryList = () => {
   };
   // console.log(getParentName("625d2a9725ebf6fb519ca9cc"));
   const columnHeader = [
-    "IMAGE",
     "NAME",
     "PARENT",
     "STATUS",
@@ -44,32 +44,15 @@ const CategoryList = () => {
 
   const columnData = [
     {
-      path: "productName",
-      label: "Product Name",
       content: (category) => (
-        <div className="flex items-center space-x-2">
-          <img
-            className="h-10 w-10 rounded-full border-2 border-gray-200"
-            src="../images/product.webp"
-            alt=""
-          />
-        </div>
+        <ItemImg link={""} imgLink={""} title={category.name} />
       ),
     },
     {
-      path: "name",
-      label: "Name",
-      content: (category) => category.name,
-    },
-    {
-      path: "parent",
-      label: "parent",
       content: (category) =>
         category.parent_id ? getParentName(category.parent_id) : "",
     },
     {
-      path: "status",
-      label: "status",
       content: (category) => {
         if (category.status === "active") {
           return (
@@ -85,22 +68,12 @@ const CategoryList = () => {
           );
       },
     },
-    {
-      path: "createdAt",
-      label: "Created At",
-      content: (category) => category.createdAt.split("T")[0],
-    },
-    {
-      path: "updatedAt",
-      label: "Updated At",
-      content: (category) => category.updatedAt.split("T")[0],
-    },
+    { content: (category) => category.createdAt.split("T")[0] },
+    { content: (category) => category.updatedAt.split("T")[0] },
 
     {
-      path: "action",
-      label: "Action",
       content: (category) => (
-        <>
+        <div className="text-right pr-6">
           <BtnProductEdit
             onClickHandler={() =>
               contextData.handleModal("category", "update", {
@@ -118,7 +91,7 @@ const CategoryList = () => {
               )
             }
           />
-        </>
+        </div>
       ),
     },
   ];
@@ -207,11 +180,8 @@ const CategoryList = () => {
   let filteredItems = categories ? filterItems() : [];
   let paginatedItems = categories ? paginateItems(filteredItems) : [];
 
-  return categories ? (
-    <div
-      id="main-section"
-      className="flex flex-col grow px-3 md:px-6 py-3 space-y-4 bg-slate-200 transition-all duration-200"
-    >
+  return (
+    <div className="flex flex-col grow px-3 md:px-6 py-3 space-y-4 transition-all duration-200">
       <PageHeader
         title="CATEGORIES"
         render={
@@ -228,7 +198,7 @@ const CategoryList = () => {
       />
       <div className="">
         <div className="overflow-x-auto">
-          <div className="bg-white shadow-lg rounded-sm border border-gray-200 mb-2 min-w-[60rem] h-[34rem] overflow-y-auto relative">
+          <div className="bg-white shadow-lg rounded-sm border border-gray-200 mb-2 min-w-[60rem] h-[33.5rem] overflow-y-auto relative">
             <TableHeader
               tableName="CATEGORY LIST"
               numberOfItem={filteredItems.length}
@@ -243,9 +213,7 @@ const CategoryList = () => {
                     ]}
                     onChangeHandler={setFilterOptions}
                   />
-                  <button className="bg-gray-200 p-2 rounded-full">
-                    <IconOrderDesc />
-                  </button>
+                  <BtnSorting />
                 </>
               }
             />
@@ -270,8 +238,6 @@ const CategoryList = () => {
         )}
       </div>
     </div>
-  ) : (
-    ""
   );
 };
 

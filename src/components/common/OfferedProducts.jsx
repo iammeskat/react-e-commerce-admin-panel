@@ -51,17 +51,20 @@ const OfferedProducts = (props) => {
     { content: (product) => product.price },
 
     {
-      content: (product) =>
-        options.showOfferedProducts ? (
-          <BtnProductDelete handler={() => removeProducts(product._id)} />
-        ) : (
-          <input
-            className="h-6 w-6 float-center"
-            type="checkbox"
-            checked={selectedProducts.includes(product._id)}
-            onChange={() => selectProduct(product._id)}
-          />
-        ),
+      content: (product) => (
+        <div className="text-right pr-6">
+          {options.showOfferedProducts ? (
+            <BtnProductDelete handler={() => removeProducts(product._id)} />
+          ) : (
+            <input
+              className="h-6 w-6 float-center"
+              type="checkbox"
+              checked={selectedProducts.includes(product._id)}
+              onChange={() => selectProduct(product._id)}
+            />
+          )}
+        </div>
+      ),
     },
   ];
 

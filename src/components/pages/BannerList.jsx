@@ -9,6 +9,7 @@ import PageFooter from "../common/PageFooter";
 import PageHeader from "../common/PageHeader";
 import BtnProductDelete from "../common/table/BtnProductDelete";
 import BtnProductEdit from "../common/table/BtnProductEdit";
+import BtnSorting from "../common/table/BtnSorting";
 import FilterOption from "../common/table/FilterOption";
 import Table from "../common/table/Table";
 import TableHeader from "../common/table/TableHeader";
@@ -16,7 +17,7 @@ import TableHeader from "../common/table/TableHeader";
 const BannerList = () => {
   const alert = useAlert();
   const contextData = useContext(GlobalContext);
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const [options, setOptions] = useState({
     activePage: 1,
     pageCount: 20,
@@ -36,8 +37,6 @@ const BannerList = () => {
 
   const columnData = [
     {
-      path: "productName",
-      label: "Product Name",
       content: (data) => (
         <div className="flex items-center space-x-2">
           <img
@@ -48,19 +47,9 @@ const BannerList = () => {
         </div>
       ),
     },
+    { content: (data) => <h1 className="text-gray-900">"Banner Title" </h1> },
+    { content: (data) => data.size },
     {
-      path: "title",
-      label: "title",
-      content: (data) => "Banner Title",
-    },
-    {
-      path: "size",
-      label: "Size",
-      content: (data) => data.size,
-    },
-    {
-      path: "status",
-      label: "status",
       content: (data) => {
         if (data.status === "active") {
           return (
@@ -76,17 +65,11 @@ const BannerList = () => {
           );
       },
     },
-    {
-      path: "createdAt",
-      label: "Created At",
-      content: (data) => data.createdAt.split("T")[0],
-    },
+    { content: (data) => data.createdAt.split("T")[0] },
 
     {
-      path: "action",
-      label: "Action",
       content: (data) => (
-        <>
+        <div className="text-right pr-6">
           <BtnProductEdit
             onClickHandler={() =>
               contextData.handleModal("banner", "update", {
@@ -104,7 +87,7 @@ const BannerList = () => {
               )
             }
           />
-        </>
+        </div>
       ),
     },
   ];
@@ -196,11 +179,8 @@ const BannerList = () => {
   let filteredItems = data ? filterItems() : [];
   let paginatedItems = data ? paginateItems(filteredItems) : [];
 
-  return data ? (
-    <div
-      id="main-section"
-      className="flex flex-col grow px-3 md:px-6 py-3 space-y-4 bg-slate-200 transition-all duration-200"
-    >
+  return (
+    <div className="flex flex-col grow px-3 md:px-6 py-3 space-y-4 transition-all duration-200">
       <PageHeader
         title="BANNERS"
         render={
@@ -214,7 +194,7 @@ const BannerList = () => {
       />
       <div className="">
         <div className="overflow-x-auto">
-          <div className="bg-white shadow-lg rounded-sm border border-gray-200 mb-2 min-w-[60rem] h-[34rem] overflow-y-auto relative">
+          <div className="bg-white shadow-lg rounded-sm border border-gray-200 mb-2 min-w-[60rem] h-[33.5rem] overflow-y-auto relative">
             <TableHeader
               tableName="BANNER LIST"
               numberOfItem={filteredItems.length}
@@ -234,22 +214,7 @@ const BannerList = () => {
                     ]}
                     onChangeHandler={setFilterOptions}
                   />
-                  <button className="bg-gray-200 p-2 rounded-full">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"
-                      />
-                    </svg>
-                  </button>
+                  <BtnSorting />
                 </>
               }
             />
@@ -274,8 +239,6 @@ const BannerList = () => {
         )}
       </div>
     </div>
-  ) : (
-    ""
   );
 };
 

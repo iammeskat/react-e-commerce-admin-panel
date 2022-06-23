@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import config from "../../../config/config";
 import { GlobalContext } from "../../../context/GlobalContext";
@@ -22,17 +22,53 @@ const FormDeal = () => {
           dealer: "",
           deal_value: "",
           date: "",
-          payment_status: "",
           products: null,
           due: "",
         }
       : contextData.modal.data
   );
+  const [dealers, setDealers] = useState([]);
+  const [brands, setBrands] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   const [errors, setError] = useState({});
+  // fetch dealers
+  useEffect(() => {
+    let isLoaded = true;
+    axios
+      .get(`${config.SERVER_URL}/api/admin/dealers`)
+      .then((res) => {
+        isLoaded && setDealers(res.data.data.dealer);
+        console.log(res.data.data.dealer);
+      })
+      .catch((error) => console.log(error));
+    return () => (isLoaded = false);
+  }, []);
+  // fetch categories
+  useEffect(() => {
+    let isLoaded = true;
+    axios
+      .get(`${config.SERVER_URL}/api/admin/categories`)
+      .then((res) => {
+        isLoaded && setCategories(res.data.data.categories);
+      })
+      .catch((error) => console.log(error));
+    return () => (isLoaded = false);
+  }, []);
+  // fetch brands
+  useEffect(() => {
+    let isLoaded = true;
+    axios
+      .get(`http://localhost:3050/api/admin/brands`)
+      .then((res) => {
+        isLoaded && setBrands(res.data.data.brands);
+      })
+      .catch((error) => console.log(error));
+    return () => (isLoaded = false);
+  }, []);
   const handleFormData = (key, value) => {
     let tempData = { ...formData };
-
+    console.log(value);
     tempData[key] = value;
 
     setFormData(tempData);
@@ -67,7 +103,7 @@ const FormDeal = () => {
     } else {
       if (contextData.modal.mode === "create") {
         axios
-          .post(`${config.SERVER_URL}/api/admin/dealers`, formData)
+          .post(`${config.SERVER_URL}/api/admin/deals`, formData)
           .then((res) => {
             contextData.handleModal();
 
@@ -89,10 +125,7 @@ const FormDeal = () => {
           });
       } else {
         axios
-          .put(
-            `${config.SERVER_URL}/api/admin/dealers/${formData._id}`,
-            formData
-          )
+          .put(`${config.SERVER_URL}/api/admin/deals/${formData._id}`, formData)
           .then((res) => {
             contextData.handleModal();
             alert.success(res.data.message);
@@ -123,7 +156,10 @@ const FormDeal = () => {
             {contextData.modal.mode === "create" ? "New Deal" : "Update Deal"}
           </span>
         </div>
-        <form onSubmit={(e) => formSubmitHandler(e)} className="space-y-2">
+        <form
+          onSubmit={(e) => formSubmitHandler(e)}
+          className="space-y-2 bg-slate-100 p-2 rounded"
+        >
           {tab === 1 ? (
             <div className="grid grid-cols-2 gap-2">
               <SelectComp
@@ -133,10 +169,9 @@ const FormDeal = () => {
                 id="dealer"
                 name="dealer"
                 value={formData.dealer}
-                options={[
-                  { value: "active", name: "Active" },
-                  { value: "inactive", name: "Inactive" },
-                ]}
+                options={dealers.map((item) => {
+                  return { value: item._id, name: item.company };
+                })}
               />
               <InputComp
                 handler={handleFormData}
@@ -163,13 +198,20 @@ const FormDeal = () => {
                 label="Due"
                 id="due"
                 name="due"
-                type="number"
+                type="text"
                 value={formData.due}
                 placeholder="Enter due"
               />
             </div>
           ) : (
-            <InputAddProducts />
+            <InputAddProducts
+              name={"products"}
+              existingProducts={formData.products ? formData.products : []}
+              brands={brands}
+              categories={categories}
+              handler={handleFormData}
+              errMsg={errors.products}
+            />
           )}
           <div className="flex items-center justify-between w-full ">
             <div className="flex space-x-2">

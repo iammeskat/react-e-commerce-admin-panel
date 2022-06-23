@@ -10,7 +10,9 @@ import IconEdit from "../common/icons/IconEdit";
 import PageFooter from "../common/PageFooter";
 import PageHeader from "../common/PageHeader";
 import BtnProductDelete from "../common/table/BtnProductDelete";
+import BtnSorting from "../common/table/BtnSorting";
 import FilterOption from "../common/table/FilterOption";
+import ItemImg from "../common/table/ItemImg";
 import Table from "../common/table/Table";
 import TableHeader from "../common/table/TableHeader";
 
@@ -46,22 +48,11 @@ const ProductList = () => {
     {
       content: (product) => (
         <div>
-          <Link
-            to={`./${product._id}`}
-            className="flex items-center space-x-2 hover:text-indigo-500"
-          >
-            <img
-              className="h-10 w-10 rounded-full border-2 border-gray-200"
-              src={
-                product.photos.length > 0
-                  ? "http://localhost:3050/file/images/" + product.photos[0]
-                  : // product.photos[0].split("/")[2]
-                    "../images/product.webp"
-              }
-              alt=""
-            />
-            <p>{product.name}</p>
-          </Link>
+          <ItemImg
+            link={`./${product._id}`}
+            imgLink={product.photos.length > 0 ? product.photos[0] : ""}
+            title={product.name}
+          />
         </div>
       ),
     },
@@ -89,7 +80,7 @@ const ProductList = () => {
     },
     {
       content: (product) => (
-        <div className="flex space-x-2">
+        <div className="flex pr-6 justify-end space-x-2">
           <Link to={`${product._id}/update`}>
             <div className="aspect-square w-8 h-8 rounded-full bg-slate-200 p-1 text-indigo-700 hover:bg-slate-300">
               <IconEdit />
@@ -241,103 +232,84 @@ const ProductList = () => {
   let paginatedItems = products ? paginateItems(filteredItems) : [];
 
   return (
-    products &&
-    brands &&
-    categories && (
-      <div
-        id="main-section"
-        className="flex flex-col grow px-3 md:px-6 py-3 space-y-4 bg-slate-200 transition-all duration-200"
-      >
-        <PageHeader
-          title="PRODUCTS"
-          render={
-            <>
-              <InputSearch placeholder="Search products..." handler={search} />
-              <BtnCreate title="Create Product" to="./create" />
-            </>
-          }
-        />
-        <div className="">
-          <div className="overflow-x-auto">
-            <div className="bg-white shadow-lg rounded-sm border border-gray-200 mb-2 min-w-[60rem] h-[34rem] overflow-y-auto relative">
-              <TableHeader
-                tableName="PRODUCT LIST"
-                numberOfItem={filteredItems.length}
-                filterOptions={
-                  <>
-                    <FilterOption
-                      label="Category"
-                      filterBy="category"
-                      options={
-                        categories &&
-                        categories.map((item) => {
-                          return { name: item.name, value: item.name };
-                        })
-                      }
-                      onChangeHandler={setFilterOptions}
-                    />
-                    <FilterOption
-                      label="Brand"
-                      filterBy="brand"
-                      options={
-                        brands &&
-                        brands.map((item) => {
-                          return { name: item.name, value: item.name };
-                        })
-                      }
-                      onChangeHandler={setFilterOptions}
-                    />
-                    <FilterOption
-                      label="Status"
-                      filterBy="status"
-                      options={[
-                        { name: "Active", value: "active" },
-                        { name: "Inactive", value: "inactive" },
-                        { name: "Discontinued", value: "discontinued" },
-                      ]}
-                      onChangeHandler={setFilterOptions}
-                    />
-                    <button className="bg-gray-200 p-2 rounded-full">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-4 w-4"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"
-                        />
-                      </svg>
-                    </button>
-                  </>
-                }
-              />
-              <Table
-                columnHeader={columnHeader}
-                columns={columnData}
-                items={paginatedItems}
-                activePage={options.activePage}
-                pageCount={options.pageCount}
-              />
-            </div>
-          </div>
-          {products.length > options.pageCount ? (
-            <PageFooter
-              totalItems={filteredItems.length}
-              pageCount={options.pageCount}
-              activePage={options.activePage}
-              onClickPage={handleClickPage}
+    <div
+      id="main-section"
+      className="flex flex-col grow px-3 md:px-6 py-3 space-y-4 transition-all duration-200"
+    >
+      <PageHeader
+        title="PRODUCTS"
+        render={
+          <>
+            <InputSearch placeholder="Search products..." handler={search} />
+            <BtnCreate title="Product" to="./create" />
+          </>
+        }
+      />
+      <div className="">
+        <div className="overflow-x-auto">
+          <div className="bg-white shadow-lg rounded-sm border border-gray-200 mb-2 min-w-[60rem] h-[33.5rem] overflow-y-auto relative">
+            <TableHeader
+              tableName="PRODUCT LIST"
+              numberOfItem={filteredItems.length}
+              filterOptions={
+                <>
+                  <FilterOption
+                    label="Category"
+                    filterBy="category"
+                    options={
+                      categories &&
+                      categories.map((item) => {
+                        return { name: item.name, value: item.name };
+                      })
+                    }
+                    onChangeHandler={setFilterOptions}
+                  />
+                  <FilterOption
+                    label="Brand"
+                    filterBy="brand"
+                    options={
+                      brands &&
+                      brands.map((item) => {
+                        return { name: item.name, value: item.name };
+                      })
+                    }
+                    onChangeHandler={setFilterOptions}
+                  />
+                  <FilterOption
+                    label="Status"
+                    filterBy="status"
+                    options={[
+                      { name: "Active", value: "active" },
+                      { name: "Inactive", value: "inactive" },
+                      { name: "Discontinued", value: "discontinued" },
+                    ]}
+                    onChangeHandler={setFilterOptions}
+                  />
+                  <BtnSorting />
+                </>
+              }
             />
-          ) : (
-            ""
-          )}
+            <Table
+              columnHeader={columnHeader}
+              columns={columnData}
+              items={paginatedItems}
+              activePage={options.activePage}
+              pageCount={options.pageCount}
+            />
+          </div>
         </div>
+        {products.length > options.pageCount ? (
+          <PageFooter
+            totalItems={filteredItems.length}
+            pageCount={options.pageCount}
+            activePage={options.activePage}
+            onClickPage={handleClickPage}
+          />
+        ) : (
+          ""
+        )}
       </div>
-    )
+    </div>
   );
 };
 
