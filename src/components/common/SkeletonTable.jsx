@@ -19,7 +19,7 @@ const SkeletonTable = (props) => {
       </thead>
       <tbody className="bg-white divide-y divide-gray-200">
         {[...Array(6).keys()].map((item) => (
-          <tr className="text-gray-500">
+          <tr key={`tr-${item}`} className="text-gray-500">
             <td className=" first:pl-6 last:pr-6 py-1 whitespace-nowrap">
               <div className="bg-gray-200 w-6 h-4 rounded-full"></div>
             </td>
@@ -30,7 +30,10 @@ const SkeletonTable = (props) => {
               </div>
             </td>
             {[...Array(length - 3).keys()].map((item) => (
-              <td className="px-2 first:pl-6 last:pr-6 last:float-right py-1 whitespace-nowrap">
+              <td
+                key={`td-${item}`}
+                className="px-2 first:pl-6 last:pr-6 last:float-right py-1 whitespace-nowrap"
+              >
                 <div className="bg-gray-200 w-14 h-4 rounded-full"></div>
               </td>
             ))}
