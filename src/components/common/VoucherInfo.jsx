@@ -6,7 +6,11 @@ const VoucherInfo = (props) => {
   const contextData = useContext(GlobalContext);
   return (
     <div className="flex flex-col min-w-[22rem] max-w-[22rem] space-y-4 rounded-md overflow-hidden shadow bg-white">
-      <img src="https://picsum.photos/300/200" alt="" className="w-full" />
+      <img
+        src={`https://via.placeholder.com/600x400.png/f2f2f2?text=${data.code.toUpperCase()}`}
+        alt=""
+        className="w-full"
+      />
       <table className="w-full text-sm text-left text-gray-500 font-semibold ">
         <tbody>
           <tr>

@@ -40,9 +40,9 @@ const ProductDetails = () => {
       <PageHeader title="PRODUCT DETAILS" />
 
       <div className="w-full bg-white p-2">
-        <div className="flex flex-col 2xl:flex-row 2xl:space-x-8 mb-10">
+        <div className="flex flex-col md:flex-row md:space-x-8 mb-10">
           {/* <!-- product gallery  --> */}
-          <ProductPhotoSlider photos={product.photos} />
+          <ProductPhotoSlider photos={product.photos} name={product.name} />
           <div className="flex flex-col lg:flex-grow ">
             <div className="basic-info space-y-1">
               <ProductHead

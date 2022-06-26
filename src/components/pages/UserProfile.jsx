@@ -30,7 +30,9 @@ const CreateProduct = () => {
           <div className="flex flex-col items-center space-y-4">
             <img
               className="w-34 aspect-square rounded-full"
-              src="https://picsum.photos/300/300"
+              src={`https://via.placeholder.com/300x300.png/f2f2f2?text=${
+                user.name.split(" ")[0]
+              }`}
               alt="profile"
             />
             <h1 className="font-bold text-4xl">{user.name}</h1>

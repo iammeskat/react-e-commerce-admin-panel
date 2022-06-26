@@ -22,7 +22,7 @@ const Sidebar = () => {
             <div className="max-w-[13.5rem]">
               <div className="flex flex-col">
                 <SidebarHeader smallSidebar={contextData.sidebar.isSmall} />
-                <ul className="flex flex-col space-y-3 mt-6">
+                <ul className="flex flex-col space-y-3 mt-6 pr-1.5">
                   {sidebarList.map((item, indx) => {
                     return (
                       <SidebarNavItem

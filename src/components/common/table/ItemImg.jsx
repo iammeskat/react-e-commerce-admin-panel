@@ -13,7 +13,9 @@ const ItemImg = (props) => {
           src={
             imgLink
               ? `http://localhost:3050/file/images/${imgLink}`
-              : "../images/product.webp"
+              : `https://via.placeholder.com/100x100.png/f2f2f2?text=${
+                  title.split(" ")[0]
+                }`
           }
           alt=""
         />
