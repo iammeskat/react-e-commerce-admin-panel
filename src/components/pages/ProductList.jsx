@@ -29,8 +29,14 @@ const ProductList = () => {
     selectedBrand: "all",
     status: "all",
     searchKey: "all",
-    sortColumn: { path: "asc", order: "createdAt" },
+    sortBy: 0,
+    // sortColumn: { path: "asc", order: "createdAt" },
   });
+
+  const sorting = () => {
+    setProducts([...products].reverse());
+    setOptions({ ...options, sortBy: options.sortBy ? 0 : 1 });
+  };
 
   const columnHeader = [
     "PRODUCT NAME",
@@ -232,10 +238,7 @@ const ProductList = () => {
   let paginatedItems = products ? paginateItems(filteredItems) : [];
 
   return (
-    <div
-      id="main-section"
-      className="flex flex-col grow px-3 md:px-6 py-3 space-y-4 transition-all duration-200"
-    >
+    <div className="flex flex-col grow px-3 md:px-6 py-3 space-y-4 transition-all duration-200">
       <PageHeader
         title="PRODUCTS"
         render={
@@ -285,7 +288,7 @@ const ProductList = () => {
                     ]}
                     onChangeHandler={setFilterOptions}
                   />
-                  <BtnSorting />
+                  <BtnSorting handler={sorting} sortedBy={options.sortBy} />
                 </>
               }
             />

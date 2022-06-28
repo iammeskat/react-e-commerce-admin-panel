@@ -7,7 +7,7 @@ const Table = (props) => {
   }, 400);
   const { columnHeader, columns, items, activePage, pageCount } = props;
   return items.length && timeCount ? (
-    <table className="table-auto min-w-full divide-y font-medium text-gray-800 divide-gray-200">
+    <table className="table-auto min-w-full divide-y font-medium text-gray-800 divide-gray-100 animate-fade">
       <thead className="sticky top-0 shadow-sm text-xs uppercase font-semibold text-left text-gray-900 bg-gray-50">
         <tr>
           <th className=" first:pl-6 last:pr-6 last:text-right py-3 whitespace-nowrap w-px px-4">
@@ -26,9 +26,9 @@ const Table = (props) => {
           })}
         </tr>
       </thead>
-      <tbody className="bg-white divide-y divide-gray-200">
+      <tbody className="bg-white divide-y divide-gray-100">
         {items.map((item, indx) => (
-          <tr key={"tr-" + indx} className="text-gray-500">
+          <tr key={"tr-" + indx} className="text-gray-500 hover:bg-gray-100">
             <td className="px-2 first:pl-6 last:pr-6 py-3 whitespace-nowrap">
               {indx + (activePage - 1) * pageCount + 1}
             </td>
