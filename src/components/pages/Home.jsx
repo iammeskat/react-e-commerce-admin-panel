@@ -7,14 +7,14 @@ const Home = () => {
       <div className="flex justify-between">
         {/* <!-- Include the section title  --> */}
         <h2 className="text-3xl font-bold text-gray-800 uppercase">
-          Section Title
+          Dashboard
         </h2>
         {/* <!-- start section options  --> */}
         <div className="flex items-center space-x-4">
-          <h2 className="hidden md:block">Other options</h2>
+          {/* <h2 className="hidden md:block">Other options</h2>
           <button className="flex items-center space-x-2 bg-indigo-600 text-slate-100 h-8 px-1.5 rounded hover:bg-indigo-700">
             <span className="font-semibold">Open Modal</span>
-          </button>
+          </button> */}
         </div>
         {/* <!-- end section options  --> */}
       </div>

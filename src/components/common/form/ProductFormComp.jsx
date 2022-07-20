@@ -3,21 +3,22 @@ import { useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
 import config from "../../../config/config";
+import IconSpin from "../icons/IconSpin";
 import InputCatComp from "./InputCatComp";
 import InputComp from "./InputComp";
 import InputMultipleImgComp from "./InputMultipleImgComp";
 import SelectComp from "./SelectComp";
 import TextAreaComp from "./TextAreaComp";
-
 const ProductFormComp = () => {
   const alert = useAlert();
-  const history = useNavigate();
+  const navigate = useNavigate();
   const [categories, setCategories] = useState();
   const [brands, setBrands] = useState();
   const [data, setData] = useState({
     name: null,
     price: null,
     description: null,
+    shortDescription: null,
     category: null,
     brand: null,
     quantity: null,
@@ -27,6 +28,7 @@ const ProductFormComp = () => {
     color: null,
     weight: null,
     status: null,
+    isExclusive: null,
   });
   const [errors, setError] = useState({
     name: "",
@@ -42,6 +44,7 @@ const ProductFormComp = () => {
     weight: "",
     status: "",
   });
+  const [submitting, setSubmitting] = useState(0);
   // fetch categories
   useEffect(() => {
     let isLoaded = true;
@@ -81,38 +84,67 @@ const ProductFormComp = () => {
     }
   };
 
-  const errorHandler = () => {
+  // const errorHandler = () => {
+  //   let error = {};
+  //   for (let [key, value] of Object.entries({ ...data })) {
+  //     if (!value) {
+  //       error[key] = `${key} is required`;
+  //     }
+  //   }
+  //   if (!error) {
+  //     return false;
+  //   } else {
+  //     setError(error);
+  //     return true;
+  //   }
+  // };
+  const hasError = () => {
     let error = {};
     for (let [key, value] of Object.entries({ ...data })) {
       if (!value) {
         error[key] = `${key} is required`;
       }
     }
-    if (!error) {
-      return false;
-    } else {
-      setError(error);
+    console.log(error);
+    if (Object.keys(error).length > 0) {
+      setError({ ...error });
       return true;
+    } else {
+      return false;
     }
   };
   const formSubmitHandler = (e) => {
     e.preventDefault();
-    const hasErrors = errorHandler();
-    if (Object.keys(errors).length > 0) {
+
+    if (hasError()) {
       console.log(errors);
       return;
+    } else {
+      setSubmitting(1);
+      setTimeout(() => {
+        axios
+          .post(`${config.SERVER_URL}/api/admin/products`, data)
+          .then((res) => {
+            alert.success(res.data.message);
+            navigate("/products");
+          })
+          .catch((error) => {
+            if (error.response.status === 422) {
+              let getErrors = {};
+              Object.entries(error.response.data.errors).forEach(
+                ([key, value]) => {
+                  getErrors[key] = value.msg;
+                }
+              );
+              setError(getErrors);
+              console.log(error.response.data.errors);
+            } else {
+              alert.error("Something went wrong! Please try again.");
+            }
+          });
+        setSubmitting(0);
+      }, 500);
     }
-    axios
-      .post(`${config.SERVER_URL}/api/admin/products`, data)
-      .then((res) => {
-        // console.log(res.data);
-        alert.success(`Success`);
-        history("/products");
-      })
-      .catch((error) => {
-        alert.error(`Failed`);
-        console.log(error.response.data.errors);
-      });
   };
 
   return brands ? (
@@ -124,16 +156,16 @@ const ProductFormComp = () => {
       <div className="flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-4 text-gray-700">
         <div className="grow space-y-4">
           <div className="flex flex-col bg-white rounded p-4 space-y-4">
-            <InputComp
-              handler={handleFormData}
-              errMsg={errors.name}
-              label="Product Title"
-              id="product-tile"
-              name="name"
-              type="text"
-              placeholder="Enter product title"
-            />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <InputComp
+                handler={handleFormData}
+                errMsg={errors.name}
+                label="Product Title"
+                id="product-tile"
+                name="name"
+                type="text"
+                placeholder="Enter product title"
+              />
               <SelectComp
                 handler={handleFormData}
                 errMsg={errors.brand}
@@ -143,20 +175,6 @@ const ProductFormComp = () => {
                 options={
                   brands &&
                   brands.map((item) => {
-                    return { value: item._id, name: item.name };
-                  })
-                }
-              />
-
-              <SelectComp
-                handler={handleFormData}
-                errMsg={errors.category}
-                label="Category"
-                id="category"
-                name="category"
-                options={
-                  categories &&
-                  categories.map((item) => {
                     return { value: item._id, name: item.name };
                   })
                 }
@@ -186,15 +204,6 @@ const ProductFormComp = () => {
               placeholder="Enter full description"
               rows="8"
             />
-            {/* <InputComp
-              handler={handleFormData}
-              errMsg={errors.photo}
-              label="Product Image"
-              id="product-image"
-              name="photo"
-              type="file"
-              placeholder="Enter product title"
-            /> */}
 
             <InputMultipleImgComp
               handler={handleFormData}
@@ -278,6 +287,17 @@ const ProductFormComp = () => {
           <div className="p-4 rounded bg-white space-y-4">
             <SelectComp
               handler={handleFormData}
+              errMsg={errors.isExclusive}
+              label="Exclusive"
+              id="isExclusive"
+              name="isExclusive"
+              options={[
+                { value: "false", name: "Not Exclusive" },
+                { value: "true", name: "Exclusive" },
+              ]}
+            />
+            <SelectComp
+              handler={handleFormData}
               errMsg={errors.status}
               label="Status"
               id="status"
@@ -288,24 +308,13 @@ const ProductFormComp = () => {
                 { value: "discontinued", name: "Discontinued" },
               ]}
             />
-            {/* <SelectComp
-              handler={handleFormData}
-              errMsg={errors.visibility}
-              label="Visibility"
-              id="visibility"
-              name="visibility"
-              options={[
-                { value: "1", name: "Public" },
-                { value: "2", name: "Hidden" },
-              ]}
-            /> */}
 
             <InputComp
               handler={handleFormData}
               errMsg={errors.publishDate}
               label="Publish Date"
               id="publish-date"
-              name="publishDdate"
+              name="publishdate"
               type="date"
             />
           </div>
@@ -314,13 +323,20 @@ const ProductFormComp = () => {
       <div className="flex space-x-4 mt-5">
         <button
           type="submit"
-          className="bg-teal-500 py-2 px-6 rounded text-white hover:bg-teal-600"
+          className="bg-blue-600 py-2 px-6 rounded uppercase text-white hover:bg-blue-700 flex items-center"
         >
-          Add Product
+          {submitting ? (
+            <>
+              <IconSpin />
+              <h1>SUBMITTING</h1>
+            </>
+          ) : (
+            <h1>SUBMIT</h1>
+          )}
         </button>
         <button
           type="button"
-          className="bg-gray-500 py-2 px-6 rounded text-white hover:bg-gray-600"
+          className="bg-gray-500 py-2 px-6 rounded uppercase text-white hover:bg-gray-600"
         >
           Cancel
         </button>

@@ -35,6 +35,11 @@ const sidebarList = [
     to: "/orders",
   },
   {
+    title: "CRM",
+    icon: "/icons/order.svg",
+    to: "/crm",
+  },
+  {
     title: "Offer",
     icon: "/icons/offer.svg",
     to: "/offers",

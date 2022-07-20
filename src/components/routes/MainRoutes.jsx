@@ -4,6 +4,7 @@ import BannerList from "../pages/BannerList";
 import BrandList from "../pages/BrandList";
 import CategoryList from "../pages/CategoryList";
 import CreateProduct from "../pages/CreateProduct";
+import CRM from "../pages/CRM";
 import CustomerList from "../pages/CustomerList";
 import DealerList from "../pages/DealerList";
 import DealList from "../pages/DealList";
@@ -36,6 +37,7 @@ const MainRoutes = () => {
         <Route exact path="/brands" element={<BrandList />} />
         <Route exact path="/orders" element={<OrderList />} />
         <Route exact path="/orders/:id" element={<OrderDetails />} />
+        <Route exact path="/crm" element={<CRM />} />
         <Route exact path="/offers" element={<OfferList />} />
         <Route exact path="/offers/:id" element={<OfferDetails />} />
         <Route exact path="/vouchers" element={<VoucherList />} />

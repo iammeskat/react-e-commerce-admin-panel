@@ -4,7 +4,7 @@ import { getBase64 } from "../../../helpers/getBase64";
 const InputMultipleImgComp = (props) => {
   const { label, id, name, handler, errMsg } = props;
   const [photosString, setPhotosString] = useState([]);
-
+  // let photos = [];
   const handleImage = async (e) => {
     let files = e.target.files;
     console.log(files.length);
@@ -14,14 +14,17 @@ const InputMultipleImgComp = (props) => {
       await getBase64(files[i])
         .then((result) => {
           photos[i] = result;
+          // photos.push(result);
         })
         .catch((err) => {
           console.log(err);
         });
     }
+
     // console.log(photos);
-    setPhotosString((photosString) => [...photosString, ...photos]);
-    // setPhotosString([...photosString, ...photos]);
+    // setPhotosString((photosString) => [...photosString, ...photos]);
+    setPhotosString([...photosString, ...photos]);
+    console.log("new length " + photos.length);
 
     handler(name, photos);
     // console.log(photosString);

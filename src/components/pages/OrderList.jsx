@@ -66,7 +66,7 @@ const OrderList = () => {
       content: (data) => (
         <Link to={`/orders/${data._id}`}>
           <h1 className="uppercase text-gray-900 hover:text-indigo-500">
-            {data._id.slice(-10)}
+            {data.order_id}
           </h1>
         </Link>
       ),
@@ -86,6 +86,8 @@ const OrderList = () => {
             { name: "One Time", value: "one_time" },
             { name: "Two Time", value: "two_time" },
             { name: "Three Time", value: "three_time" },
+            { name: "Received & Confirm", value: "received_confirm" },
+            { name: "Received & Cancell", value: "received_cancell" },
           ]}
         />
       ),
@@ -116,7 +118,7 @@ const OrderList = () => {
           options={[
             { name: "Pending", value: "pending" },
             { name: "Processing", value: "processing" },
-            { name: "Shipping", value: "Shipped" },
+            { name: "Shipping", value: "shipped" },
             { name: "Delivered", value: "delivered" },
             { name: "Returned", value: "returned" },
             { name: "Cancelled", value: "cancelled" },

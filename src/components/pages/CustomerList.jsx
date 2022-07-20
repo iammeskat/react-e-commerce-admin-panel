@@ -3,7 +3,6 @@ import { useContext, useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import config from "../../config/config";
 import { GlobalContext } from "../../context/GlobalContext";
-import BtnCreate from "../common/form/BtnCreate";
 import InputSearch from "../common/form/InputSearch";
 import PageFooter from "../common/PageFooter";
 import PageHeader from "../common/PageHeader";
@@ -28,15 +27,7 @@ const CustomerList = () => {
     sortColumn: { path: "asc", order: "createdAt" },
   });
 
-  const columnHeader = [
-    "NAME",
-    "EMAIL",
-    "PHONE",
-    "CITY",
-    "COUNTRY",
-    "STATUS",
-    "ACTION",
-  ];
+  const columnHeader = ["NAME", "EMAIL", "PHONE", "STATUS", "ACTION"];
 
   const columnData = [
     {
@@ -46,8 +37,7 @@ const CustomerList = () => {
     },
     { content: (data) => data.email },
     { content: (data) => data.profile.phone },
-    { content: (data) => data.profile.city },
-    { content: (data) => data.profile.country },
+    { content: (data) => data.profile.gender },
     {
       content: (data) => {
         if (data.status === "active") {
@@ -189,11 +179,7 @@ const CustomerList = () => {
     >
       <PageHeader
         title="customers"
-        render={
-          <>
-            <BtnCreate title="Create Product" to="./create" />
-          </>
-        }
+        render={<>{/* <BtnCreate title="Create Product" to="./create" /> */}</>}
       />
       <div className="">
         <div className="overflow-x-auto">

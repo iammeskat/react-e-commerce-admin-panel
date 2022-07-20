@@ -42,7 +42,7 @@ const ProductList = () => {
     "PRODUCT NAME",
     "CATEGORY",
     "BRAND",
-    "QUANTITY",
+    "QTY",
     "SALE",
     "CREATED AT",
     "MRP",
@@ -65,7 +65,7 @@ const ProductList = () => {
     { content: (product) => product.category[0]["name"] },
     { content: (product) => product.brand.name },
     { content: (product) => product.quantity },
-    { content: (product) => "sale" },
+    { content: (product) => product.totalSell },
     { content: (product) => product.createdAt.split("T")[0] },
     { content: (product) => product.price },
     {

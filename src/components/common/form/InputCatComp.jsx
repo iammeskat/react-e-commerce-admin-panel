@@ -3,7 +3,7 @@ import IconCross from "../icons/IconCross";
 import SelectComp from "./SelectComp";
 
 const InputCatComp = (props) => {
-  const { handler, error, categories, values } = props;
+  const { handler, error, categories, values, errMsg } = props;
   const [selectedCat, setSelectedCat] = useState([...values]);
 
   const remove = (id) => {
@@ -33,16 +33,19 @@ const InputCatComp = (props) => {
 
   return (
     <>
-      <SelectComp
-        handler={add}
-        errMsg={error}
-        label="Category"
-        id="category"
-        name="category"
-        options={getUnselectedCat().map((item) => {
-          return { value: item._id, name: item.name };
-        })}
-      />
+      <div>
+        <SelectComp
+          handler={add}
+          errMsg={error}
+          label="Category"
+          id="category"
+          name="category"
+          options={getUnselectedCat().map((item) => {
+            return { value: item._id, name: item.name };
+          })}
+        />
+        {errMsg && <small className="text-red-500">{errMsg}</small>}
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
         {selectedCat.map((item, indx) => {
