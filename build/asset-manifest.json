@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "./static/css/main.262c619a.css",
-    "main.js": "./static/js/main.0df3a428.js",
-    "static/js/787.d3befce1.chunk.js": "./static/js/787.d3befce1.chunk.js",
-    "index.html": "./index.html",
-    "main.262c619a.css.map": "./static/css/main.262c619a.css.map",
-    "main.0df3a428.js.map": "./static/js/main.0df3a428.js.map",
-    "787.d3befce1.chunk.js.map": "./static/js/787.d3befce1.chunk.js.map"
+    "main.css": "/react-e-commerce-admin-panel/static/css/main.4bea5f78.css",
+    "main.js": "/react-e-commerce-admin-panel/static/js/main.c9c5c6d3.js",
+    "static/js/787.d3befce1.chunk.js": "/react-e-commerce-admin-panel/static/js/787.d3befce1.chunk.js",
+    "index.html": "/react-e-commerce-admin-panel/index.html",
+    "main.4bea5f78.css.map": "/react-e-commerce-admin-panel/static/css/main.4bea5f78.css.map",
+    "main.c9c5c6d3.js.map": "/react-e-commerce-admin-panel/static/js/main.c9c5c6d3.js.map",
+    "787.d3befce1.chunk.js.map": "/react-e-commerce-admin-panel/static/js/787.d3befce1.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.262c619a.css",
-    "static/js/main.0df3a428.js"
+    "static/css/main.4bea5f78.css",
+    "static/js/main.c9c5c6d3.js"
   ]
 }
