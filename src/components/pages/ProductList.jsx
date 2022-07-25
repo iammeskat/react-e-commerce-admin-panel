@@ -53,12 +53,27 @@ const ProductList = () => {
   const columnData = [
     {
       content: (product) => (
-        <div>
+        <div className="flex space-x-1 mb-2">
           <ItemImg
             link={`./${product._id}`}
             imgLink={product.photos.length > 0 ? product.photos[0] : ""}
-            title={product.name}
+            // title={product.name}
           />
+          <div>
+            <h2>
+              <Link to={`./${product._id}`}>{product.name}</Link>{" "}
+            </h2>
+            <div children="flex ">
+              <span className="text-xs">Categories:</span>
+              {product.category.map((item, indx) => {
+                return (
+                  <span className="text-xs ml-1" key={`cat-${indx}`}>
+                    {item.name},
+                  </span>
+                );
+              })}
+            </div>
+          </div>
         </div>
       ),
     },

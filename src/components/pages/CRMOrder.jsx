@@ -6,7 +6,6 @@ import config from "../../config/config";
 import InputSearch from "../common/form/InputSearch";
 import SelectCompForTable from "../common/form/SelectCompForTable";
 import PageFooter from "../common/PageFooter";
-import BtnSorting from "../common/table/BtnSorting";
 import FilterOption from "../common/table/FilterOption";
 import Table from "../common/table/Table";
 import TableHeader from "../common/table/TableHeader";
@@ -36,8 +35,8 @@ const CRMOrder = (props) => {
 
   const columnHeader = [
     "ORDER ID",
-    "CUSTOMER NAME",
-    "CITY",
+    "Call status",
+    "phone",
     "PAYMENT STATUS",
     "ORDER PLACED",
     "STATUS",
@@ -66,29 +65,64 @@ const CRMOrder = (props) => {
   const columnData = [
     {
       content: (data) => (
-        <Link to={`/orders/${data._id}`}>
-          <h1 className="uppercase text-gray-900 hover:text-indigo-500">
-            {data.order_id}
-          </h1>
-        </Link>
+        <div className="mb-2">
+          <Link to={`/orders/${data._id}`}>
+            <h1 className="uppercase text-gray-900 hover:text-indigo-500">
+              {data.order_id}
+            </h1>
+          </Link>
+          <h2 className="text-xs ">
+            Order By:{" "}
+            <Link to={`../customers/`} className="hover:text-indigo-600">
+              {data.address.name}
+            </Link>
+          </h2>
+
+          <h2 className="text-xs">From: {data.address.city}</h2>
+        </div>
       ),
     },
-    { content: (data) => data.user.name },
-
-    { content: (data) => data.address.city },
 
     {
       content: (data) => (
-        <SelectCompForTable
-          id={data._id}
-          name="paymentStatus"
-          value={data.paymentStatus}
-          handler={changeOrderStatus}
-          options={[
-            { name: "Unpaid", value: "pending" },
-            { name: "Paid", value: "complete" },
-          ]}
-        />
+        <div className="mr-2">
+          <SelectCompForTable
+            id={data._id}
+            name="call_status"
+            value={data.call_status}
+            handler={changeOrderStatus}
+            options={[
+              { name: "No Call", value: "no_call" },
+              { name: "One Time", value: "one_time" },
+              { name: "Two Time", value: "two_time" },
+              { name: "Three Time +", value: "three_time" },
+              { name: "Received & Confirmed", value: "received_confirm" },
+              { name: "Received & Canceled", value: "received_cancell" },
+            ]}
+          />
+          {data.last_call && (
+            <p className="text-xs">Last Call: {data.last_call.split("T")[0]}</p>
+          )}
+        </div>
+      ),
+    },
+
+    { content: (data) => data.address.phone },
+
+    {
+      content: (data) => (
+        <div className="mr-2">
+          <SelectCompForTable
+            id={data._id}
+            name="paymentStatus"
+            value={data.paymentStatus}
+            handler={changeOrderStatus}
+            options={[
+              { name: "Unpaid", value: "pending" },
+              { name: "Paid", value: "complete" },
+            ]}
+          />
+        </div>
       ),
     },
     { content: (data) => data.createdAt.split("T")[0] },
@@ -129,8 +163,19 @@ const CRMOrder = (props) => {
       setOptions({ ...options, callToDate: value, activePage: 1 });
     } else if (option === "city") {
       setOptions({ ...options, city: value, activePage: 1 });
+      setArea([]);
     } else if (option === "zone") {
       setOptions({ ...options, zone: value, activePage: 1 });
+
+      const filteredArea = locations.filter((item) => {
+        if (item.name === value) {
+          return true;
+        } else {
+          return false;
+        }
+      })[0];
+      setArea(filteredArea.upazilla);
+      // console.log(filteredArea.upazilla);
     } else if (option === "area") {
       setOptions({ ...options, area: value, activePage: 1 });
     }
@@ -170,7 +215,7 @@ const CRMOrder = (props) => {
     if (searchKey !== "all") {
       const tempItems = filteredItems.filter((item) => {
         if (
-          item._id.toLowerCase().includes(searchKey.toLowerCase()) ||
+          item.order_id.toLowerCase().includes(searchKey.toLowerCase()) ||
           item.user.name.toLowerCase().includes(searchKey.toLowerCase()) ||
           item.address.city.toLowerCase().includes(searchKey.toLowerCase()) ||
           item.address.phone.toLowerCase().includes(searchKey.toLowerCase()) ||
@@ -290,6 +335,7 @@ const CRMOrder = (props) => {
 
   let filteredItems = data ? filterItems() : [];
   let paginatedItems = data ? paginateItems(filteredItems) : [];
+  // console.log(area);
 
   return (
     <div className="flex space-x-4">
@@ -330,7 +376,7 @@ const CRMOrder = (props) => {
                 id=""
               />
             </div>
-            <div className="flex flex-col px-2">
+            {/* <div className="flex flex-col px-2">
               <label
                 htmlFor=""
                 className="block mb-0.5 text-sm font-medium text-gray-900"
@@ -349,7 +395,7 @@ const CRMOrder = (props) => {
                 <option value="returned">Returned</option>
                 <option value="cancelled">Cancelled</option>
               </select>
-            </div>
+            </div> */}
           </div>
           {/* call status  */}
           <div className="flex flex-col space-y-2 pb-2 bg-white shadow rounded-sm overflow-hidden">
@@ -466,22 +512,21 @@ const CRMOrder = (props) => {
                 id=""
               >
                 <option value="all">All</option>
-                {/* {options.area !== "all" &&
-                  locations[options.area].map((item, indx) => {
-                    return (
-                      <>
-                        <option key={"op" + indx} value={item}>
-                          {item}
-                        </option>
-                      </>
-                    );
-                  })} */}
+                {area.map((item, indx) => {
+                  return (
+                    <>
+                      <option key={"op" + indx} value={item}>
+                        {item}
+                      </option>
+                    </>
+                  );
+                })}
               </select>
             </div>
           </div>
 
           {/* payment status  */}
-          <div className="flex flex-col space-y-2 pb-2 bg-white shadow rounded-sm overflow-hidden">
+          {/* <div className="flex flex-col space-y-2 pb-2 bg-white shadow rounded-sm overflow-hidden">
             <label className="px-2 font-medium bg-slate-200">
               Payment Status
             </label>
@@ -497,7 +542,7 @@ const CRMOrder = (props) => {
                 <option value="complete">Paid</option>
               </select>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="grow border">
@@ -505,7 +550,7 @@ const CRMOrder = (props) => {
           <div className="overflow-x-auto">
             <div className="bg-white shadow-lg rounded-sm border border-gray-200 mb-2 min-w-[60rem] h-[33.5rem] overflow-y-auto relative">
               <TableHeader
-                tableName="ORDER LIST"
+                tableName="Total Order"
                 numberOfItem={filteredItems.length}
                 filterOptions={
                   <>
@@ -517,8 +562,8 @@ const CRMOrder = (props) => {
                       label="Paymnet"
                       filterBy="paymentStatus"
                       options={[
-                        { name: "Pending", value: "pending" },
-                        { name: "Complete", value: "complete" },
+                        { name: "Unpaid", value: "pending" },
+                        { name: "Paid", value: "complete" },
                       ]}
                       onChangeHandler={setFilterOptions}
                     />
@@ -535,7 +580,7 @@ const CRMOrder = (props) => {
                       ]}
                       onChangeHandler={setFilterOptions}
                     />
-                    <BtnSorting />
+                    {/* <BtnSorting /> */}
                   </>
                 }
               />

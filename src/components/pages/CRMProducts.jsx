@@ -4,11 +4,13 @@ import { useAlert } from "react-alert";
 import config from "../../config/config";
 import PageFooter from "../common/PageFooter";
 import BtnSorting from "../common/table/BtnSorting";
+import ItemImg from "../common/table/ItemImg";
 import Table from "../common/table/Table";
 import TableHeader from "../common/table/TableHeader";
 const CRMProducts = (props) => {
   const { data, setData, locations, setLocation } = props;
   const alert = useAlert();
+  const [area, setArea] = useState([]);
   const [products, setProducts] = useState([]);
   //   let products = [];
   const [options, setOptions] = useState({
@@ -23,63 +25,47 @@ const CRMProducts = (props) => {
     area: "all",
   });
 
-  const columnHeader = [
-    "ORDER ID",
-    "CUSTOMER NAME",
-    "CITY",
-    "PAYMENT STATUS",
-    "ORDER PLACED",
-    "STATUS",
-  ];
+  const columnHeader = ["name", "price", "Qty", "status", "Total Sell"];
 
   const columnData = [
-    // {
-    //   content: (data) => (
-    //     <Link to={`/orders/${data._id}`}>
-    //       <h1 className="uppercase text-gray-900 hover:text-indigo-500">
-    //         {data.order_id}
-    //       </h1>
-    //     </Link>
-    //   ),
-    // },
-    { content: (data) => data.name },
-    { content: (data) => data.count },
-
-    // { content: (data) => data.address.city },
-
-    // {
-    //   content: (data) => (
-    //     <SelectCompForTable
-    //       id={data._id}
-    //       name="paymentStatus"
-    //       value={data.paymentStatus}
-    //       handler={() => {}}
-    //       options={[
-    //         { name: "Unpaid", value: "pending" },
-    //         { name: "Paid", value: "complete" },
-    //       ]}
-    //     />
-    //   ),
-    // },
-    // { content: (data) => data.createdAt.split("T")[0] },
-    // {
-    //   content: (data) => (
-    //     <SelectCompForTable
-    //       id={data._id}
-    //       name="status"
-    //       value={data.status}
-    //       handler={() => {}}
-    //       options={[
-    //         { name: "Pending", value: "pending" },
-    //         { name: "Processing", value: "processing" },
-    //         { name: "Shipping", value: "Shipped" },
-    //         { name: "Delivered", value: "delivered" },
-    //         { name: "Returned", value: "returned" },
-    //         { name: "Cancelled", value: "cancelled" },
-    //       ]}
-    //     />
-    //   ),
-    // },
+    {
+      content: (product) => (
+        <div>
+          <ItemImg
+            link={`../products/${product._id}`}
+            imgLink={product.photos.length > 0 ? product.photos[0] : ""}
+            title={product.name}
+          />
+        </div>
+      ),
+    },
+    { content: (data) => data.price },
+    { content: (data) => data.quantity },
+    {
+      content: (product) => {
+        if (product.status === "active") {
+          return (
+            <div className="inline-flex font-medium bg-green-100 text-green-600 rounded-full text-center px-2.5 py-0.5">
+              Active
+            </div>
+          );
+        } else
+          return (
+            <div className="inline-flex font-medium bg-yellow-100 text-yellow-600 rounded-full text-center px-2.5 py-0.5">
+              Inactive
+            </div>
+          );
+      },
+    },
+    {
+      content: (data) => (
+        <div className="flex justify-end mr-5">
+          <div className="flex w-8 h-8 rounded-full text-gray-900 bg-slate-200 items-center justify-center">
+            {data.count}
+          </div>
+        </div>
+      ),
+    },
   ];
 
   const filterItems = () => {
@@ -136,8 +122,17 @@ const CRMProducts = (props) => {
         zone: "all",
         activePage: 1,
       });
+      setArea([]);
     } else if (option === "zone") {
       setOptions({ ...options, zone: value, area: "all", activePage: 1 });
+      const filteredArea = locations.filter((item) => {
+        if (item.name === value) {
+          return true;
+        } else {
+          return false;
+        }
+      })[0];
+      setArea(filteredArea.upazilla);
     } else if (option === "area") {
       setOptions({ ...options, area: value, activePage: 1 });
     }
@@ -282,16 +277,15 @@ const CRMProducts = (props) => {
                 id=""
               >
                 <option value="all">All</option>
-                {/* {options.area !== "all" &&
-                  locations[options.area].map((item, indx) => {
-                    return (
-                      <>
-                        <option key={"op" + indx} value={item}>
-                          {item}
-                        </option>
-                      </>
-                    );
-                  })} */}
+                {area.map((item, indx) => {
+                  return (
+                    <>
+                      <option key={"op" + indx} value={item}>
+                        {item}
+                      </option>
+                    </>
+                  );
+                })}
               </select>
             </div>
           </div>

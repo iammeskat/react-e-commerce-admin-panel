@@ -44,7 +44,11 @@ const CRM = () => {
         <li>
           <button
             onClick={() => setSection(1)}
-            className="px-5 py-1 rounded-sm shadow-sm font-medium text-indigo-500 bg-slate-100"
+            className={`px-5 py-1 rounded-sm shadow-sm font-medium ${
+              section === 1
+                ? "text-white bg-indigo-600"
+                : "bg-slate-100 hover:bg-slate-200"
+            }  `}
           >
             Order
           </button>
@@ -52,7 +56,11 @@ const CRM = () => {
         <li>
           <button
             onClick={() => setSection(2)}
-            className="px-5 py-1 rounded-sm shadow-sm font-medium bg-slate-100"
+            className={`px-5 py-1 rounded-sm shadow-sm font-medium ${
+              section === 2
+                ? "text-white bg-indigo-600"
+                : "bg-slate-100 hover:bg-slate-200"
+            }  `}
           >
             Areas By Most Order
           </button>
@@ -60,7 +68,11 @@ const CRM = () => {
         <li>
           <button
             onClick={() => setSection(3)}
-            className="px-5 py-1 rounded-sm shadow-sm font-medium bg-slate-100"
+            className={`px-5 py-1 rounded-sm shadow-sm font-medium ${
+              section === 3
+                ? "text-white bg-indigo-600"
+                : "bg-slate-100 hover:bg-slate-200"
+            }  `}
           >
             Products By Area
           </button>

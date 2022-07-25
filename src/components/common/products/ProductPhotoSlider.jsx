@@ -6,8 +6,8 @@ const ProductPhotoSlider = (props) => {
   if (props.photos.length) {
     images = props.photos.map((item) => {
       return {
-        original: `${config.SERVER_URL}/file/images/${item}`,
-        thumbnail: `${config.SERVER_URL}/file/images/${item}`,
+        original: `${config.SERVER_URL}/public/storage/images/${item}`,
+        thumbnail: `${config.SERVER_URL}/public/storage/images/${item}`,
       };
     });
   } else {

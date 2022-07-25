@@ -6,6 +6,7 @@ import CategoryList from "../pages/CategoryList";
 import CreateProduct from "../pages/CreateProduct";
 import CRM from "../pages/CRM";
 import CustomerList from "../pages/CustomerList";
+import Dashboard from "../pages/Dashboard";
 import DealerList from "../pages/DealerList";
 import DealList from "../pages/DealList";
 import EmployeeList from "../pages/EmployeeList";
@@ -25,7 +26,8 @@ const MainRoutes = () => {
   return (
     <div>
       <Routes>
-        <Route exact path="/" element={<Home />} />
+        <Route exact path="/" element={<Dashboard />} />
+        <Route exact path="/home" element={<Home />} />
         <Route exact path="/customers" element={<CustomerList />} />
         <Route exact path="/customers/:id" element={<UserProfile />} />
         <Route exact path="/admins" element={<AdminList />} />

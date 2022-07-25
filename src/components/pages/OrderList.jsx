@@ -71,7 +71,7 @@ const OrderList = () => {
         </Link>
       ),
     },
-    { content: (data) => data.user.name },
+    { content: (data) => data.address.name },
 
     { content: (data) => data.address.city },
     {
