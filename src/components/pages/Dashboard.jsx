@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
   ArcElement,
   BarElement,
@@ -8,7 +9,12 @@ import {
   Title,
   Tooltip,
 } from "chart.js";
-import { Bar } from "react-chartjs-2";
+import { useEffect, useState } from "react";
+import config from "../../config/config";
+import CatSummary from "../common/dashboard/CatSummary";
+import SellingStatus from "../common/dashboard/SellingStatus";
+import StockSummary from "../common/dashboard/StockSummary";
+import Summary from "../common/dashboard/Summary";
 import PageHeader from "../common/PageHeader";
 
 ChartJS.register(
@@ -21,158 +27,130 @@ ChartJS.register(
   Title
 );
 
-export const data = {
-  labels: ["Revenue", "Cost"],
-  datasets: [
-    {
-      label: "# of Votes",
-      data: [12, 3],
-      backgroundColor: ["rgba(75, 192, 192, 0.2)", "rgba(255, 159, 64, 0.2)"],
-      borderColor: ["rgba(75, 192, 192, 1)", "rgba(255, 159, 64, 1)"],
-      borderWidth: 1,
-    },
-  ],
-};
-
-// Bar chart options
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: "",
-    },
-    title: {
-      display: true,
-      text: "Top 5 (five) Categories",
-    },
-  },
-};
-
-export const sellOptions = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: "",
-    },
-    title: {
-      display: true,
-      text: "Selling Status",
-    },
-  },
-};
-
-const labels = ["Fashion", "Accessory", "Grocery", "Computer & Phone", "Shirt"];
-const sellStatusLabel = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-
-export const data2 = {
-  labels,
-  datasets: [
-    {
-      label: "Total sold",
-      data: [100, 200, 130, 50, 400],
-      backgroundColor: "rgba(53, 162, 235, 0.5)",
-    },
-  ],
-};
-
-export const sellStatusData = {
-  labels: sellStatusLabel,
-  datasets: [
-    {
-      label: "Total sell",
-      data: [100, 200, 130, 50, 100, 200, 130, 50, 150, 210, 300, 30],
-      backgroundColor: "rgba(53, 162, 235, 0.5)",
-    },
-  ],
-};
-
 const Dashboard = () => {
+  const [catLabels, setCatlabel] = useState([]);
+  const [catData, setCatData] = useState([]);
+  const [sellingStatus, setSellingStatus] = useState([]);
+  const [sellingStatusAtr, setSellingStatusAtr] = useState("totalProduct");
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const [year, setYear] = useState(new Date().getFullYear());
+  const [catYear, setCatYear] = useState(null);
+  console.log(year);
+
+  useEffect(() => {
+    let isLoaded = true;
+    axios
+      .get(
+        `${config.SERVER_URL}/api/admin/dashboard/top-categories${
+          catYear ? "?year=" + catYear : ""
+        }`
+      )
+      .then((res) => {
+        if (isLoaded) {
+          let labels = [];
+          let data = [];
+          res.data.data.forEach((item) => {
+            labels.push(item.category.name);
+            data.push(item.count);
+          });
+          setCatlabel(labels);
+          setCatData(data);
+        }
+      })
+      .catch((error) => console.log(error));
+    return () => (isLoaded = false);
+  }, [catYear]);
+
+  useEffect(() => {
+    let isLoaded = true;
+    axios
+      .get(
+        `${config.SERVER_URL}/api/admin/dashboard/selling-status?year=${year}`
+      )
+      .then((res) => {
+        if (isLoaded) {
+          let data = [];
+          Object.keys(res.data.data).forEach((key) => {
+            data.push(res.data.data[key][sellingStatusAtr]);
+          });
+          setSellingStatus(data);
+        }
+      })
+      .catch((error) => console.log(error));
+    return () => (isLoaded = false);
+  }, [year, sellingStatusAtr]);
   return (
     <div className="flex flex-col grow px-3 md:px-6 py-3 space-y-4  transition-all duration-200">
       <PageHeader title="dashboard" />
-      <div className="">
-        <div className="grid grid-cols-4 gap-6">
-          <div className=" h-fit border rounded shadow-md bg-slate-50 text-center py-4 space-y-3">
-            <p className="text-xl font-medium text-gray-600">Total Users</p>
-            <p className="text-4xl font-medium text-gray-700">599</p>
-          </div>
-          <div className=" h-fit border rounded shadow-md bg-slate-50 text-center py-4 space-y-3">
-            <p className="text-xl font-medium text-gray-600">Total Sales</p>
-            <p className="text-4xl font-medium text-gray-700">5000 Tk</p>
-          </div>
-          <div className=" h-fit border rounded shadow-md bg-slate-50 text-center py-4 space-y-3">
-            <p className="text-xl font-medium text-gray-600">Pending Orders</p>
-            <p className="text-4xl font-medium text-gray-700">8</p>
-          </div>
-          <div className=" h-fit border rounded shadow-md bg-slate-50 text-center py-4 space-y-3">
-            <p className="text-xl font-medium text-gray-600">Categories</p>
-            <p className="text-4xl font-medium text-gray-700">45</p>
-          </div>
-          <div className=" h-fit border rounded shadow-md bg-slate-50 text-center py-4 space-y-3">
-            <p className="text-xl font-medium text-gray-600">Brands</p>
-            <p className="text-4xl font-medium text-gray-700">18</p>
-          </div>
-          <div className=" h-fit border rounded shadow-md bg-slate-50 text-center py-4 space-y-3">
-            <p className="text-xl font-medium text-gray-600">Total Revenue</p>
-            <p className="text-4xl font-medium text-gray-700">8900 Tk</p>
-          </div>
-          <div className=" h-fit border rounded shadow-md bg-slate-50 text-center py-4 space-y-3">
-            <p className="text-xl font-medium text-gray-600">Total Cost</p>
-            <p className="text-4xl font-medium text-gray-700">5000</p>
-          </div>
-          <div className=" h-fit border rounded shadow-md bg-slate-50 text-center py-4 space-y-3">
-            <p className="text-xl font-medium text-gray-600">Total Employess</p>
-            <p className="text-4xl font-medium text-gray-700">18</p>
-          </div>
-        </div>
-
+      <div className="space-y-4">
+        <Summary />
         <div className="grid grid-cols-2 gap-12 pt-6">
-          <div className=" border rounded shadow-md bg-slate-50 p-6 text-center space-y-6">
-            <div className="text-3xl font-medium text-gray-600 border-b pb-4 border-gray-300">
-              Product Stocks
-            </div>
-            <div className="space-y-4">
-              <div className="flex items-center  justify-between px-6">
-                <p className="text-2xl text-gray-600">In Stocks</p>
-                <p className="text-3xl text-gray-700">
-                  5000 <span className="text-xl italic">Items</span>
-                </p>
-              </div>
-              <div className="flex items-center  justify-between px-6">
-                <p className="text-2xl text-gray-600">Out of Stocks</p>
-                <p className="text-3xl text-gray-700">
-                  50 <span className="text-xl italic">Items</span>
-                </p>
-              </div>
-              <div className="flex items-center  justify-between px-6">
-                <p className="text-2xl text-gray-600">Almost out of Stocks</p>
-                <p className="text-3xl text-gray-700">
-                  20 <span className="text-xl italic">Items</span>
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="">
-            <Bar options={options} data={data2} />
+          <StockSummary />
+          <div className="bg-white p-2 m-4">
+            <select
+              className="w-full p-2 border"
+              name=""
+              id=""
+              onChange={(event) => setCatYear(event.target.value)}
+            >
+              <option value="">All Time</option>
+              <option value="2022">2022</option>
+              <option value="2021">2021</option>
+              <option value="2020">2020</option>
+              <option value="2019">2019</option>
+              <option value="2018">2018</option>
+              <option value="2017">2017</option>
+            </select>
+            <CatSummary labels={catLabels} data={catData} />
           </div>
         </div>
 
-        <div className="">
-          <Bar options={sellOptions} data={sellStatusData} />
+        <div className="bg-white p-2 m-4">
+          <div className="flex space-x-2">
+            <select
+              className="w-full p-2 border"
+              name=""
+              id=""
+              onChange={(event) => setSellingStatusAtr(event.target.value)}
+            >
+              <option value="totalProduct">
+                X: Month, Y: Total Product Sold
+              </option>
+              <option value="totalOrder">
+                X: Month, Y: Total Delivered Order
+              </option>
+              <option value="totalSell">X: Month, Y: Total Sell (Tk)</option>
+            </select>
+
+            <select
+              className="w-full p-2 border"
+              name=""
+              id=""
+              onChange={(event) => setYear(event.target.value)}
+            >
+              <option value="2022">2022</option>
+              <option value="2021">2021</option>
+              <option value="2020">2020</option>
+              <option value="2019">2019</option>
+              <option value="2018">2018</option>
+              <option value="2017">2017</option>
+            </select>
+          </div>
+          <SellingStatus labels={monthNames} data={sellingStatus} />
         </div>
       </div>
     </div>

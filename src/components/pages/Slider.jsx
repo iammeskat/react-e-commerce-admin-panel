@@ -34,7 +34,11 @@ const SliderList = () => {
         <div className="flex items-center space-x-2">
           <img
             className="h-16 w-32 my-2 mr-2 border-gray-200"
-            src={data.image_path ? data.image_path : "../images/product.webp"}
+            src={
+              data.image_path
+                ? config.SERVER_URL + "/storage/images/" + data.image_path
+                : "../images/product.webp"
+            }
             alt=""
           />
         </div>

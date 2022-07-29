@@ -168,7 +168,7 @@ const FormVoucher = () => {
                 label="Start From"
                 id="start_form"
                 name="start_form"
-                type="datetime-local"
+                type="date"
                 value={formData.start_form}
               />
               <InputComp

@@ -8,6 +8,7 @@ import BtnCloseModal from "./BtnCloseModal";
 import BtnModalAdd from "./BtnModalAdd";
 import BtnModalCancel from "./BtnModalCancel";
 import InputComp from "./InputComp";
+import InputImgComp from "./InputImgComp";
 import SelectComp from "./SelectComp";
 import TextAreaComp from "./TextAreaComp";
 
@@ -24,6 +25,7 @@ const FormOffer = () => {
           discountAmount: "",
           limit: "",
           status: "",
+          photo: "",
         }
       : contextData.modal.data
   );
@@ -194,19 +196,27 @@ const FormOffer = () => {
               value={formData.description}
               rows="2"
             />
-
-            <SelectComp
-              handler={handleFormData}
-              errMsg={errors.status}
-              label="Status"
-              id="status"
-              name="status"
-              value={formData.status}
-              options={[
-                { value: "active", name: "Active" },
-                { value: "inactive", name: "Inactive" },
-              ]}
-            />
+            <div className="grid grid-cols-2 gap-2">
+              <InputImgComp
+                handler={handleFormData}
+                errMsg={errors.icon}
+                label="Photo"
+                id="photo"
+                name="photo"
+              />
+              <SelectComp
+                handler={handleFormData}
+                errMsg={errors.status}
+                label="Status"
+                id="status"
+                name="status"
+                value={formData.status}
+                options={[
+                  { value: "active", name: "Active" },
+                  { value: "inactive", name: "Inactive" },
+                ]}
+              />
+            </div>
           </div>
           <div className="flex items-center justify-start w-full">
             <BtnModalAdd /> <BtnModalCancel />
