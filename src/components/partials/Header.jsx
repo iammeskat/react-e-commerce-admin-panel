@@ -1,7 +1,13 @@
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { GlobalContext } from "../../context/GlobalContext";
+import { removeToken } from "../../utilities/auth";
 const Header = () => {
   const contextData = useContext(GlobalContext);
+  const navigate = useNavigate();
+  const logout = () => {
+    removeToken(navigate("/login"));
+  };
 
   return (
     <header className="sticky top-0 flex px-3 md:px-6 py-3 justify-between items-center bg-gray-700 text-slate-200 z-20">
@@ -98,11 +104,15 @@ const Header = () => {
             </button>
           </li>
           <li>
+            <button onClick={logout} className="hover:text-indigo-600">
+              Logout
+            </button>
+          </li>
+          <li>
             <button className="flex items-center pl-2 rounded-full space-x-3 hover:bg-gray-800">
               <span className="hidden md:block">Username</span>
               <img
                 className="w-8 h-8 rounded-full ring"
-                // className="h-20 w-20"
                 src="../images/user.png"
                 alt=""
               />

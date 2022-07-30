@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import '../assests/css/style.css';
-import { GlobalContext } from '../context/GlobalContext';
-import Modal from './common/Modal';
-import ModalDelete from './common/ModalDelete';
+import { useState } from "react";
+import "../assests/css/style.css";
+import { GlobalContext } from "../context/GlobalContext";
+import Modal from "./common/Modal";
+import ModalDelete from "./common/ModalDelete";
 import Header from "./partials/Header";
-import Sidebar from './partials/Sidebar';
-import MainRoutes from './routes/MainRoutes';
+import Sidebar from "./partials/Sidebar";
+import MainRoutes from "./routes/MainRoutes";
 
-function App() {
+function Layout() {
   const [sidebar, setSidebar] = useState({
     showMobileSidebar: false,
     showSidebar: false,
@@ -25,14 +25,14 @@ function App() {
     show: false,
     mode: "",
     compName: "",
-    data:{},
-    delete: {show: false, callback:null},
+    data: {},
+    delete: { show: false, callback: null },
   });
   const [activeTab, setActiveTab] = useState(0);
-  const handleActiveTab =(indx) => {
+  const handleActiveTab = (indx) => {
     // setActiveTab(indx);
-    setActiveTab(() => (indx))
-  }
+    setActiveTab(() => indx);
+  };
   const handleSidebar = () => {
     let sidebarData = { ...sidebar };
     if (sidebarData.isSmall) {
@@ -51,25 +51,26 @@ function App() {
     setSidebar(sidebarData);
   };
   const showMobileSidebar = () => {
-    console.log("I'm form showSidebar")
+    console.log("I'm form showSidebar");
     let sidebarData = { ...sidebar };
     if (sidebarData.showMobileSidebar) {
       sidebarData.showMobileSidebar = false;
-      sidebarData.smSidebarClass = "hidden !absolute md:!static md:!block h-full"
+      sidebarData.smSidebarClass =
+        "hidden !absolute md:!static md:!block h-full";
     } else {
       sidebarData.showMobileSidebar = true;
       sidebarData.smSidebarClass = "!absolute md:!static md:!block h-full";
     }
     setSidebar(sidebarData);
   };
-  
-  const handlerDeleteModal = (callback='') => {
+
+  const handlerDeleteModal = (callback = "") => {
     let tempModal = { ...modal };
     tempModal.delete.show = tempModal.delete.show ? false : true;
     tempModal.delete.callback = callback;
     setModal({ ...tempModal });
   };
-  const handleModal = (compName="", mode="create", data={}) => {
+  const handleModal = (compName = "", mode = "create", data = {}) => {
     let tempModal = { ...modal };
     if (tempModal.show) {
       tempModal.show = false;
@@ -83,27 +84,34 @@ function App() {
       tempModal.data = data;
     }
     setModal(tempModal);
-  }
-  
+  };
+
   return (
     <>
-      <GlobalContext.Provider value={{sidebar, handleSidebar, showMobileSidebar, modal, handleModal, handlerDeleteModal, activeTab, handleActiveTab}}>
+      <GlobalContext.Provider
+        value={{
+          sidebar,
+          handleSidebar,
+          showMobileSidebar,
+          modal,
+          handleModal,
+          handlerDeleteModal,
+          activeTab,
+          handleActiveTab,
+        }}
+      >
         <main className="flex">
           <Sidebar />
-          <div
-            className="flex flex-col grow max-w-[100vw] md:w-[calc(100%_-_16rem)] xl:max-w-[100vw]">
-            
+          <div className="flex flex-col grow max-w-[100vw] md:w-[calc(100%_-_16rem)] xl:max-w-[100vw]">
             <Header />
-            <MainRoutes/>
-            
+            <MainRoutes />
           </div>
-          
         </main>
         <ModalDelete />
-        <Modal/>
+        <Modal />
       </GlobalContext.Provider>
     </>
   );
 }
 
-export default App;
+export default Layout;
