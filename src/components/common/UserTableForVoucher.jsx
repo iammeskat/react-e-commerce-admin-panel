@@ -122,7 +122,11 @@ const UserTableForVoucher = (props) => {
   const updateOffer = (data) => {
     console.log("I'm from update offer");
     axios
-      .put(`${config.SERVER_URL}/api/admin/coupons/${props.offerId}`, data)
+      .put(
+        `${config.SERVER_URL}/api/admin/coupons/${props.offerId}`,
+        data,
+        config.headers
+      )
       .then((res) => {
         alert.success(res.data.message);
       })
@@ -134,7 +138,7 @@ const UserTableForVoucher = (props) => {
     let tempOptions = options;
     if (options.showExistinUser) {
       await axios
-        .get(`${config.SERVER_URL}/api/admin/users`)
+        .get(`${config.SERVER_URL}/api/admin/users`, config.headers)
         .then((res) => {
           let usersIds = props.users.map((item) => {
             return item._id;

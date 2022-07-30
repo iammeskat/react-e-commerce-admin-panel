@@ -96,7 +96,7 @@ const OfferList = () => {
   useEffect(() => {
     let isLoaded = true;
     axios
-      .get(`${config.SERVER_URL}/api/admin/offers`)
+      .get(`${config.SERVER_URL}/api/admin/offers`, config.headers)
       .then((res) => {
         isLoaded && setData(res.data.data.offers);
         console.log(res.data.data.offers);
@@ -107,7 +107,10 @@ const OfferList = () => {
 
   const deleteItem = (itemId, itemName) => {
     axios
-      .delete(`http://localhost:3050/api/admin/offers/${itemId}`)
+      .delete(
+        `http://localhost:3050/api/admin/offers/${itemId}`,
+        config.headers
+      )
       .then((res) => {
         const tempData = data.filter((item) => {
           if (item._id === itemId) return false;

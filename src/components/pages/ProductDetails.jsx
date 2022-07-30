@@ -25,7 +25,10 @@ const ProductDetails = () => {
   useEffect(() => {
     let isLoaded = true;
     axios
-      .get(`${config.SERVER_URL}/api/admin/products/${productId}`)
+      .get(
+        `${config.SERVER_URL}/api/admin/products/${productId}`,
+        config.headers
+      )
       .then((res) => {
         isLoaded && setProduct(res.data.data.product);
       })

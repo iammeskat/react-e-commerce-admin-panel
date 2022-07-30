@@ -24,7 +24,10 @@ const ProductUpdateForm = (props) => {
   useEffect(() => {
     let isLoaded = true;
     axios
-      .get(`${config.SERVER_URL}/api/admin/products/${productId}`)
+      .get(
+        `${config.SERVER_URL}/api/admin/products/${productId}`,
+        config.headers
+      )
       .then((res) => {
         isLoaded && setData(res.data.data.product);
       })
@@ -35,7 +38,7 @@ const ProductUpdateForm = (props) => {
   useEffect(() => {
     let isLoaded = true;
     axios
-      .get(`${config.SERVER_URL}/api/admin/categories`)
+      .get(`${config.SERVER_URL}/api/admin/categories`, config.headers)
       .then((res) => {
         isLoaded && setCategories(res.data.data.categories);
       })
@@ -47,7 +50,7 @@ const ProductUpdateForm = (props) => {
   useEffect(() => {
     let isLoaded = true;
     axios
-      .get(`${config.SERVER_URL}/api/admin/brands`)
+      .get(`${config.SERVER_URL}/api/admin/brands`, config.headers)
       .then((res) => {
         isLoaded && setBrands(res.data.data.brands);
       })
@@ -92,7 +95,11 @@ const ProductUpdateForm = (props) => {
       return;
     }
     axios
-      .put(`${config.SERVER_URL}/api/admin/products/${productId}`, data)
+      .put(
+        `${config.SERVER_URL}/api/admin/products/${productId}`,
+        data,
+        config.headers
+      )
       .then((res) => {
         // console.log(res.data);
         alert.success(`Success`);

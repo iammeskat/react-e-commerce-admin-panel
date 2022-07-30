@@ -96,10 +96,10 @@ const BannerList = () => {
   useEffect(() => {
     let isLoaded = true;
     axios
-      .get(`${config.SERVER_URL}/api/admin/banners`)
+      .get(`${config.SERVER_URL}/api/admin/banners`, config.headers)
       .then((res) => {
         isLoaded && setData(res.data.data.banner);
-        console.log(res.data.data.banner);
+        console.log(res);
       })
       .catch((error) => console.log(error));
     return () => (isLoaded = false);
@@ -107,7 +107,10 @@ const BannerList = () => {
 
   const deleteItem = (itemId, itemName) => {
     axios
-      .delete(`http://localhost:3050/api/admin/banners/${itemId}`)
+      .delete(
+        `http://localhost:3050/api/admin/banners/${itemId}`,
+        config.headers
+      )
       .then((res) => {
         const tempData = data.filter((item) => {
           if (item._id === itemId) return false;

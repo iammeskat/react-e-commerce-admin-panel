@@ -52,7 +52,11 @@ const OrderList = () => {
     });
     setData(tempData);
     axios
-      .put(`${config.SERVER_URL}/api/admin/orders/${id}`, { [key]: value })
+      .put(
+        `${config.SERVER_URL}/api/admin/orders/${id}`,
+        { [key]: value },
+        config.headers
+      )
       .then((res) => {
         alert.success("Order was updated suceesfully!");
       })
@@ -147,7 +151,7 @@ const OrderList = () => {
   useEffect(() => {
     let isLoaded = true;
     axios
-      .get(`${config.SERVER_URL}/api/admin/orders`)
+      .get(`${config.SERVER_URL}/api/admin/orders`, config.headers)
       .then((res) => {
         isLoaded && setData(res.data.data.orders);
         // console.log(res.data.data.orders);
@@ -158,7 +162,10 @@ const OrderList = () => {
 
   const deleteItem = (itemId, itemName) => {
     axios
-      .delete(`http://localhost:3050/api/admin/orders/${itemId}`)
+      .delete(
+        `http://localhost:3050/api/admin/orders/${itemId}`,
+        config.headers
+      )
       .then((res) => {
         const tempData = data.filter((item) => {
           if (item._id === itemId) return false;

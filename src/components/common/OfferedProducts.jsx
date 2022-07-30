@@ -150,7 +150,7 @@ const OfferedProducts = (props) => {
   useEffect(() => {
     let isLoaded = true;
     axios
-      .get(`${config.SERVER_URL}/api/admin/categories`)
+      .get(`${config.SERVER_URL}/api/admin/categories`, config.headers)
       .then((res) => {
         isLoaded && setCategories(res.data.data.categories);
       })
@@ -161,7 +161,7 @@ const OfferedProducts = (props) => {
   useEffect(() => {
     let isLoaded = true;
     axios
-      .get(`http://localhost:3050/api/admin/brands`)
+      .get(`http://localhost:3050/api/admin/brands`, config.headers)
       .then((res) => {
         isLoaded && setBrands(res.data.data.brands);
       })
@@ -173,7 +173,8 @@ const OfferedProducts = (props) => {
     axios
       .put(
         `${config.SERVER_URL}/api/admin/${props.section}/${props.offerId}`,
-        data
+        data,
+        config.headers
       )
       .then((res) => {
         alert.success(res.data.message);
@@ -186,7 +187,7 @@ const OfferedProducts = (props) => {
     let tempOptions = options;
     if (options.showOfferedProducts) {
       await axios
-        .get(`${config.SERVER_URL}/api/admin/products`)
+        .get(`${config.SERVER_URL}/api/admin/products`, config.headers)
         .then((res) => {
           let productIds = props.products.map((item) => {
             return item._id;

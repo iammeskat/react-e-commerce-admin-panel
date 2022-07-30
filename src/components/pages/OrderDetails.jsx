@@ -1,9 +1,7 @@
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
-import { useAlert } from "react-alert";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import config from "../../config/config";
-import { GlobalContext } from "../../context/GlobalContext";
 import BtnCreate from "../common/form/BtnCreate";
 import OrderBillingAddress from "../common/order/OrderBillingAddress";
 import OrderCustomerDetails from "../common/order/OrderCustomerDetails";
@@ -14,8 +12,6 @@ import OrderShippingAddress from "../common/order/OrderShippingAddress";
 import PageHeader from "../common/PageHeader";
 
 const OrderDetails = () => {
-  const alert = useAlert();
-  const contextData = useContext(GlobalContext);
   const [data, setData] = useState();
   const orderId = useParams().id;
 
@@ -23,7 +19,7 @@ const OrderDetails = () => {
   useEffect(() => {
     let isLoaded = true;
     axios
-      .get(`${config.SERVER_URL}/api/admin/orders/${orderId}`)
+      .get(`${config.SERVER_URL}/api/admin/orders/${orderId}`, config.headers)
       .then((res) => {
         isLoaded && setData(res.data.data.order);
         console.log(res.data.data.order);

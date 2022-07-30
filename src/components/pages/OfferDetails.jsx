@@ -14,7 +14,7 @@ const OfferDetails = () => {
   useEffect(() => {
     let isLoaded = true;
     axios
-      .get(`${config.SERVER_URL}/api/admin/offers/${offerId}`)
+      .get(`${config.SERVER_URL}/api/admin/offers/${offerId}`, config.headers)
       .then((res) => {
         isLoaded && setData(res.data.data.offer);
         // console.log(res.data.data.offer.products);

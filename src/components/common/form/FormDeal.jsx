@@ -36,7 +36,7 @@ const FormDeal = () => {
   useEffect(() => {
     let isLoaded = true;
     axios
-      .get(`${config.SERVER_URL}/api/admin/dealers`)
+      .get(`${config.SERVER_URL}/api/admin/dealers`, config.headers)
       .then((res) => {
         isLoaded && setDealers(res.data.data.dealer);
         console.log(res.data.data.dealer);
@@ -48,7 +48,7 @@ const FormDeal = () => {
   useEffect(() => {
     let isLoaded = true;
     axios
-      .get(`${config.SERVER_URL}/api/admin/categories`)
+      .get(`${config.SERVER_URL}/api/admin/categories`, config.headers)
       .then((res) => {
         isLoaded && setCategories(res.data.data.categories);
       })
@@ -59,7 +59,7 @@ const FormDeal = () => {
   useEffect(() => {
     let isLoaded = true;
     axios
-      .get(`http://localhost:3050/api/admin/brands`)
+      .get(`http://localhost:3050/api/admin/brands`, config.headers)
       .then((res) => {
         isLoaded && setBrands(res.data.data.brands);
       })
@@ -103,7 +103,11 @@ const FormDeal = () => {
     } else {
       if (contextData.modal.mode === "create") {
         axios
-          .post(`${config.SERVER_URL}/api/admin/deals`, formData)
+          .post(
+            `${config.SERVER_URL}/api/admin/deals`,
+            formData,
+            config.headers
+          )
           .then((res) => {
             contextData.handleModal();
 
@@ -125,7 +129,11 @@ const FormDeal = () => {
           });
       } else {
         axios
-          .put(`${config.SERVER_URL}/api/admin/deals/${formData._id}`, formData)
+          .put(
+            `${config.SERVER_URL}/api/admin/deals/${formData._id}`,
+            formData,
+            config.headers
+          )
           .then((res) => {
             contextData.handleModal();
             alert.success(res.data.message);

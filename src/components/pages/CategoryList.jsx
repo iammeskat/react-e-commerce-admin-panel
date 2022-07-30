@@ -100,7 +100,7 @@ const CategoryList = () => {
   useEffect(() => {
     let isLoaded = true;
     axios
-      .get(`${config.SERVER_URL}/api/admin/categories`)
+      .get(`${config.SERVER_URL}/api/admin/categories`, config.headers)
       .then((res) => {
         isLoaded && setCategories(res.data.data.categories);
         console.log(res.data.data.categories);
@@ -111,7 +111,10 @@ const CategoryList = () => {
 
   const deleteItem = (itemId, itemName) => {
     axios
-      .delete(`http://localhost:3050/api/admin/categories/${itemId}`)
+      .delete(
+        `http://localhost:3050/api/admin/categories/${itemId}`,
+        config.headers
+      )
       .then((res) => {
         const tempProdcuts = categories.filter((item) => {
           if (item._id === itemId) return false;

@@ -38,17 +38,7 @@ const AdminList = () => {
 
   const columnData = [
     {
-      content: (data) => (
-        <ItemImg link={""} imgLink={""} title={data.name} />
-        // <div className="flex items-center space-x-2">
-        //   <img
-        //     className="h-10 w-10 rounded-full border-2 border-gray-200"
-        //     src="../images/product.webp"
-        //     alt=""
-        //   />
-        //   <h1>{data.name}</h1>
-        // </div>
-      ),
+      content: (data) => <ItemImg link={""} imgLink={""} title={data.name} />,
     },
     {
       content: (data) => data.email,
@@ -96,7 +86,7 @@ const AdminList = () => {
   useEffect(() => {
     let isLoaded = true;
     axios
-      .get(`${config.SERVER_URL}/api/admin/users/admins`)
+      .get(`${config.SERVER_URL}/api/admin/users/admins`, config.headers)
       .then((res) => {
         isLoaded && setData(res.data.data.admins);
         console.log(res.data.data.admins);
@@ -107,7 +97,7 @@ const AdminList = () => {
 
   const deleteItem = (itemId, itemName) => {
     axios
-      .delete(`http://localhost:3050/api/admin/users/${itemId}`)
+      .delete(`${config.SERVER_URL}/api/admin/users/${itemId}`, config.headers)
       .then((res) => {
         const tempData = data.filter((item) => {
           if (item._id === itemId) return false;

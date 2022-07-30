@@ -63,7 +63,11 @@ const FormBrand = () => {
     } else {
       if (contextData.modal.mode === "create") {
         axios
-          .post(`${config.SERVER_URL}/api/admin/brands`, formData)
+          .post(
+            `${config.SERVER_URL}/api/admin/brands`,
+            formData,
+            config.headers
+          )
           .then((res) => {
             // console.log(res.data.data);
             contextData.handleModal();
@@ -76,7 +80,11 @@ const FormBrand = () => {
           });
       } else {
         axios
-          .put(`${config.SERVER_URL}/api/admin/brands/${formData.id}`, formData)
+          .put(
+            `${config.SERVER_URL}/api/admin/brands/${formData.id}`,
+            formData,
+            config.headers
+          )
           .then((res) => {
             // console.log(res.data.data);
             contextData.handleModal();

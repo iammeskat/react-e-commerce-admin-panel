@@ -53,7 +53,11 @@ const CRMOrder = (props) => {
     });
     setData(tempData);
     axios
-      .put(`${config.SERVER_URL}/api/admin/orders/${id}`, { [key]: value })
+      .put(
+        `${config.SERVER_URL}/api/admin/orders/${id}`,
+        { [key]: value },
+        config.headers
+      )
       .then((res) => {
         alert.success("Order was updated suceesfully!");
       })

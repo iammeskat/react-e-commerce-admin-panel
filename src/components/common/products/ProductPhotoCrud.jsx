@@ -14,9 +14,13 @@ const ProductPhotoCrud = (props) => {
 
   const addPhoto = (data) => {
     axios
-      .post(`${config.SERVER_URL}/api/admin/products/add-photos/${productId}`, {
-        photos: [data],
-      })
+      .post(
+        `${config.SERVER_URL}/api/admin/products/add-photos/${productId}`,
+        {
+          photos: [data],
+        },
+        config.headers
+      )
       .then((res) => {
         // console.log(res.data);
         alert.success(`Success`);
@@ -31,7 +35,8 @@ const ProductPhotoCrud = (props) => {
   const removePhoto = (photoId) => {
     axios
       .delete(
-        `http://localhost:3050/api/admin/products/remove-photo/${productId}/${photoId}`
+        `http://localhost:3050/api/admin/products/remove-photo/${productId}/${photoId}`,
+        config.headers
       )
       .then((res) => {
         alert.success(`Success`);

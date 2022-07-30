@@ -66,7 +66,11 @@ const FormDealer = () => {
     } else {
       if (contextData.modal.mode === "create") {
         axios
-          .post(`${config.SERVER_URL}/api/admin/dealers`, formData)
+          .post(
+            `${config.SERVER_URL}/api/admin/dealers`,
+            formData,
+            config.headers
+          )
           .then((res) => {
             contextData.handleModal();
 
@@ -90,7 +94,8 @@ const FormDealer = () => {
         axios
           .put(
             `${config.SERVER_URL}/api/admin/dealers/${formData._id}`,
-            formData
+            formData,
+            config.headers
           )
           .then((res) => {
             contextData.handleModal();

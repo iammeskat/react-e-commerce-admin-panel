@@ -57,7 +57,8 @@ const Dashboard = () => {
       .get(
         `${config.SERVER_URL}/api/admin/dashboard/top-categories${
           catYear ? "?year=" + catYear : ""
-        }`
+        }`,
+        config.headers
       )
       .then((res) => {
         if (isLoaded) {
@@ -79,7 +80,8 @@ const Dashboard = () => {
     let isLoaded = true;
     axios
       .get(
-        `${config.SERVER_URL}/api/admin/dashboard/selling-status?year=${year}`
+        `${config.SERVER_URL}/api/admin/dashboard/selling-status?year=${year}`,
+        config.headers
       )
       .then((res) => {
         if (isLoaded) {

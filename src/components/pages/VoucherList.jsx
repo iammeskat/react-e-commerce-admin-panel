@@ -100,7 +100,7 @@ const VoucherList = () => {
   useEffect(() => {
     let isLoaded = true;
     axios
-      .get(`${config.SERVER_URL}/api/admin/coupons`)
+      .get(`${config.SERVER_URL}/api/admin/coupons`, config.headers)
       .then((res) => {
         isLoaded && setData(res.data.data.coupons);
         console.log(res.data.data.coupons);
@@ -111,7 +111,10 @@ const VoucherList = () => {
 
   const deleteItem = (itemId, itemName) => {
     axios
-      .delete(`http://localhost:3050/api/admin/coupons/${itemId}`)
+      .delete(
+        `http://localhost:3050/api/admin/coupons/${itemId}`,
+        config.headers
+      )
       .then((res) => {
         const tempData = data.filter((item) => {
           if (item._id === itemId) return false;

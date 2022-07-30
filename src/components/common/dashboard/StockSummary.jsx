@@ -7,7 +7,10 @@ const StockSummary = () => {
   useEffect(() => {
     let isLoaded = true;
     axios
-      .get(`${config.SERVER_URL}/api/admin/dashboard/summary-of-products-stock`)
+      .get(
+        `${config.SERVER_URL}/api/admin/dashboard/summary-of-products-stock`,
+        config.headers
+      )
       .then((res) => {
         isLoaded && setData(res.data.data);
         // console.log(res.data.data);

@@ -7,7 +7,7 @@ const Summary = () => {
   useEffect(() => {
     let isLoaded = true;
     axios
-      .get(`${config.SERVER_URL}/api/admin/dashboard`)
+      .get(`${config.SERVER_URL}/api/admin/dashboard`, config.headers)
       .then((res) => {
         isLoaded && setData(res.data.data);
         // console.log(res.data.data);

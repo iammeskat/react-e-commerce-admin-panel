@@ -81,7 +81,7 @@ const BrandList = () => {
   useEffect(() => {
     let isLoaded = true;
     axios
-      .get(`${config.SERVER_URL}/api/admin/brands`)
+      .get(`${config.SERVER_URL}/api/admin/brands`, config.headers)
       .then((res) => {
         isLoaded && setData(res.data.data.brands);
         console.log(res.data.data.brands);
@@ -92,7 +92,10 @@ const BrandList = () => {
 
   const deleteItem = (itemId, itemName) => {
     axios
-      .delete(`http://localhost:3050/api/admin/brands/${itemId}`)
+      .delete(
+        `http://localhost:3050/api/admin/brands/${itemId}`,
+        config.headers
+      )
       .then((res) => {
         const tempData = data.filter((item) => {
           if (item._id === itemId) return false;

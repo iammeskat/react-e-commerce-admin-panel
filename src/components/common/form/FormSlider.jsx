@@ -66,7 +66,11 @@ const FormSlider = () => {
     } else {
       if (contextData.modal.mode === "create") {
         axios
-          .post(`${config.SERVER_URL}/api/admin/carousels`, formData)
+          .post(
+            `${config.SERVER_URL}/api/admin/carousels`,
+            formData,
+            config.headers
+          )
           .then((res) => {
             // console.log(res.data.data);
             contextData.handleModal();
@@ -81,7 +85,8 @@ const FormSlider = () => {
         axios
           .put(
             `${config.SERVER_URL}/api/admin/carousels/${formData.id}`,
-            formData
+            formData,
+            config.headers
           )
           .then((res) => {
             contextData.handleModal();

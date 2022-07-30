@@ -17,7 +17,7 @@ const VoucherDetails = () => {
   useEffect(() => {
     let isLoaded = true;
     axios
-      .get(`${config.SERVER_URL}/api/admin/coupons/${offerId}`)
+      .get(`${config.SERVER_URL}/api/admin/coupons/${offerId}`, config.headers)
       .then((res) => {
         isLoaded && setData(res.data.data.coupon);
         console.log(res.data.data.coupon);

@@ -69,7 +69,11 @@ const FormEmployee = () => {
     } else {
       if (contextData.modal.mode === "create") {
         axios
-          .post(`${config.SERVER_URL}/api/admin/employees`, formData)
+          .post(
+            `${config.SERVER_URL}/api/admin/employees`,
+            formData,
+            config.headers
+          )
           .then((res) => {
             contextData.handleModal();
 
@@ -93,7 +97,8 @@ const FormEmployee = () => {
         axios
           .put(
             `${config.SERVER_URL}/api/admin/employees/${formData._id}`,
-            formData
+            formData,
+            config.headers
           )
           .then((res) => {
             contextData.handleModal();

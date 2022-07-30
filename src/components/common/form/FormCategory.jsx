@@ -59,7 +59,11 @@ const FormCategory = () => {
     } else {
       if (contextData.modal.mode === "create") {
         axios
-          .post(`${config.SERVER_URL}/api/admin/categories`, formData)
+          .post(
+            `${config.SERVER_URL}/api/admin/categories`,
+            formData,
+            config.headers
+          )
           .then((res) => {
             contextData.handleModal();
             alert.success(res.data.message);
@@ -71,6 +75,7 @@ const FormCategory = () => {
         axios
           .put(
             `${config.SERVER_URL}/api/admin/categories/${formData.id}`,
+            config.headers,
             formData
           )
           .then((res) => {
@@ -87,7 +92,7 @@ const FormCategory = () => {
   useEffect(() => {
     let isLoaded = true;
     axios
-      .get(`${config.SERVER_URL}/api/admin/categories`)
+      .get(`${config.SERVER_URL}/api/admin/categories`, config.headers)
       .then((res) => {
         isLoaded && setCategories(res.data.data.categories);
         // console.log(res.data.data.categories);

@@ -62,7 +62,11 @@ const FormBanner = () => {
     } else {
       if (contextData.modal.mode === "create") {
         axios
-          .post(`${config.SERVER_URL}/api/admin/banners`, formData)
+          .post(
+            `${config.SERVER_URL}/api/admin/banners`,
+            formData,
+            config.headers
+          )
           .then((res) => {
             contextData.handleModal();
             alert.success(res.data.message);
@@ -74,7 +78,8 @@ const FormBanner = () => {
         axios
           .put(
             `${config.SERVER_URL}/api/admin/banners/${formData.id}`,
-            formData
+            formData,
+            config.headers
           )
           .then((res) => {
             contextData.handleModal();

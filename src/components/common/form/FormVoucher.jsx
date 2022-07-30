@@ -65,7 +65,11 @@ const FormVoucher = () => {
     } else {
       if (contextData.modal.mode === "create") {
         axios
-          .post(`${config.SERVER_URL}/api/admin/coupons`, formData)
+          .post(
+            `${config.SERVER_URL}/api/admin/coupons`,
+            formData,
+            config.headers
+          )
           .then((res) => {
             contextData.handleModal();
 
@@ -89,7 +93,8 @@ const FormVoucher = () => {
         axios
           .put(
             `${config.SERVER_URL}/api/admin/coupons/${formData._id}`,
-            formData
+            formData,
+            config.headers
           )
           .then((res) => {
             contextData.handleModal();

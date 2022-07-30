@@ -93,7 +93,7 @@ const SliderList = () => {
   useEffect(() => {
     let isLoaded = true;
     axios
-      .get(`${config.SERVER_URL}/api/admin/carousels`)
+      .get(`${config.SERVER_URL}/api/admin/carousels`, config.headers)
       .then((res) => {
         isLoaded && setData(res.data.data.carousel);
         console.log(res.data.data.carousel);
@@ -104,7 +104,10 @@ const SliderList = () => {
 
   const deleteItem = (itemId, itemName) => {
     axios
-      .delete(`http://localhost:3050/api/admin/carousels/${itemId}`)
+      .delete(
+        `http://localhost:3050/api/admin/carousels/${itemId}`,
+        config.headers
+      )
       .then((res) => {
         const tempData = data.filter((item) => {
           if (item._id === itemId) return false;

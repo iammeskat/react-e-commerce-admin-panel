@@ -14,7 +14,7 @@ const CRM = () => {
   useEffect(() => {
     let isLoaded = true;
     axios
-      .get(`${config.SERVER_URL}/api/admin/orders`)
+      .get(`${config.SERVER_URL}/api/admin/orders`, config.headers)
       .then((res) => {
         isLoaded && setData(res.data.data.orders);
         // console.log(res.data.data.orders);
@@ -26,7 +26,7 @@ const CRM = () => {
   useEffect(() => {
     let isLoaded = true;
     axios
-      .get(`${config.SERVER_URL}/api/admin/crm/locations`)
+      .get(`${config.SERVER_URL}/api/admin/crm/locations`, config.headers)
       .then((res) => {
         isLoaded && setLocation(res.data.data.locations);
         // console.log(res.data.data.locations);

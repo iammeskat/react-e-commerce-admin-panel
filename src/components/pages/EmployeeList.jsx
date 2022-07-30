@@ -98,7 +98,7 @@ const EmployeeList = () => {
   useEffect(() => {
     let isLoaded = true;
     axios
-      .get(`${config.SERVER_URL}/api/admin/employees`)
+      .get(`${config.SERVER_URL}/api/admin/employees`, config.headers)
       .then((res) => {
         isLoaded && setData(res.data.data.employee);
         console.log(res.data.data.employee);
@@ -109,7 +109,10 @@ const EmployeeList = () => {
 
   const deleteItem = (itemId, itemName) => {
     axios
-      .delete(`${config.SERVER_URL}/api/admin/employees/${itemId}`)
+      .delete(
+        `${config.SERVER_URL}/api/admin/employees/${itemId}`,
+        config.headers
+      )
       .then((res) => {
         const tempData = data.filter((item) => {
           if (item._id === itemId) return false;

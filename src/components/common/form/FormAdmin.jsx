@@ -64,7 +64,11 @@ const FormAdmin = () => {
     } else {
       if (contextData.modal.mode === "create") {
         axios
-          .post(`${config.SERVER_URL}/api/admin/users`, formData)
+          .post(
+            `${config.SERVER_URL}/api/admin/users`,
+            formData,
+            config.headers
+          )
           .then((res) => {
             contextData.handleModal();
 
@@ -86,7 +90,11 @@ const FormAdmin = () => {
           });
       } else {
         axios
-          .put(`${config.SERVER_URL}/api/admin/users/${formData._id}`, formData)
+          .put(
+            `${config.SERVER_URL}/api/admin/users/${formData._id}`,
+            formData,
+            config.headers
+          )
           .then((res) => {
             contextData.handleModal();
             alert.success(res.data.message);

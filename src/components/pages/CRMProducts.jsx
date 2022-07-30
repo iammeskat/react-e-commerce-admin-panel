@@ -158,9 +158,13 @@ const CRMProducts = (props) => {
       return item._id;
     });
     axios
-      .post(`${config.SERVER_URL}/api/admin/crm/productsByArea`, {
-        ids: ids,
-      })
+      .post(
+        `${config.SERVER_URL}/api/admin/crm/productsByArea`,
+        {
+          ids: ids,
+        },
+        config.headers
+      )
       .then((res) => {
         console.log(res.data.data.products);
         setProducts(res.data.data.products);

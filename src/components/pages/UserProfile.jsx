@@ -11,7 +11,7 @@ const CreateProduct = () => {
   useEffect(() => {
     let isLoaded = true;
     axios
-      .get(`${config.SERVER_URL}/api/admin/users/${userId}`)
+      .get(`${config.SERVER_URL}/api/admin/users/${userId}`, config.headers)
       .then((res) => {
         isLoaded && setUser(res.data.data.user);
         console.log(res.data.data.user);

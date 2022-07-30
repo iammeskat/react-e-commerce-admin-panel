@@ -123,7 +123,7 @@ const ProductList = () => {
   useEffect(() => {
     let isLoaded = true;
     axios
-      .get(`${config.SERVER_URL}/api/admin/products`)
+      .get(`${config.SERVER_URL}/api/admin/products`, config.headers)
       .then((res) => {
         isLoaded && setProducts(res.data.data.products);
       })
@@ -135,7 +135,7 @@ const ProductList = () => {
   useEffect(() => {
     let isLoaded = true;
     axios
-      .get(`${config.SERVER_URL}/api/admin/categories`)
+      .get(`${config.SERVER_URL}/api/admin/categories`, config.headers)
       .then((res) => {
         isLoaded && setCategories(res.data.data.categories);
       })
@@ -146,7 +146,7 @@ const ProductList = () => {
   useEffect(() => {
     let isLoaded = true;
     axios
-      .get(`http://localhost:3050/api/admin/brands`)
+      .get(`http://localhost:3050/api/admin/brands`, config.headers)
       .then((res) => {
         isLoaded && setBrands(res.data.data.brands);
       })
@@ -155,7 +155,10 @@ const ProductList = () => {
   }, []);
   const deleteProduct = (itemId, itemName) => {
     axios
-      .delete(`${config.SERVER_URL}/api/admin/products/${itemId}`)
+      .delete(
+        `${config.SERVER_URL}/api/admin/products/${itemId}`,
+        config.headers
+      )
       .then((res) => {
         const tempProdcuts = products.filter((item) => {
           if (item._id === itemId) return false;
