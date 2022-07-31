@@ -1,16 +1,18 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GlobalContext } from "../../context/GlobalContext";
-import { removeToken } from "../../utilities/auth";
+import { removeToken, userInfo } from "../../utilities/auth";
 const Header = () => {
   const contextData = useContext(GlobalContext);
+  const [user, setUser] = useState(userInfo() || {});
+  const [showProfile, setShowProfile] = useState(false);
   const navigate = useNavigate();
   const logout = () => {
     removeToken(navigate("/login"));
   };
 
   return (
-    <header className="sticky top-0 flex px-3 md:px-6 py-3 justify-between items-center bg-gray-700 text-slate-200 z-20">
+    <header className="relative sticky top-0 flex px-3 md:px-6 py-3 justify-between items-center bg-gray-700 text-slate-200 z-20">
       {/* <!-- start left items  --> */}
       <div className="flex items-center space-x-5">
         <button
@@ -41,7 +43,7 @@ const Header = () => {
           <!-- start right items  --> */}
       <div className="">
         <ul className="flex space-x-5 font-medium items-center">
-          <li className="flex">
+          {/* <li className="flex">
             <div className="relative hidden md:block">
               <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                 <svg
@@ -64,7 +66,7 @@ const Header = () => {
                 placeholder="Search..."
               />
             </div>
-          </li>
+          </li> */}
           <li className="flex">
             <button className="relative inline-block bg-gray-800 rounded-full p-1 hover:bg-gray-900">
               <svg
@@ -84,7 +86,7 @@ const Header = () => {
               <span className="absolute top-1 right-1 inline-block w-2 h-2 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full"></span>
             </button>
           </li>
-          <li className="flex">
+          {/* <li className="flex">
             <button className="relative inline-block bg-gray-800 rounded-full p-1 hover:bg-gray-900">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -102,15 +104,15 @@ const Header = () => {
               </svg>
               <span className="absolute top-1 right-1 inline-block w-2 h-2 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full"></span>
             </button>
-          </li>
+          </li> */}
           <li>
-            <button onClick={logout} className="hover:text-indigo-600">
-              Logout
-            </button>
-          </li>
-          <li>
-            <button className="flex items-center pl-2 rounded-full space-x-3 hover:bg-gray-800">
-              <span className="hidden md:block">Username</span>
+            <button
+              onClick={() => {
+                setShowProfile(!showProfile);
+              }}
+              className="flex items-center pl-2 rounded-full space-x-3 hover:bg-gray-800"
+            >
+              <span className="hidden md:block">{user.name}</span>
               <img
                 className="w-8 h-8 rounded-full ring"
                 src="../images/user.png"
@@ -120,6 +122,51 @@ const Header = () => {
           </li>
         </ul>
       </div>
+      {showProfile && (
+        <div className="absolute right-0 top-16 m-1  flex flex-col items-center rounded w-72 bg-white shadow border p-2 ">
+          <div className="w-28 h-28 border rounded-full overflow-hidden">
+            <img className="w-full h-full" src="../images/user.png" alt="" />
+          </div>
+          <h2 className="font-medium text-2xl text-indigo-600">{user.name}</h2>
+          <div className="flex items-center space-x-1 text-gray-900">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 mt-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+              />
+            </svg>
+            <h2 className="font-medium">{user.email}</h2>
+          </div>
+          <button
+            onClick={logout}
+            className="bg-indigo-600 w-full flex justify-center items-center p-2 mt-5 space-x-1"
+          >
+            <h2 className="font-medium ">Logout</h2>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+              />
+            </svg>
+          </button>
+        </div>
+      )}
     </header>
   );
 };

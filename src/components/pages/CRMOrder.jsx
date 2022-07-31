@@ -32,6 +32,8 @@ const CRMOrder = (props) => {
     zone: "all",
     area: "all",
   });
+  const [notReceived, setNotReceived] = useState("");
+  console.log(notReceived);
 
   const columnHeader = [
     "ORDER ID",
@@ -97,9 +99,9 @@ const CRMOrder = (props) => {
             handler={changeOrderStatus}
             options={[
               { name: "No Call", value: "no_call" },
-              { name: "One Time", value: "one_time" },
-              { name: "Two Time", value: "two_time" },
-              { name: "Three Time +", value: "three_time" },
+              { name: "One Times", value: "one_time" },
+              { name: "Two Times", value: "two_time" },
+              { name: "Three Times +", value: "three_time" },
               { name: "Received & Confirmed", value: "received_confirm" },
               { name: "Received & Canceled", value: "received_cancell" },
             ]}
@@ -202,6 +204,132 @@ const CRMOrder = (props) => {
 
     let filteredItems = [...data];
 
+    if (notReceived === "") {
+      if (orderFromDate !== "all") {
+        const tempItems = filteredItems.filter((item) => {
+          if (item.createdAt.split("T")[0] >= orderFromDate) return true;
+          else return false;
+        });
+        filteredItems = [...tempItems];
+      }
+      if (orderToDate !== "all") {
+        const tempItems = filteredItems.filter((item) => {
+          if (item.createdAt.split("T")[0] >= orderToDate) return true;
+          else return false;
+        });
+        filteredItems = [...tempItems];
+      }
+      if (callStatus !== "all") {
+        let tempItems = [];
+        if (callStatus === "called") {
+          tempItems = filteredItems.filter((item) => {
+            if (
+              item.call_status === "one_time" ||
+              item.call_status === "two_time" ||
+              item.call_status === "three_time" ||
+              item.call_status === "received_confirm" ||
+              item.call_status === "received_cancell"
+            )
+              return true;
+            else return false;
+          });
+        } else if (callStatus === "not_received") {
+          tempItems = filteredItems.filter((item) => {
+            if (
+              item.call_status === "one_time" ||
+              item.call_status === "two_time" ||
+              item.call_status === "three_time"
+            )
+              return true;
+            else return false;
+          });
+        } else if (callStatus === "received") {
+          tempItems = filteredItems.filter((item) => {
+            if (
+              item.call_status === "received_confirm" ||
+              item.call_status === "received_cancell"
+            )
+              return true;
+            else return false;
+          });
+        } else {
+          tempItems = filteredItems.filter((item) => {
+            if (item.call_status === callStatus) return true;
+            else return false;
+          });
+        }
+
+        filteredItems = [...tempItems];
+      }
+      if (callFromDate !== "all") {
+        const tempItems = filteredItems.filter((item) => {
+          if (item.last_call && item.last_call.split("T")[0] >= callFromDate)
+            return true;
+          else return false;
+        });
+        filteredItems = [...tempItems];
+      }
+      if (callToDate !== "all") {
+        const tempItems = filteredItems.filter((item) => {
+          if (item.last_call && item.last_call.split("T")[0] <= callToDate)
+            return true;
+          else return false;
+        });
+        filteredItems = [...tempItems];
+      }
+    } else {
+      if (notReceived === "today") {
+        const today = new Date().toISOString().slice(0, 10);
+        const tempItems = filteredItems.filter((item) => {
+          if (
+            item.last_call &&
+            item.last_call.split("T")[0] === today &&
+            (item.call_status === "one_time" ||
+              item.call_status === "two_time" ||
+              item.call_status === "three_time")
+          )
+            return true;
+          else return false;
+        });
+        filteredItems = [...tempItems];
+      } else if (notReceived === "yesterday") {
+        let d = new Date();
+        const yesterday = new Date(d.setDate(d.getDate() - 1))
+          .toISOString()
+          .slice(0, 10);
+        const tempItems = filteredItems.filter((item) => {
+          if (
+            item.last_call &&
+            item.last_call.split("T")[0] === yesterday &&
+            (item.call_status === "one_time" ||
+              item.call_status === "two_time" ||
+              item.call_status === "three_time")
+          )
+            return true;
+          else return false;
+        });
+        filteredItems = [...tempItems];
+      } else if (notReceived === "both") {
+        let d = new Date();
+        const today = d.toISOString().slice(0, 10);
+        const yesterday = new Date(d.setDate(d.getDate() - 1))
+          .toISOString()
+          .slice(0, 10);
+        const tempItems = filteredItems.filter((item) => {
+          if (
+            item.last_call &&
+            item.last_call.split("T")[0] >= yesterday &&
+            item.last_call.split("T")[0] <= today &&
+            (item.call_status === "one_time" ||
+              item.call_status === "two_time" ||
+              item.call_status === "three_time")
+          )
+            return true;
+          else return false;
+        });
+        filteredItems = [...tempItems];
+      }
+    }
     if (status !== "all") {
       const tempItems = filteredItems.filter((item) => {
         if (item.status === status) return true;
@@ -227,76 +355,6 @@ const CRMOrder = (props) => {
         ) {
           return true;
         } else return false;
-      });
-      filteredItems = [...tempItems];
-    }
-    if (orderFromDate !== "all") {
-      const tempItems = filteredItems.filter((item) => {
-        if (item.createdAt.split("T")[0] >= orderFromDate) return true;
-        else return false;
-      });
-      filteredItems = [...tempItems];
-    }
-    if (orderToDate !== "all") {
-      const tempItems = filteredItems.filter((item) => {
-        if (item.createdAt.split("T")[0] >= orderToDate) return true;
-        else return false;
-      });
-      filteredItems = [...tempItems];
-    }
-    if (callStatus !== "all") {
-      let tempItems = [];
-      if (callStatus === "called") {
-        tempItems = filteredItems.filter((item) => {
-          if (
-            item.call_status === "one_time" ||
-            item.call_status === "two_time" ||
-            item.call_status === "three_time" ||
-            item.call_status === "received_confirm" ||
-            item.call_status === "received_cancell"
-          )
-            return true;
-          else return false;
-        });
-      } else if (callStatus === "not_received") {
-        tempItems = filteredItems.filter((item) => {
-          if (
-            item.call_status === "one_time" ||
-            item.call_status === "two_time" ||
-            item.call_status === "three_time"
-          )
-            return true;
-          else return false;
-        });
-      } else if (callStatus === "received") {
-        tempItems = filteredItems.filter((item) => {
-          if (
-            item.call_status === "received_confirm" ||
-            item.call_status === "received_cancell"
-          )
-            return true;
-          else return false;
-        });
-      } else {
-        tempItems = filteredItems.filter((item) => {
-          if (item.call_status === callStatus) return true;
-          else return false;
-        });
-      }
-
-      filteredItems = [...tempItems];
-    }
-    if (callFromDate !== "all") {
-      const tempItems = filteredItems.filter((item) => {
-        if (item.last_call.split("T")[0] >= callFromDate) return true;
-        else return false;
-      });
-      filteredItems = [...tempItems];
-    }
-    if (callToDate !== "all") {
-      const tempItems = filteredItems.filter((item) => {
-        if (item.last_call.split("T")[0] <= callToDate) return true;
-        else return false;
       });
       filteredItems = [...tempItems];
     }
@@ -345,6 +403,55 @@ const CRMOrder = (props) => {
     <div className="flex space-x-4">
       <div className="w-64 h-[36rem] overflow-y-auto overflow-hidden">
         <div className="w-60   flex flex-col space-y-2  text-gray-800">
+          {/* call status  */}
+          <div className="flex flex-col space-y-2 pb-2 bg-white shadow rounded-sm overflow-hidden">
+            <h2 className="px-2 font-medium bg-slate-200">
+              Called but did not respond
+            </h2>
+            <div className="flex flex-col w-full px-2 space-y-1">
+              <div className="flex justify-between">
+                <div className="flex items-center space-x-1">
+                  <input
+                    onChange={(e) => setNotReceived("today")}
+                    className="mt-1"
+                    type="radio"
+                    name="callNotRcvd"
+                    id="today"
+                    checked={notReceived === "today"}
+                  />
+                  <label htmlFor="today">Today</label>
+                </div>
+                <div className="flex items-center space-x-1">
+                  <input
+                    onChange={(e) => setNotReceived("yesterday")}
+                    className="mt-1"
+                    type="radio"
+                    name="callNotRcvd"
+                    id="yesterday"
+                    checked={notReceived === "yesterday"}
+                  />
+                  <label htmlFor="yesterday">Yesterday</label>
+                </div>
+                <div className="flex items-center space-x-1">
+                  <input
+                    onChange={(e) => setNotReceived("both")}
+                    className="mt-1"
+                    type="radio"
+                    name="callNotRcvd"
+                    id="both"
+                    checked={notReceived === "both"}
+                  />
+                  <label htmlFor="both">Both</label>
+                </div>
+              </div>
+              <button
+                onClick={() => setNotReceived("")}
+                className="rounded-sm hover:bg-indigo-700 bg-indigo-600 text-white text-sm font-medium"
+              >
+                Clear
+              </button>
+            </div>
+          </div>
           {/* order date  */}
           <div className="flex flex-col space-y-2 pb-2 bg-white shadow rounded-sm overflow-hidden">
             <h2 className="px-2 font-medium bg-slate-200">Date</h2>
@@ -356,6 +463,7 @@ const CRMOrder = (props) => {
                 From
               </label>
               <input
+                disabled={notReceived !== ""}
                 onChange={(e) =>
                   setFilterOptions("orderFromDate", e.target.value)
                 }
@@ -371,6 +479,7 @@ const CRMOrder = (props) => {
                 To
               </label>
               <input
+                disabled={notReceived !== ""}
                 onChange={(e) =>
                   setFilterOptions("orderToDate", e.target.value)
                 }
@@ -380,30 +489,11 @@ const CRMOrder = (props) => {
                 id=""
               />
             </div>
-            {/* <div className="flex flex-col px-2">
-              <label
-                htmlFor=""
-                className="block mb-0.5 text-sm font-medium text-gray-900"
-              >
-                Status
-              </label>
-              <select
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:outline-none focus:border focus:border-gray-500 block w-full p-1"
-                onChange={(e) => setFilterOptions("status", e.target.value)}
-              >
-                <option value="all">All</option>
-                <option value="pending">Pending</option>
-                <option value="processing">Processing</option>
-                <option value="shipped">Shipping</option>
-                <option value="delivered">Delivered</option>
-                <option value="returned">Returned</option>
-                <option value="cancelled">Cancelled</option>
-              </select>
-            </div> */}
           </div>
           {/* call status  */}
           <div className="flex flex-col space-y-2 pb-2 bg-white shadow rounded-sm overflow-hidden">
             <h2 className="px-2 font-medium bg-slate-200">Call</h2>
+
             <div className="flex flex-col px-2">
               <label
                 htmlFor=""
@@ -412,15 +502,16 @@ const CRMOrder = (props) => {
                 Status
               </label>
               <select
+                disabled={notReceived !== ""}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:outline-none focus:border focus:border-gray-500 block w-full p-1"
                 onChange={(e) => setFilterOptions("callStatus", e.target.value)}
               >
                 <option value="all">All</option>
                 <option value="no_call">No Call</option>
                 <option value="called">Called</option>
-                <option value="one_time">One Time</option>
-                <option value="two_time">Two Time</option>
-                <option value="three_time">Three Time +</option>
+                <option value="one_time">One Times</option>
+                <option value="two_time">Two Times</option>
+                <option value="three_time">Three Times +</option>
                 <option value="received">Received</option>
                 <option value="not_received">Not Received</option>
                 <option value="received_confirm">Received & Confirmed</option>
@@ -435,6 +526,7 @@ const CRMOrder = (props) => {
                 From
               </label>
               <input
+                disabled={notReceived !== ""}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:outline-none focus:border focus:border-gray-500 block w-full p-1"
                 type="date"
                 onChange={(e) =>
@@ -450,6 +542,7 @@ const CRMOrder = (props) => {
                 To
               </label>
               <input
+                disabled={notReceived !== ""}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:outline-none focus:border focus:border-gray-500 block w-full p-1"
                 type="date"
                 onChange={(e) => setFilterOptions("callToDate", e.target.value)}
@@ -528,25 +621,6 @@ const CRMOrder = (props) => {
               </select>
             </div>
           </div>
-
-          {/* payment status  */}
-          {/* <div className="flex flex-col space-y-2 pb-2 bg-white shadow rounded-sm overflow-hidden">
-            <label className="px-2 font-medium bg-slate-200">
-              Payment Status
-            </label>
-            <div className="flex flex-col px-2">
-              <select
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:outline-none focus:border focus:border-gray-500 block w-full p-1"
-                onChange={(e) =>
-                  setFilterOptions("paymentStatus", e.target.value)
-                }
-              >
-                <option value="all">All</option>
-                <option value="pending">Unpaid</option>
-                <option value="complete">Paid</option>
-              </select>
-            </div>
-          </div> */}
         </div>
       </div>
       <div className="grow border">

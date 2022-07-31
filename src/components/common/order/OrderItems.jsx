@@ -1,5 +1,4 @@
 import config from "../../../config/config";
-import IconStarYellow from "../icons/IconStarYellow";
 import OrderDetailsHeader from "./OrderDetailsHeader";
 import OrderPricingDetails from "./OrderPricingDetails";
 
@@ -18,9 +17,8 @@ const OrderItems = (props) => {
           <thead className="bg-gray-100 text-sm border-y">
             <tr className="text-left">
               <th className="p-3 font-medium">Product Details</th>
-              <th className="p-3 font-medium">Item Price</th>
+              <th className="p-3 font-medium">Unit Price</th>
               <th className="p-3 font-medium">Quantity</th>
-              <th className="p-3 font-medium">Rating</th>
               <th className="p-3 font-medium text-right">Total Amount</th>
             </tr>
           </thead>
@@ -34,7 +32,7 @@ const OrderItems = (props) => {
                         className="w-20 h-20"
                         src={
                           item.product.photos
-                            ? `${config.SERVER_URL}/file/images/${item.product.photos[0]}`
+                            ? `${config.SERVER_URL}/public/storage/images/${item.product.photos[0]}`
                             : "../images/user.png"
                         }
                         alt=""
@@ -68,12 +66,7 @@ const OrderItems = (props) => {
                   </td>
                   <td className="p-3">${item.product.price}</td>
                   <td className="p-3">{item.count}</td>
-                  <td className="p-3">
-                    <div className="flex space-x-1 items-center">
-                      <span>4.5*</span>
-                      <IconStarYellow />
-                    </div>
-                  </td>
+
                   <td className="p-3 text-right">
                     ${item.product.price * item.count}
                   </td>

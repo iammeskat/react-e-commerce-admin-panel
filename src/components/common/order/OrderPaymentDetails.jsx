@@ -1,6 +1,7 @@
 import IconCreditCard from "../icons/IconCreditCard";
 
-const OrderPaymentDetails = () => {
+const OrderPaymentDetails = (props) => {
+  const { transactionId, paymentMethod, paymentStatus } = props;
   return (
     <div className="flex flex-col bg-white px-3 rounded space-y-2 pb-2">
       <div className="flex items-center space-x-1 border-b py-3">
@@ -9,22 +10,16 @@ const OrderPaymentDetails = () => {
       </div>
       <div className="flex flex-col space-y-2">
         <p className="font-medium text-sm">
+          <span className="text-gray-500">Payment Status: </span>
+          {paymentStatus}
+        </p>
+        <p className="font-medium text-sm">
           <span className="text-gray-500">Transactions: </span>
-          #PUCS1245678912
+          {transactionId || "N/A"}
         </p>
         <p className="font-medium text-sm">
-          <span className="text-gray-500">Payment Method: </span> Debit Card
-        </p>
-        <p className="font-medium text-sm">
-          <span className="text-gray-500">Card Holder Name: </span>
-          Joseph Parker
-        </p>
-        <p className="font-medium text-sm">
-          <span className="text-gray-500">Card Number: </span> xxxx xxxx xxxx
-          2456
-        </p>
-        <p className="font-medium text-sm">
-          <span className="text-gray-500">Total Amount: </span> $415.96
+          <span className="text-gray-500">Payment Method: </span>{" "}
+          <span className="uppercase">{paymentMethod}</span>
         </p>
       </div>
     </div>

@@ -1,4 +1,5 @@
-const OrderShippingAddress = () => {
+const OrderShippingAddress = (props) => {
+  const { address } = props;
   return (
     <div className="flex flex-col bg-white px-3 rounded space-y-2 pb-2">
       <div className="flex items-center space-x-1 border-b py-3">
@@ -25,11 +26,42 @@ const OrderShippingAddress = () => {
         <h2 className="font-medium">Shipping Address</h2>
       </div>
       <div className="flex flex-col space-y-2">
-        <h2 className="font-medium">josephparker@gmail.com</h2>
-        <p>+(256) 245451 451</p>
-        <p>2186 Joyce Street Rocky Mount</p>
-        <p>California - 24567</p>
-        <p>United States</p>
+        <table>
+          <tbody>
+            <tr>
+              <td>Name</td>
+              <td>{address.name}</td>
+            </tr>
+            <tr>
+              <td>Phone</td>
+              <td>{address.phone}</td>
+            </tr>
+            <tr>
+              <td>Address</td>
+              <td>{address.address1}</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>{address.address2}</td>
+            </tr>
+            <tr>
+              <td>City</td>
+              <td>{address.city}</td>
+            </tr>
+            <tr>
+              <td>State</td>
+              <td>{address.state}</td>
+            </tr>
+            <tr>
+              <td>Postal Code</td>
+              <td>{address.postalCode}</td>
+            </tr>
+            <tr>
+              <td>Country</td>
+              <td>{address.country}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   );
