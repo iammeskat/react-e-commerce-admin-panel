@@ -828,6 +828,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   max-height: 30rem;
 }
 
+.max-h-96 {
+  max-height: 24rem;
+}
+
 .min-h-\[24rem\] {
   min-height: 24rem;
 }
@@ -932,6 +936,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 18rem;
 }
 
+.w-96 {
+  width: 24rem;
+}
+
 .w-\[34rem\] {
   width: 34rem;
 }
@@ -972,6 +980,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   min-width: 20rem;
 }
 
+.min-w-\[4rem\] {
+  min-width: 4rem;
+}
+
 .min-w-\[30rem\] {
   min-width: 30rem;
 }
@@ -994,6 +1006,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .max-w-\[22rem\] {
   max-width: 22rem;
+}
+
+.max-w-\[4rem\] {
+  max-width: 4rem;
 }
 
 .max-w-\[13\.5rem\] {
@@ -1566,6 +1582,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .p-0 {
   padding: 0px;
+}
+
+.\!p-2 {
+  padding: 0.5rem !important;
 }
 
 .py-2 {
@@ -2209,6 +2229,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .hover\:bg-gray-100:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-slate-100:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(241 245 249 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-gradient-to-l:hover {

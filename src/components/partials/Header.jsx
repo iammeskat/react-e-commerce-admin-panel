@@ -1,11 +1,38 @@
-import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import config from "../../config/config";
 import { GlobalContext } from "../../context/GlobalContext";
 import { removeToken, userInfo } from "../../utilities/auth";
 const Header = () => {
   const contextData = useContext(GlobalContext);
   const [user, setUser] = useState(userInfo() || {});
   const [showProfile, setShowProfile] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+  const humanTime = (date) => {
+    date = new Date(date);
+    return date.toLocaleString("en-US", {
+      year: "numeric",
+      month: "numeric",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    });
+  };
+
+  useEffect(() => {
+    let isLoaded = true;
+    axios
+      .get(`${config.SERVER_URL}/api/admin/notifications`, config.headers)
+      .then((res) => {
+        isLoaded && setNotifications(res.data.data.notifications);
+        // console.log(res.data.data.dealer);
+      })
+      .catch((error) => console.log(error));
+    return () => (isLoaded = false);
+  }, []);
   const navigate = useNavigate();
   const logout = () => {
     removeToken(navigate("/login"));
@@ -68,7 +95,13 @@ const Header = () => {
             </div>
           </li> */}
           <li className="flex">
-            <button className="relative inline-block bg-gray-800 rounded-full p-1 hover:bg-gray-900">
+            <button
+              onClick={() => {
+                setShowProfile(false);
+                setShowNotification(!showNotification);
+              }}
+              className="relative inline-block bg-gray-800 rounded-full p-1 hover:bg-gray-900"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -109,6 +142,7 @@ const Header = () => {
             <button
               onClick={() => {
                 setShowProfile(!showProfile);
+                setShowNotification(false);
               }}
               className="flex items-center pl-2 rounded-full space-x-3 hover:bg-gray-800"
             >
@@ -165,6 +199,44 @@ const Header = () => {
               />
             </svg>
           </button>
+        </div>
+      )}
+
+      {showNotification && (
+        <div className="absolute right-0 top-16 m-1 space-y-2 max-h-[30rem] overflow-y-auto scrollbar-table overflow-hidden flex flex-col rounded-sm w-96 bg-white shadow border p-2 ">
+          {notifications.map((item, indx) => {
+            return (
+              <Link
+                onClick={() => setShowNotification(false)}
+                to={item.product_id ? `/products/${item.product_id._id}` : ""}
+                key={"notification_" + indx}
+                className="flex space-x-2 shadow border hover:bg-slate-100 p-2 rounded"
+              >
+                <div className="min-w-[4rem] max-w-[4rem] h-16 border rounded-full overflow-hidden">
+                  <img
+                    className="w-full h-full"
+                    src={
+                      item.product_id
+                        ? `${config.SERVER_URL}/public/storage/images/${item.product_id.photos[0]}`
+                        : `https://via.placeholder.com/100x100.png/f2f2f2?text=${
+                            item.title.split(" ")[0]
+                          }`
+                    }
+                    alt=""
+                  />
+                </div>
+                <div className="grow flex flex-col ">
+                  <h2 className="font-medium text-gray-900">{item.title}</h2>
+                  <p className="text-gray-500 text-sm text-justify">
+                    {item.description}
+                  </p>
+                  <span className="text-right text-gray-900 font-medium text-xs">
+                    {humanTime(item.createdAt)}
+                  </span>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       )}
     </header>
