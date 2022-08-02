@@ -210,7 +210,7 @@ const UserTableForVoucher = (props) => {
 
   return (
     <div className="flex flex-col bg-white justify-between grow">
-      <div className="overflow-y-auto   max-h-[30rem]">
+      <div className="overflow-y-auto scrollbar-table scrollbar-table max-h-[30rem]">
         <div className="min-w-[40rem]">
           <TableHeader
             tableName="user LIST"

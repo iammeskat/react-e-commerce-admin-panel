@@ -52,7 +52,24 @@
     /* border: 3px solid rgb(17 24 39 / var(--tw-bg-opacity)); */
   }
 
-  .scrollbar-reviews::-webkit-scrollbar-thumb:hover {
+  .scrollbar-table::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-500;
+  }
+
+  .scrollbar-table::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .scrollbar-table::-webkit-scrollbar-track {
+    @apply bg-gray-200 rounded-full;
+  }
+
+  .scrollbar-table::-webkit-scrollbar-thumb {
+    @apply bg-gray-400 rounded-full;
+    /* border: 3px solid rgb(17 24 39 / var(--tw-bg-opacity)); */
+  }
+
+  .scrollbar-table::-webkit-scrollbar-thumb:hover {
     @apply bg-gray-500;
   }
 }

@@ -401,7 +401,7 @@ const CRMOrder = (props) => {
 
   return (
     <div className="flex space-x-4">
-      <div className="w-64 h-[36rem] overflow-y-auto overflow-hidden">
+      <div className="w-64 h-[36rem] overflow-y-auto overflow-hidden scrollbar-table">
         <div className="w-60   flex flex-col space-y-2  text-gray-800">
           {/* call status  */}
           <div className="flex flex-col space-y-2 pb-2 bg-white shadow rounded-sm overflow-hidden">
@@ -625,8 +625,8 @@ const CRMOrder = (props) => {
       </div>
       <div className="grow border">
         <div className="">
-          <div className="overflow-x-auto">
-            <div className="bg-white shadow-lg rounded-sm border border-gray-200 mb-2 min-w-[60rem] h-[33.5rem] overflow-y-auto relative">
+          <div className="overflow-x-auto scrollbar-table">
+            <div className="bg-white shadow-lg rounded-sm border border-gray-200 mb-2 min-w-[60rem] h-[33.5rem] overflow-y-auto relative scrollbar-table">
               <TableHeader
                 tableName="Total Order"
                 numberOfItem={filteredItems.length}

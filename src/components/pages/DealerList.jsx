@@ -204,8 +204,8 @@ const DealerList = () => {
         }
       />
       <div className="">
-        <div className="overflow-x-auto">
-          <div className="bg-white shadow-lg rounded-sm border border-gray-200 mb-2 min-w-[60rem] h-[33.5rem] overflow-y-auto relative">
+        <div className="overflow-x-auto scrollbar-table">
+          <div className="bg-white shadow-lg rounded-sm border border-gray-200 mb-2 min-w-[60rem] h-[33.5rem] overflow-y-auto relative scrollbar-table">
             <TableHeader
               tableName="DEALER LIST"
               numberOfItem={filteredItems.length}

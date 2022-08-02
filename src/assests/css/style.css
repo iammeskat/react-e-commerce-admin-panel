@@ -742,6 +742,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 1.5rem;
 }
 
+.h-56 {
+  height: 14rem;
+}
+
 .h-4 {
   height: 1rem;
 }
@@ -816,10 +820,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 5px;
 }
 
-.h-56 {
-  height: 14rem;
-}
-
 .max-h-\[15rem\] {
   max-height: 15rem;
 }
@@ -858,10 +858,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .w-6 {
   width: 1.5rem;
-}
-
-.w-28 {
-  width: 7rem;
 }
 
 .w-4 {
@@ -920,6 +916,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 25rem;
 }
 
+.w-28 {
+  width: 7rem;
+}
+
 .w-5 {
   width: 1.25rem;
 }
@@ -946,18 +946,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .w-80 {
   width: 20rem;
-}
-
-.w-0 {
-  width: 0px;
-}
-
-.w-96 {
-  width: 24rem;
-}
-
-.w-56 {
-  width: 14rem;
 }
 
 .min-w-\[16rem\] {
@@ -2107,7 +2095,30 @@ Ensure the default browser behavior of the `hidden` attribute.
   /* border: 3px solid rgb(17 24 39 / var(--tw-bg-opacity)); */
 }
 
-.scrollbar-reviews::-webkit-scrollbar-thumb:hover {
+.scrollbar-table::-webkit-scrollbar-thumb:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(107 114 128 / var(--tw-bg-opacity));
+}
+
+.scrollbar-table::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.scrollbar-table::-webkit-scrollbar-track {
+  border-radius: 9999px;
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
+}
+
+.scrollbar-table::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+  --tw-bg-opacity: 1;
+  background-color: rgb(156 163 175 / var(--tw-bg-opacity));
+  /* border: 3px solid rgb(17 24 39 / var(--tw-bg-opacity)); */
+}
+
+.scrollbar-table::-webkit-scrollbar-thumb:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(107 114 128 / var(--tw-bg-opacity));
 }
