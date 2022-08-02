@@ -18,6 +18,7 @@ const DealerList = () => {
   const alert = useAlert();
   const contextData = useContext(GlobalContext);
   const [data, setData] = useState([]);
+  const [reload, setReload] = useState("");
   const [options, setOptions] = useState({
     activePage: 1,
     pageCount: 20,
@@ -78,7 +79,7 @@ const DealerList = () => {
             title="Offer"
             onClickHandler={() => {
               delete data.__v;
-              contextData.handleModal("dealer", "update", data);
+              contextData.handleModal("dealer", "update", setReload, data);
             }}
           />{" "}
           <BtnProductDelete
@@ -104,7 +105,7 @@ const DealerList = () => {
       })
       .catch((error) => console.log(error));
     return () => (isLoaded = false);
-  }, []);
+  }, [reload]);
 
   const deleteItem = (itemId, itemName) => {
     axios
@@ -195,7 +196,9 @@ const DealerList = () => {
           <>
             <BtnModal
               title="Dealer"
-              onClickHandler={() => contextData.handleModal("dealer", "create")}
+              onClickHandler={() =>
+                contextData.handleModal("dealer", "create", setReload)
+              }
             />
           </>
         }

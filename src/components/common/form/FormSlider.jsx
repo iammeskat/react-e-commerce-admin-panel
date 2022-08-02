@@ -74,6 +74,7 @@ const FormSlider = () => {
           .then((res) => {
             // console.log(res.data.data);
             contextData.handleModal();
+            contextData.modal.reload(Math.random());
             alert.success(res.data.message);
             // history("/products");
           })
@@ -90,6 +91,7 @@ const FormSlider = () => {
           )
           .then((res) => {
             contextData.handleModal();
+            contextData.modal.reload(Math.random());
             alert.success(res.data.message);
           })
           .catch((error) => {

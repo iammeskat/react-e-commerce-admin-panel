@@ -26,6 +26,7 @@ function Layout() {
     mode: "",
     compName: "",
     data: {},
+    reload: () => {},
     delete: { show: false, callback: null },
   });
   const [activeTab, setActiveTab] = useState(0);
@@ -70,18 +71,25 @@ function Layout() {
     tempModal.delete.callback = callback;
     setModal({ ...tempModal });
   };
-  const handleModal = (compName = "", mode = "create", data = {}) => {
+  const handleModal = (
+    compName = "",
+    mode = "create",
+    reload = () => {},
+    data = {}
+  ) => {
     let tempModal = { ...modal };
     if (tempModal.show) {
       tempModal.show = false;
       tempModal.compName = "";
       tempModal.mode = "";
       tempModal.data = {};
+      tempModal.reload = reload;
     } else {
       tempModal.show = true;
       tempModal.compName = compName;
       tempModal.mode = mode;
       tempModal.data = data;
+      tempModal.reload = reload;
     }
     setModal(tempModal);
   };

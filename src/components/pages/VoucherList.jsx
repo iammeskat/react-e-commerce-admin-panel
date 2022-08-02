@@ -19,6 +19,7 @@ const VoucherList = () => {
   const alert = useAlert();
   const contextData = useContext(GlobalContext);
   const [data, setData] = useState([]);
+  const [reload, setReload] = useState("");
   const [options, setOptions] = useState({
     activePage: 1,
     pageCount: 20,
@@ -72,7 +73,7 @@ const VoucherList = () => {
           <BtnProductEdit
             title="Offer"
             onClickHandler={() =>
-              contextData.handleModal("voucher", "update", {
+              contextData.handleModal("voucher", "update", setReload, {
                 _id: data._id,
                 code: data.code,
                 discounted_amount: data.discounted_amount,
@@ -107,7 +108,7 @@ const VoucherList = () => {
       })
       .catch((error) => console.log(error));
     return () => (isLoaded = false);
-  }, []);
+  }, [reload]);
 
   const deleteItem = (itemId, itemName) => {
     axios
@@ -195,7 +196,7 @@ const VoucherList = () => {
             <BtnModal
               title="Voucher"
               onClickHandler={() =>
-                contextData.handleModal("voucher", "create")
+                contextData.handleModal("voucher", "create", setReload)
               }
             />
           </>

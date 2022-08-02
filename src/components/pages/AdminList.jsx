@@ -19,6 +19,7 @@ const AdminList = () => {
   const alert = useAlert();
   const contextData = useContext(GlobalContext);
   const [data, setData] = useState([]);
+  const [reload, setReload] = useState("");
   const [options, setOptions] = useState({
     activePage: 1,
     pageCount: 20,
@@ -67,7 +68,7 @@ const AdminList = () => {
           <BtnProductEdit
             title="Admin"
             onClickHandler={() =>
-              contextData.handleModal("admin", "update", data)
+              contextData.handleModal("admin", "update", setReload, data)
             }
           />{" "}
           <BtnProductDelete
@@ -93,7 +94,7 @@ const AdminList = () => {
       })
       .catch((error) => console.log(error));
     return () => (isLoaded = false);
-  }, []);
+  }, [reload]);
 
   const deleteItem = (itemId, itemName) => {
     axios
@@ -180,7 +181,9 @@ const AdminList = () => {
           <>
             <BtnModal
               title="Admin"
-              onClickHandler={() => contextData.handleModal("admin", "create")}
+              onClickHandler={() =>
+                contextData.handleModal("admin", "create", setReload)
+              }
             />
           </>
         }

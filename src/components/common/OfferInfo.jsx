@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import config from "../../config/config";
 import { GlobalContext } from "../../context/GlobalContext";
 
 const OfferInfo = (props) => {
@@ -6,13 +7,19 @@ const OfferInfo = (props) => {
   const contextData = useContext(GlobalContext);
   return (
     <div className="flex flex-col min-w-[22rem] max-w-[22rem] space-y-4 rounded-md overflow-hidden shadow bg-white">
-      <img
-        src={`https://via.placeholder.com/600x400.png/f2f2f2?text=${
-          data.name.split(" ")[0]
-        }`}
-        alt=""
-        className="w-full"
-      />
+      <div className="flex justify-center p-2">
+        <img
+          className="h-56"
+          src={
+            data.photo
+              ? `${config.SERVER_URL}/public/storage/images/${data.photo}`
+              : `https://via.placeholder.com/600x400.png/f2f2f2?text=${
+                  data.name.split(" ")[0]
+                }`
+          }
+          alt=""
+        />
+      </div>
       <table className="w-full text-sm text-left text-gray-500 font-semibold ">
         <tbody>
           <tr>

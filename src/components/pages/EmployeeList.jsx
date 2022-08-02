@@ -18,6 +18,7 @@ const EmployeeList = () => {
   const alert = useAlert();
   const contextData = useContext(GlobalContext);
   const [data, setData] = useState([]);
+  const [reload, setReload] = useState("");
   const [options, setOptions] = useState({
     activePage: 1,
     pageCount: 20,
@@ -79,7 +80,7 @@ const EmployeeList = () => {
             title="Offer"
             onClickHandler={() => {
               delete data.__v;
-              contextData.handleModal("employee", "update", data);
+              contextData.handleModal("employee", "update", setReload, data);
             }}
           />{" "}
           <BtnProductDelete
@@ -105,7 +106,7 @@ const EmployeeList = () => {
       })
       .catch((error) => console.log(error));
     return () => (isLoaded = false);
-  }, []);
+  }, [reload]);
 
   const deleteItem = (itemId, itemName) => {
     axios
@@ -195,7 +196,7 @@ const EmployeeList = () => {
             <BtnModal
               title="Employee"
               onClickHandler={() =>
-                contextData.handleModal("employee", "create")
+                contextData.handleModal("employee", "create", setReload)
               }
             />
           </>

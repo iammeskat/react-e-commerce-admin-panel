@@ -76,7 +76,7 @@ const FormEmployee = () => {
           )
           .then((res) => {
             contextData.handleModal();
-
+            contextData.modal.reload(Math.random());
             alert.success(res.data.message);
           })
           .catch((error) => {
@@ -102,6 +102,7 @@ const FormEmployee = () => {
           )
           .then((res) => {
             contextData.handleModal();
+            contextData.modal.reload(Math.random());
             alert.success(res.data.message);
           })
           .catch((error) => {

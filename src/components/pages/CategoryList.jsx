@@ -27,6 +27,7 @@ const CategoryList = () => {
     searchKey: "all",
     sortColumn: { path: "asc", order: "createdAt" },
   });
+  const [reload, setReload] = useState("");
   const getParentName = (id) => {
     let parent = categories.find(function (cat) {
       return cat._id === id;
@@ -81,7 +82,7 @@ const CategoryList = () => {
         <div className="text-right pr-6">
           <BtnProductEdit
             onClickHandler={() =>
-              contextData.handleModal("category", "update", {
+              contextData.handleModal("category", "update", setReload, {
                 name: category.name,
                 status: category.status,
                 id: category._id,
@@ -113,7 +114,7 @@ const CategoryList = () => {
       })
       .catch((error) => console.log(error));
     return () => (isLoaded = false);
-  }, []);
+  }, [reload]);
 
   const deleteItem = (itemId, itemName) => {
     axios
@@ -210,7 +211,7 @@ const CategoryList = () => {
             <BtnModal
               title="Category"
               onClickHandler={() =>
-                contextData.handleModal("category", "create")
+                contextData.handleModal("category", "create", setReload)
               }
             />
           </>

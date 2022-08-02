@@ -71,6 +71,7 @@ const FormBrand = () => {
           .then((res) => {
             // console.log(res.data.data);
             contextData.handleModal();
+            contextData.modal.reload(Math.random());
             alert.success(res.data.message);
             // history("/products");
           })
@@ -88,6 +89,7 @@ const FormBrand = () => {
           .then((res) => {
             // console.log(res.data.data);
             contextData.handleModal();
+            contextData.modal.reload(Math.random());
             alert.success(res.data.message);
             // history("/products");
           })

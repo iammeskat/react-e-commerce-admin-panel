@@ -18,6 +18,7 @@ const SliderList = () => {
   const alert = useAlert();
   const contextData = useContext(GlobalContext);
   const [data, setData] = useState([]);
+  const [reload, setReload] = useState("");
   const [options, setOptions] = useState({
     activePage: 1,
     pageCount: 20,
@@ -68,7 +69,7 @@ const SliderList = () => {
         <div className="flex justify-end pr-6">
           <BtnProductEdit
             onClickHandler={() =>
-              contextData.handleModal("slider", "update", {
+              contextData.handleModal("slider", "update", setReload, {
                 title: data.title,
                 status: data.status,
                 id: data._id,
@@ -100,7 +101,7 @@ const SliderList = () => {
       })
       .catch((error) => console.log(error));
     return () => (isLoaded = false);
-  }, []);
+  }, [reload]);
 
   const deleteItem = (itemId, itemName) => {
     axios
@@ -190,7 +191,9 @@ const SliderList = () => {
           <>
             <BtnModal
               title="Slider"
-              onClickHandler={() => contextData.handleModal("slider", "create")}
+              onClickHandler={() =>
+                contextData.handleModal("slider", "create", setReload)
+              }
             />
           </>
         }

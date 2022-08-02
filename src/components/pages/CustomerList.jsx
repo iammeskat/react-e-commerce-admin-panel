@@ -19,6 +19,7 @@ const CustomerList = () => {
   const alert = useAlert();
   const contextData = useContext(GlobalContext);
   const [data, setData] = useState([]);
+  const [reload, setReload] = useState("");
   const [options, setOptions] = useState({
     activePage: 1,
     pageCount: 20,
@@ -64,7 +65,7 @@ const CustomerList = () => {
           <BtnProductEdit
             title="Admin"
             onClickHandler={() =>
-              contextData.handleModal("customer", "update", {
+              contextData.handleModal("customer", "update", setReload, {
                 name: data.name,
                 email: data.email,
                 _id: data._id,
@@ -95,7 +96,7 @@ const CustomerList = () => {
       })
       .catch((error) => console.log(error));
     return () => (isLoaded = false);
-  }, []);
+  }, [reload]);
 
   const deleteItem = (itemId, itemName) => {
     axios

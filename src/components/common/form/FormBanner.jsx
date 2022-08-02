@@ -69,6 +69,7 @@ const FormBanner = () => {
           )
           .then((res) => {
             contextData.handleModal();
+            contextData.modal.reload(Math.random());
             alert.success(res.data.message);
           })
           .catch((error) => {
@@ -83,6 +84,7 @@ const FormBanner = () => {
           )
           .then((res) => {
             contextData.handleModal();
+            contextData.modal.reload(Math.random());
             alert.success(res.data.message);
           })
           .catch((error) => {

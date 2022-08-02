@@ -19,6 +19,7 @@ const BrandList = () => {
   const alert = useAlert();
   const contextData = useContext(GlobalContext);
   const [data, setData] = useState([]);
+  const [reload, setReload] = useState("");
   const [options, setOptions] = useState({
     activePage: 1,
     pageCount: 20,
@@ -59,7 +60,7 @@ const BrandList = () => {
         <div className="text-right pr-6">
           <BtnProductEdit
             onClickHandler={() =>
-              contextData.handleModal("brand", "update", {
+              contextData.handleModal("brand", "update", setReload, {
                 name: data.name,
                 status: data.status,
                 id: data._id,
@@ -90,7 +91,7 @@ const BrandList = () => {
       })
       .catch((error) => console.log(error));
     return () => (isLoaded = false);
-  }, []);
+  }, [reload]);
 
   const deleteItem = (itemId, itemName) => {
     axios
@@ -177,7 +178,9 @@ const BrandList = () => {
           <>
             <BtnModal
               title="Brand"
-              onClickHandler={() => contextData.handleModal("brand", "create")}
+              onClickHandler={() =>
+                contextData.handleModal("brand", "create", setReload)
+              }
             />
           </>
         }

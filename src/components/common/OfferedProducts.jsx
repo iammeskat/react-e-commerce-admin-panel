@@ -169,7 +169,7 @@ const OfferedProducts = (props) => {
     return () => (isLoaded = false);
   }, []);
   const updateOffer = (data) => {
-    console.log("I'm from update offer");
+    // console.log("I'm from update offer");
     axios
       .put(
         `${config.SERVER_URL}/api/admin/${props.section}/${props.offerId}`,
@@ -195,6 +195,7 @@ const OfferedProducts = (props) => {
           setProducts(
             res.data.data.products.filter((e) => !productIds.includes(e._id))
           );
+
           // setProducts(res.data.data.products);
         })
         .catch((error) => console.log(error));
@@ -209,9 +210,11 @@ const OfferedProducts = (props) => {
           products: selectedProducts,
         });
       }
-      tempOptions.showOfferedProducts = true;
-      setProducts(props.products);
-      setOptions(tempOptions);
+      // tempOptions.showOfferedProducts = true;
+      // setProducts(props.products);
+      // setOptions(tempOptions);
+      // reload(Math.random());
+      window.location.reload();
     }
   };
   const removeProducts = (id) => {
@@ -342,12 +345,14 @@ const OfferedProducts = (props) => {
           )}
 
           <div className="px-4">
-            <PageFooter
-              totalItems={filteredItems.length}
-              pageCount={options.pageCount}
-              activePage={options.activePage}
-              onClickPage={handleClickPage}
-            />
+            {filteredItems.length > 0 && (
+              <PageFooter
+                totalItems={filteredItems.length}
+                pageCount={options.pageCount}
+                activePage={options.activePage}
+                onClickPage={handleClickPage}
+              />
+            )}
           </div>
         </div>
       </div>

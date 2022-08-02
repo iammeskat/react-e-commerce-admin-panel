@@ -18,6 +18,7 @@ const DealList = () => {
   const alert = useAlert();
   const contextData = useContext(GlobalContext);
   const [data, setData] = useState([]);
+  const [reload, setReload] = useState("");
   const [options, setOptions] = useState({
     activePage: 1,
     pageCount: 20,
@@ -78,7 +79,7 @@ const DealList = () => {
             onClickHandler={() => {
               delete data.__v;
               data.date = data.date.split("T")[0];
-              contextData.handleModal("deal", "update", data);
+              contextData.handleModal("deal", "update", setReload, data);
             }}
           />{" "}
           <BtnProductDelete
@@ -104,7 +105,7 @@ const DealList = () => {
       })
       .catch((error) => console.log(error));
     return () => (isLoaded = false);
-  }, []);
+  }, [reload]);
 
   const deleteItem = (itemId, itemName) => {
     axios
@@ -191,7 +192,9 @@ const DealList = () => {
           <>
             <BtnModal
               title="Deal"
-              onClickHandler={() => contextData.handleModal("deal", "create")}
+              onClickHandler={() =>
+                contextData.handleModal("deal", "create", setReload)
+              }
             />
           </>
         }

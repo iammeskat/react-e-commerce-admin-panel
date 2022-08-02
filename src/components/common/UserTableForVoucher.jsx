@@ -129,6 +129,7 @@ const UserTableForVoucher = (props) => {
       )
       .then((res) => {
         alert.success(res.data.message);
+        window.location.reload();
       })
       .catch((error) => {
         alert.error("Something went wrong! Please try again.");
@@ -159,9 +160,10 @@ const UserTableForVoucher = (props) => {
           users: selectedUsers,
         });
       }
-      tempOptions.showExistinUser = true;
-      setUsers(props.users);
-      setOptions(tempOptions);
+      // tempOptions.showExistinUser = true;
+      // setUsers(props.users);
+      // setOptions(tempOptions);
+      window.location.reload();
     }
   };
   const removeUsers = (id) => {
@@ -270,12 +272,14 @@ const UserTableForVoucher = (props) => {
         )}
 
         <div className="px-4">
-          <PageFooter
-            totalItems={filteredItems.length}
-            pageCount={options.pageCount}
-            activePage={options.activePage}
-            onClickPage={handleClickPage}
-          />
+          {filteredItems.length > 0 && (
+            <PageFooter
+              totalItems={filteredItems.length}
+              pageCount={options.pageCount}
+              activePage={options.activePage}
+              onClickPage={handleClickPage}
+            />
+          )}
         </div>
       </div>
     </div>

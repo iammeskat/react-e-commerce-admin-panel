@@ -19,6 +19,7 @@ const OfferList = () => {
   const alert = useAlert();
   const contextData = useContext(GlobalContext);
   const [data, setData] = useState([]);
+  const [reload, setReload] = useState("");
   const [options, setOptions] = useState({
     activePage: 1,
     pageCount: 20,
@@ -39,7 +40,11 @@ const OfferList = () => {
   const columnData = [
     {
       content: (data) => (
-        <ItemImg link={`./${data._id}`} imgLink={""} title={data.name} />
+        <ItemImg
+          link={`./${data._id}`}
+          imgLink={data.photo}
+          title={data.name}
+        />
       ),
     },
     { content: (data) => data.discountAmount },
@@ -68,7 +73,7 @@ const OfferList = () => {
           <BtnProductEdit
             title="Offer"
             onClickHandler={() =>
-              contextData.handleModal("offer", "update", {
+              contextData.handleModal("offer", "update", setReload, {
                 _id: data._id,
                 name: data.name,
                 startDate: data.startDate.split("T")[0],
@@ -103,7 +108,7 @@ const OfferList = () => {
       })
       .catch((error) => console.log(error));
     return () => (isLoaded = false);
-  }, []);
+  }, [reload]);
 
   const deleteItem = (itemId, itemName) => {
     axios
@@ -190,7 +195,9 @@ const OfferList = () => {
           <>
             <BtnModal
               title="Offer"
-              onClickHandler={() => contextData.handleModal("offer", "create")}
+              onClickHandler={() =>
+                contextData.handleModal("offer", "create", setReload)
+              }
             />
           </>
         }
