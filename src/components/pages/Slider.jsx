@@ -37,8 +37,12 @@ const SliderList = () => {
             className="h-16 w-32 my-2 mr-2 border-gray-200"
             src={
               data.image_path
-                ? config.SERVER_URL + "/storage/images/" + data.image_path
-                : "../images/product.webp"
+                ? config.SERVER_URL +
+                  "/public/storage/images/" +
+                  data.image_path
+                : `https://via.placeholder.com/300x200.png/f2f2f2?text=${
+                    data.title.split(" ")[0]
+                  }`
             }
             alt=""
           />
