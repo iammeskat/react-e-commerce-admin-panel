@@ -32,30 +32,42 @@ const Qna = (props) => {
                 key={"qna_" + indx}
                 className="w-full border-dashed border rounded p-3 space-y-3"
               >
-                <div className="flex space-x-1">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                  <div className="flex flex-col">
-                    <h2 className="font-medium text-blue-500">
-                      <Link to={`/customers/${item.user._id}`}>
-                        {" "}
-                        {item.user.name}
-                      </Link>
-                    </h2>
-                    <p>{item.question}</p>
+                <div className="flex justify-between">
+                  <div className="flex space-x-1">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                    <div className="flex flex-col">
+                      <h2 className="font-medium text-blue-500">
+                        <Link to={`/customers/${item.user._id}`}>
+                          {" "}
+                          {item.user.name}
+                        </Link>
+                      </h2>
+                      <p>{item.question}</p>
+                    </div>
                   </div>
+                  <h2 className="text-xs text-gray-500">
+                    {new Date(item.createdAt).toLocaleString("en-US", {
+                      year: "numeric",
+                      month: "numeric",
+                      day: "numeric",
+                      hour: "numeric",
+                      minute: "numeric",
+                      hour12: true,
+                    })}
+                  </h2>
                 </div>
                 <div className="flex space-x-2 justify-between">
                   <div className="flex space-x-2 grow">

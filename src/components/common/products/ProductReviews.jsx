@@ -61,7 +61,14 @@ const ProductReviews = (props) => {
                 </div>
 
                 <span className="text-sm text-gray-400">
-                  {new Date(item.createdAt).toUTCString()}
+                  {new Date(item.createdAt).toLocaleString("en-US", {
+                    year: "numeric",
+                    month: "numeric",
+                    day: "numeric",
+                    hour: "numeric",
+                    minute: "numeric",
+                    hour12: true,
+                  })}
                 </span>
               </div>
             </div>
