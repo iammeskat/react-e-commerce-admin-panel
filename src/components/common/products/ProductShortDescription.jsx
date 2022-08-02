@@ -1,8 +1,8 @@
 const ProductShortDescription = (props) => {
   return (
-    <div className="pt-4 space-x-1">
-      <h2 className="font-medium text-gray-700">Description</h2>
-      <p className="text-sm font-medium text-gray-400 text-justify">
+    <div className="flex flex-col space-y-1 ">
+      <h2 className="font-medium text-gray-900">{props.title}</h2>
+      <p className=" font-mediumm bg-white border rounded  p-2 m-0 text-justify">
         {props.description}
       </p>
     </div>

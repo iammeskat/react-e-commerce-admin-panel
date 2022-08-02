@@ -32,7 +32,11 @@ const CustomerList = () => {
   const columnData = [
     {
       content: (data) => (
-        <ItemImg link={`./${data._id}`} imgLink="" title={data.name} />
+        <ItemImg
+          link={`./${data._id}`}
+          imgLink={data.profile ? `${data.profile.photo}` : ""}
+          title={data.name}
+        />
       ),
     },
     { content: (data) => data.email },

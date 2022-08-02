@@ -31,7 +31,9 @@ const BrandList = () => {
 
   const columnData = [
     {
-      content: (data) => <ItemImg link={""} imgLink={""} title={data.name} />,
+      content: (data) => (
+        <ItemImg link={""} imgLink={data.icon} title={data.name} />
+      ),
     },
     {
       content: (data) => {

@@ -8,6 +8,7 @@ import BtnCloseModal from "./BtnCloseModal";
 import BtnModalAdd from "./BtnModalAdd";
 import BtnModalCancel from "./BtnModalCancel";
 import InputComp from "./InputComp";
+import InputImgComp from "./InputImgComp";
 import SelectComp from "./SelectComp";
 
 const FormCategory = () => {
@@ -19,6 +20,8 @@ const FormCategory = () => {
       ? {
           name: "",
           status: "",
+          photo: "",
+          isFeatured: "false",
         }
       : contextData.modal.data
   );
@@ -75,8 +78,8 @@ const FormCategory = () => {
         axios
           .put(
             `${config.SERVER_URL}/api/admin/categories/${formData.id}`,
-            config.headers,
-            formData
+            formData,
+            config.headers
           )
           .then((res) => {
             contextData.handleModal();
@@ -141,18 +144,40 @@ const FormCategory = () => {
                   })
                 }
               />
-              <SelectComp
+
+              <InputImgComp
                 handler={handleFormData}
-                errMsg={errors.status}
-                label="Status"
-                id="status"
-                name="status"
-                value={formData.status}
-                options={[
-                  { value: "active", name: "Active" },
-                  { value: "inactive", name: "Inactive" },
-                ]}
+                errMsg={errors.photo}
+                label="Photo"
+                id="photo"
+                name="photo"
               />
+              <div className="grid grid-cols-2 gap-2">
+                <SelectComp
+                  handler={handleFormData}
+                  errMsg={errors.isFeatured}
+                  label="Is Featured"
+                  id="isFeatured"
+                  name="isFeatured"
+                  value={formData.isFeatured || "false"}
+                  options={[
+                    { value: "false", name: "No" },
+                    { value: "true", name: "Yes" },
+                  ]}
+                />
+                <SelectComp
+                  handler={handleFormData}
+                  errMsg={errors.status}
+                  label="Status"
+                  id="status"
+                  name="status"
+                  value={formData.status}
+                  options={[
+                    { value: "active", name: "Active" },
+                    { value: "inactive", name: "Inactive" },
+                  ]}
+                />
+              </div>
             </div>
             <div className="flex items-center justify-start w-full">
               <BtnModalAdd />

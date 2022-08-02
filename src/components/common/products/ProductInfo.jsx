@@ -5,23 +5,28 @@ import IconTaka from "../icons/IconTaka";
 import ProductInfoSpan from "./ProductInfoSpan";
 
 const ProductInfo = (props) => {
-  const { price, totalSale, quantity } = props.data;
+  const { price, totalSell, quantity, unitPrice } = props.data;
+  const totalRevenue = () => {};
   return (
     <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 pt-4">
-      <ProductInfoSpan title="Price :" data={`$${price}`} icon={<IconTaka />} />
       <ProductInfoSpan
-        title="No. of Order :"
-        data={totalSale}
+        title="Price :"
+        data={`${price} Tk`}
+        icon={<IconTaka />}
+      />
+      <ProductInfoSpan
+        title="Total Sell :"
+        data={`${totalSell} Unit`}
         icon={<IconCopy />}
       />
       <ProductInfoSpan
-        title="Available Stocks:"
-        data={quantity}
+        title="Stocks:"
+        data={`${quantity} Unit`}
         icon={<IconDb />}
       />
       <ProductInfoSpan
         title="Total Rev.:"
-        data={`$60,645*`}
+        data={`${totalSell * price - totalSell * unitPrice} Tk`}
         icon={<IconDownload />}
       />
     </div>

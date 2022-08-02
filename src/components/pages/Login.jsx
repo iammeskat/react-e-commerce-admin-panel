@@ -44,7 +44,8 @@ const Login = () => {
         .then((res) => {
           // console.log(res.data.data);
           if (setToken(res.data.data)) {
-            navigate("/");
+            // navigate("/");
+            window.location.reload();
           } else {
             setErrors({ response: "Invalid email or password!" });
           }

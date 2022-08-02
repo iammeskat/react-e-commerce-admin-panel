@@ -23,6 +23,7 @@ const CategoryList = () => {
     activePage: 1,
     pageCount: 20,
     status: "all",
+    isFeatured: "all",
     searchKey: "all",
     sortColumn: { path: "asc", order: "createdAt" },
   });
@@ -36,6 +37,7 @@ const CategoryList = () => {
   const columnHeader = [
     "NAME",
     "PARENT",
+    "is Featured",
     "STATUS",
     "CREATED AT",
     "UPDATED AT",
@@ -45,12 +47,15 @@ const CategoryList = () => {
   const columnData = [
     {
       content: (category) => (
-        <ItemImg link={""} imgLink={""} title={category.name} />
+        <ItemImg link={""} imgLink={category.photo} title={category.name} />
       ),
     },
     {
       content: (category) =>
         category.parent_id ? getParentName(category.parent_id) : "",
+    },
+    {
+      content: (category) => (category.isFeatured ? "Yes" : "No"),
     },
     {
       content: (category) => {
@@ -81,6 +86,7 @@ const CategoryList = () => {
                 status: category.status,
                 id: category._id,
                 parent_id: category.parent_id,
+                isFeatured: category.isFeatured,
               })
             }
           />{" "}
@@ -137,16 +143,27 @@ const CategoryList = () => {
     if (option === "status") {
       setOptions({ ...options, status: value, activePage: 1 });
     }
+    if (option === "isFeatured") {
+      setOptions({ ...options, isFeatured: value, activePage: 1 });
+    }
   };
 
   const filterItems = () => {
-    const { status, searchKey } = options;
+    const { status, searchKey, isFeatured } = options;
 
     let filteredItems = [...categories];
 
     if (status !== "all") {
       const tempItems = filteredItems.filter((item) => {
         if (item.status === status) return true;
+        else return false;
+      });
+      filteredItems = [...tempItems];
+    }
+    if (isFeatured !== "all") {
+      const tempItems = filteredItems.filter((item) => {
+        const flag = isFeatured === "no" ? false : true;
+        if (item.isFeatured === flag) return true;
         else return false;
       });
       filteredItems = [...tempItems];
@@ -207,6 +224,15 @@ const CategoryList = () => {
               numberOfItem={filteredItems.length}
               filterOptions={
                 <>
+                  <FilterOption
+                    label="Featured"
+                    filterBy="isFeatured"
+                    options={[
+                      { name: "No", value: "no" },
+                      { name: "Yes", value: "yes" },
+                    ]}
+                    onChangeHandler={setFilterOptions}
+                  />
                   <FilterOption
                     label="Status"
                     filterBy="status"

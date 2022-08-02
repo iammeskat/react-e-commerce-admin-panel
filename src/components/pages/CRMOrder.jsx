@@ -142,7 +142,7 @@ const CRMOrder = (props) => {
           options={[
             { name: "Pending", value: "pending" },
             { name: "Processing", value: "processing" },
-            { name: "Shipping", value: "Shipped" },
+            { name: "Shipping", value: "shipped" },
             { name: "Delivered", value: "delivered" },
             { name: "Returned", value: "returned" },
             { name: "Cancelled", value: "cancelled" },

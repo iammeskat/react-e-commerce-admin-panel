@@ -5,15 +5,14 @@ import config from "../../config/config";
 import PageHeader from "../common/PageHeader";
 import ProductColors from "../common/products/ProductColors";
 import ProductDescription from "../common/products/ProductDescription";
-import ProductFeatures from "../common/products/ProductFeatures";
 import ProductHead from "../common/products/ProductHead";
 import ProductInfo from "../common/products/ProductInfo";
 import ProductPhotoSlider from "../common/products/ProductPhotoSlider";
 import ProductRating from "../common/products/ProductRating";
 import ProductRatingsReviews from "../common/products/ProductRatingsReviews";
-import ProductServices from "../common/products/ProductServices";
 import ProductShortDescription from "../common/products/ProductShortDescription";
 import ProductSize from "../common/products/ProductSize";
+import Qna from "../common/products/Qna";
 
 const ProductDetails = () => {
   const params = useParams();
@@ -35,7 +34,7 @@ const ProductDetails = () => {
       .catch((error) => console.log(error));
     return () => (isLoaded = false);
   }, [productId]);
-  // product && console.log(product);
+  // product && console.log(product.reviews.length);
   return product ? (
     <div
       className={`flex flex-col grow px-3 md:px-6 py-3 space-y-4  transition-all duration-200`}
@@ -46,32 +45,41 @@ const ProductDetails = () => {
         <div className="flex flex-col md:flex-row md:space-x-8 mb-10">
           {/* <!-- product gallery  --> */}
           <ProductPhotoSlider photos={product.photos} name={product.name} />
-          <div className="flex flex-col lg:flex-grow ">
+          <div className="flex flex-col space-y-6 lg:flex-grow ">
             <div className="basic-info space-y-1">
               <ProductHead
                 name={product.name}
                 publishedDate={product.createdAt}
               />
-              <ProductRating />
+              <ProductRating review={product.reviews.length} />
               <ProductInfo data={product} />
             </div>
             <div className="flex flex-col lg:flex-row space-y-3 lg:space-y-0 justify-between pt-4">
               <ProductSize />
               <ProductColors />
             </div>
-            <ProductShortDescription description={product.description} />
-            <div className="flex flex-col lg:flex-row justify-start pt-4 space-y-3 lg:space-y-0 lg:space-x-1">
+
+            <ProductShortDescription
+              description={product.shortDescription}
+              title="Short Description"
+            />
+            <ProductShortDescription
+              description={product.description}
+              title="Full Description"
+            />
+            {/* <div className="flex flex-col lg:flex-row justify-start pt-4 space-y-3 lg:space-y-0 lg:space-x-1">
               <ProductFeatures />
               <ProductServices />
-            </div>
+            </div> */}
             <ProductDescription data={product} />
             <ProductRatingsReviews reviews={product.reviews} />
+            <Qna data={product.qna} />
           </div>
         </div>
       </div>
     </div>
   ) : (
-    "Something went wrong!"
+    "Loading...!"
   );
 };
 
