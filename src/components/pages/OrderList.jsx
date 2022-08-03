@@ -4,7 +4,6 @@ import { useAlert } from "react-alert";
 import { Link } from "react-router-dom";
 import config from "../../config/config";
 import { GlobalContext } from "../../context/GlobalContext";
-import BtnCreate from "../common/form/BtnCreate";
 import InputSearch from "../common/form/InputSearch";
 import SelectCompForTable from "../common/form/SelectCompForTable";
 import PageFooter from "../common/PageFooter";
@@ -254,14 +253,7 @@ const OrderList = () => {
       id="main-section"
       className="flex flex-col grow px-3 md:px-6 py-3 space-y-4  transition-all duration-200"
     >
-      <PageHeader
-        title="ORDERS"
-        render={
-          <>
-            <BtnCreate title="Create Product" to="./create" />
-          </>
-        }
-      />
+      <PageHeader title="ORDERS" />
       <div className="">
         <div className="overflow-x-auto scrollbar-table">
           <div className="bg-white shadow-lg rounded-sm border border-gray-200 mb-2 min-w-[60rem] h-[33.5rem] overflow-y-auto relative scrollbar-table">

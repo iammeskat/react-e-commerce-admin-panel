@@ -40,7 +40,7 @@ const ProductList = () => {
 
   const columnHeader = [
     "PRODUCT NAME",
-    "CATEGORY",
+    // "CATEGORY",
     "BRAND",
     "QTY",
     "SALE",
@@ -60,7 +60,7 @@ const ProductList = () => {
             // title={product.name}
           />
           <div>
-            <h2>
+            <h2 className="text-gray-900">
               <Link to={`./${product._id}`}>{product.name}</Link>{" "}
             </h2>
             <div children="flex ">
@@ -77,7 +77,7 @@ const ProductList = () => {
         </div>
       ),
     },
-    { content: (product) => product.category[0]["name"] },
+    // { content: (product) => product.category[0]["name"] },
     { content: (product) => product.brand.name },
     { content: (product) => product.quantity },
     { content: (product) => product.totalSell },

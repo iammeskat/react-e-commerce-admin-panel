@@ -25,10 +25,11 @@ const CustomerList = () => {
     pageCount: 20,
     status: "all",
     searchKey: "all",
+    gender: "all",
     sortColumn: { path: "asc", order: "createdAt" },
   });
 
-  const columnHeader = ["NAME", "EMAIL", "PHONE", "STATUS", "ACTION"];
+  const columnHeader = ["NAME", "EMAIL", "PHONE", "gender", "STATUS", "ACTION"];
 
   const columnData = [
     {
@@ -42,7 +43,7 @@ const CustomerList = () => {
     },
     { content: (data) => data.email },
     { content: (data) => data.profile.phone },
-    { content: (data) => data.profile.gender },
+    { content: (data) => <h2 className="uppercase">{data.profile.gender}</h2> },
     {
       content: (data) => {
         if (data.status === "active") {
@@ -122,17 +123,26 @@ const CustomerList = () => {
   const setFilterOptions = (option, value) => {
     if (option === "status") {
       setOptions({ ...options, status: value, activePage: 1 });
+    } else if (option === "gender") {
+      setOptions({ ...options, gender: value, activePage: 1 });
     }
   };
 
   const filterItems = () => {
-    const { status, searchKey } = options;
+    const { status, searchKey, gender } = options;
 
     let filteredItems = [...data];
 
     if (status !== "all") {
       const tempItems = filteredItems.filter((item) => {
         if (item.status === status) return true;
+        else return false;
+      });
+      filteredItems = [...tempItems];
+    }
+    if (gender !== "all") {
+      const tempItems = filteredItems.filter((item) => {
+        if (item.profile.gender === gender) return true;
         else return false;
       });
       filteredItems = [...tempItems];
@@ -199,12 +209,20 @@ const CustomerList = () => {
                     handler={search}
                   />
                   <FilterOption
+                    label="Gender"
+                    filterBy="gender"
+                    options={[
+                      { name: "Male", value: "male" },
+                      { name: "Female", value: "female" },
+                    ]}
+                    onChangeHandler={setFilterOptions}
+                  />
+                  <FilterOption
                     label="Status"
                     filterBy="status"
                     options={[
                       { name: "Active", value: "active" },
                       { name: "Inactive", value: "inactive" },
-                      { name: "Discontinued", value: "discontinued" },
                     ]}
                     onChangeHandler={setFilterOptions}
                   />
