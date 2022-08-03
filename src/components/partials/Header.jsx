@@ -10,6 +10,7 @@ const Header = () => {
   const [showProfile, setShowProfile] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
   const [notifications, setNotifications] = useState([]);
+  const [showIndicator, setShowIndicator] = useState(false);
   const humanTime = (date) => {
     date = new Date(date);
     return date.toLocaleString("en-US", {
@@ -21,14 +22,29 @@ const Header = () => {
       hour12: true,
     });
   };
+  const showNotificationPanel = () => {
+    setShowProfile(false);
+    setShowNotification(!showNotification);
+    setShowIndicator(false);
+    localStorage.setItem("totalNotification", notifications.totalNotification);
+    console.log(notifications.totalNotification);
+  };
 
   useEffect(() => {
     let isLoaded = true;
     axios
       .get(`${config.SERVER_URL}/api/admin/notifications`, config.headers)
       .then((res) => {
-        isLoaded && setNotifications(res.data.data.notifications);
+        if (isLoaded) {
+          setNotifications(res.data.data);
+          const previousTotalNotification =
+            localStorage.getItem("totalNotification") || 0;
+          if (previousTotalNotification < res.data.data.totalNotification) {
+            setShowIndicator(true);
+          }
+        }
         // console.log(res.data.data.dealer);
+        // totalNotification = res.data.data.totalNotification;
       })
       .catch((error) => console.log(error));
     return () => (isLoaded = false);
@@ -39,7 +55,7 @@ const Header = () => {
   };
 
   return (
-    <header className="relative sticky top-0 flex px-3 md:px-6 py-3 justify-between items-center bg-gray-700 text-slate-200 z-20">
+    <header className="relativem sticky top-0 flex px-3 md:px-6 py-3 justify-between items-center bg-gray-700 text-slate-200 z-20">
       {/* <!-- start left items  --> */}
       <div className="flex items-center space-x-5">
         <button
@@ -96,10 +112,7 @@ const Header = () => {
           </li> */}
           <li className="flex">
             <button
-              onClick={() => {
-                setShowProfile(false);
-                setShowNotification(!showNotification);
-              }}
+              onClick={showNotificationPanel}
               className="relative inline-block bg-gray-800 rounded-full p-1 hover:bg-gray-900"
             >
               <svg
@@ -116,7 +129,9 @@ const Header = () => {
                   d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
                 />
               </svg>
-              <span className="absolute top-1 right-1 inline-block w-2 h-2 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full"></span>
+              {showIndicator && (
+                <span className="absolute top-1 right-1 inline-block w-2 h-2 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full"></span>
+              )}
             </button>
           </li>
           {/* <li className="flex">
@@ -204,7 +219,7 @@ const Header = () => {
 
       {showNotification && (
         <div className="absolute right-0 top-16 m-1 space-y-2 max-h-[30rem] overflow-y-auto scrollbar-table overflow-hidden flex flex-col rounded-sm w-96 bg-white shadow border p-2 ">
-          {notifications.map((item, indx) => {
+          {notifications.notifications.map((item, indx) => {
             return (
               <Link
                 onClick={() => setShowNotification(false)}
