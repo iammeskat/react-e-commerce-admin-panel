@@ -2,10 +2,16 @@ import { useState } from "react";
 import SkeletonTable from "../SkeletonTable";
 const Table = (props) => {
   const [timeCount, setTimeCount] = useState(0);
+  const [noData, setNoData] = useState(false);
+
+  const { columnHeader, columns, items, activePage, pageCount } = props;
   setTimeout(() => {
     setTimeCount(1);
   }, 400);
-  const { columnHeader, columns, items, activePage, pageCount } = props;
+  setTimeout(() => {
+    setNoData(true);
+  }, 3000);
+
   return items.length && timeCount ? (
     <table className="table-auto min-w-full divide-y font-medium text-gray-800 divide-gray-100 animate-fade">
       <thead className="sticky top-0 shadow-sm text-xs uppercase font-semibold text-left text-gray-900 bg-gray-50">
@@ -39,6 +45,8 @@ const Table = (props) => {
         ))}
       </tbody>
     </table>
+  ) : noData ? (
+    <h2 className="font-medium text-2xl text-center py-5">No Data Found</h2>
   ) : (
     <SkeletonTable length={columnHeader.length} />
   );
