@@ -828,10 +828,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   max-height: 30rem;
 }
 
-.max-h-96 {
-  max-height: 24rem;
-}
-
 .min-h-\[24rem\] {
   min-height: 24rem;
 }
@@ -954,6 +950,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .w-80 {
   width: 20rem;
+}
+
+.w-56 {
+  width: 14rem;
 }
 
 .min-w-\[16rem\] {
@@ -1127,6 +1127,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   flex-direction: column;
 }
 
+.items-end {
+  align-items: flex-end;
+}
+
 .items-center {
   align-items: center;
 }
@@ -1233,6 +1237,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-space-x-reverse: 0;
   margin-right: calc(1.5rem * var(--tw-space-x-reverse));
   margin-left: calc(1.5rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
+.space-y-5 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1.25rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1.25rem * var(--tw-space-y-reverse));
 }
 
 .divide-y > :not([hidden]) ~ :not([hidden]) {
@@ -1379,6 +1389,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-color: rgb(67 56 202 / var(--tw-border-opacity));
 }
 
+.border-black {
+  --tw-border-opacity: 1;
+  border-color: rgb(0 0 0 / var(--tw-border-opacity));
+}
+
 .bg-gray-800 {
   --tw-bg-opacity: 1;
   background-color: rgb(31 41 55 / var(--tw-bg-opacity));
@@ -1498,11 +1513,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(20 184 166 / var(--tw-bg-opacity));
 }
 
-.bg-sky-100 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(224 242 254 / var(--tw-bg-opacity));
-}
-
 .bg-gray-600 {
   --tw-bg-opacity: 1;
   background-color: rgb(75 85 99 / var(--tw-bg-opacity));
@@ -1521,6 +1531,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .bg-yellow-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(234 179 8 / var(--tw-bg-opacity));
+}
+
+.bg-blue-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-50 {
@@ -1582,10 +1597,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .p-0 {
   padding: 0px;
-}
-
-.\!p-2 {
-  padding: 0.5rem !important;
 }
 
 .py-2 {
@@ -1757,6 +1768,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-right: 0.5rem;
 }
 
+.pl-1 {
+  padding-left: 0.25rem;
+}
+
 .text-left {
   text-align: left;
 }
@@ -1771,6 +1786,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .text-justify {
   text-align: justify;
+}
+
+.align-top {
+  vertical-align: top;
 }
 
 .align-text-top {
@@ -1944,11 +1963,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   color: rgb(250 204 21 / var(--tw-text-opacity));
 }
 
-.text-sky-500 {
-  --tw-text-opacity: 1;
-  color: rgb(14 165 233 / var(--tw-text-opacity));
-}
-
 .text-blue-900 {
   --tw-text-opacity: 1;
   color: rgb(30 58 138 / var(--tw-text-opacity));
@@ -1967,6 +1981,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-slate-400 {
   --tw-text-opacity: 1;
   color: rgb(148 163 184 / var(--tw-text-opacity));
+}
+
+.underline {
+  -webkit-text-decoration-line: underline;
+          text-decoration-line: underline;
 }
 
 .placeholder-gray-400::-webkit-input-placeholder {
@@ -2206,6 +2225,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(31 41 55 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-slate-100:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(241 245 249 / var(--tw-bg-opacity));
+}
+
 .hover\:bg-indigo-600:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(79 70 229 / var(--tw-bg-opacity));
@@ -2229,11 +2253,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .hover\:bg-gray-100:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-slate-100:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(241 245 249 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-gradient-to-l:hover {
@@ -2343,6 +2362,16 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .focus\:ring-offset-2:focus {
   --tw-ring-offset-width: 2px;
+}
+
+@media print {
+  .print\:block {
+    display: block;
+  }
+
+  .print\:hidden {
+    display: none;
+  }
 }
 
 @media (min-width: 640px) {

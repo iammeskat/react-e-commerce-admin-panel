@@ -8,7 +8,7 @@ const Sidebar = () => {
   const contextData = useContext(GlobalContext);
   // console.log(contextData);
   return (
-    <aside className="sticky top-0 h-screen z-30">
+    <aside className="sticky top-0 h-screen z-30 print:hidden">
       <div id="sm-sidebar" className={contextData.sidebar.smSidebarClass}>
         <div
           id="sidebar"

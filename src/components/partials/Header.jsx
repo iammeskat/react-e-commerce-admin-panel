@@ -55,7 +55,7 @@ const Header = () => {
   };
 
   return (
-    <header className="relativem sticky top-0 flex px-3 md:px-6 py-3 justify-between items-center bg-gray-700 text-slate-200 z-20">
+    <header className="relativem sticky top-0 flex px-3 md:px-6 py-3 justify-between items-center bg-gray-700 text-slate-200 z-20 print:hidden">
       {/* <!-- start left items  --> */}
       <div className="flex items-center space-x-5">
         <button

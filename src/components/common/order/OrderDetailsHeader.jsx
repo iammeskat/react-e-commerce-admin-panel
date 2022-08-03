@@ -4,7 +4,10 @@ const OrderDetailsHeader = (props) => {
       <h2 className="font-medium text-lg uppercase">
         Order #{props.orderId.slice(-10)}
       </h2>
-      <button className="flex items-center text-white bg-teal-500 rounded space-x-1 py-1 px-1.5 border">
+      <button
+        onClick={() => window.print()}
+        className="flex items-center text-white bg-teal-500 rounded space-x-1 py-1 px-1.5 border print:hidden"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-4 w-4"
