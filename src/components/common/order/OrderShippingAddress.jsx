@@ -45,13 +45,14 @@ const OrderShippingAddress = (props) => {
               <td>{address.address2}</td>
             </tr>
             <tr>
-              <td>City</td>
-              <td>{address.city}</td>
-            </tr>
-            <tr>
               <td>State</td>
               <td>{address.state}</td>
             </tr>
+            <tr>
+              <td>City</td>
+              <td>{address.city}</td>
+            </tr>
+
             <tr>
               <td>Postal Code</td>
               <td>{address.postalCode}</td>

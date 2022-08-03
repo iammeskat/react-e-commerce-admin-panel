@@ -12,7 +12,7 @@ const OrderDeliverStatus = (props) => {
     });
   };
   return (
-    <div className="bg-white rounded text-gray-800">
+    <div className="bg-white rounded text-gray-800 print:hidden">
       <div className="flex justify-between items-center p-3 border-b">
         <h2 className="font-medium text-lg">Order Status</h2>
         <div className="flex space-x-1">
