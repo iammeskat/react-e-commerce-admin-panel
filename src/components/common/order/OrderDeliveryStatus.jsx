@@ -1,32 +1,21 @@
-const OrderDeliverStatus = () => {
+const OrderDeliverStatus = (props) => {
+  const { placedAt, statusDates } = props;
+  const humanTime = (date) => {
+    date = new Date(date);
+    return date.toLocaleString("en-US", {
+      year: "numeric",
+      month: "numeric",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    });
+  };
   return (
     <div className="bg-white rounded text-gray-800">
       <div className="flex justify-between items-center p-3 border-b">
         <h2 className="font-medium text-lg">Order Status</h2>
         <div className="flex space-x-1">
-          <button className="flex items-center text-sky-500 bg-sky-100 rounded space-x-1 py-1 px-1.5">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-              />
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-              />
-            </svg>
-            <span className="text-sm">Change Address</span>
-          </button>
           <button className="flex items-center text-red-500 bg-red-100 rounded space-x-1 py-1 px-1.5">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -66,22 +55,22 @@ const OrderDeliverStatus = () => {
               </svg>
             </div>
             <h2 className="font-medium">
-              Order Placed -
-              <span className="font-normal">Wed, 15 Dec 2021</span>
+              Order Placed:{" "}
+              <span className="font-normal">{humanTime(placedAt)}</span>
             </h2>
           </div>
           <div className="font-medium text-sm">
             <p>An order has been placed</p>
-            <p className="font-normal text-gray-500">
-              Wed, 15 Dec 2021 - 05:45PM
-            </p>
+            {/* <p className="font-normal text-gray-500">
+                Wed, 15 Dec 2021 - 05:45PM
+              </p> */}
           </div>
-          <div className="font-medium text-sm">
+          {/* <div className="font-medium text-sm">
             <p>Processed order</p>
             <p className="font-normal text-gray-500">
               Thu, 16 Dec 2021 - 05:45PM
             </p>
-          </div>
+          </div> */}
         </div>
         <div className="space-y-2 border-dashed border-l-2 pl-6 pb-6">
           <div className="flex space-x-2">
@@ -102,15 +91,18 @@ const OrderDeliverStatus = () => {
               </svg>
             </div>
             <h2 className="font-medium">
-              Packed -<span className="font-normal">Thu, 16 Dec 2021</span>
+              Processing:{" "}
+              <span className="font-normal">
+                {humanTime(statusDates.processing)}
+              </span>
             </h2>
           </div>
-          <div className="font-medium text-sm">
+          {/* <div className="font-medium text-sm">
             <p>Packed has been picked up by courier partner</p>
             <p className="font-normal text-gray-500">
               Fri, 17 Dec 2021 - 05:45PM
             </p>
-          </div>
+          </div> */}
         </div>
         <div className="space-y-2 border-dashed border-l-2 pl-6 pb-6">
           <div className="flex space-x-2">
@@ -132,39 +124,16 @@ const OrderDeliverStatus = () => {
               </svg>
             </div>
             <h2 className="font-medium">
-              Shipping -<span className="font-normal">Thu, 16 Dec 2021</span>
+              Shipping:{" "}
+              <span className="font-normal">
+                {statusDates.shipped > statusDates.processing
+                  ? humanTime(statusDates.shipped)
+                  : ""}
+              </span>
             </h2>
           </div>
-          <div className="font-medium text-sm">
-            <p>PAPERFLY Logistics - MFDS1400457854</p>
-            <p className="">Your item has been shipped</p>
-            <p className="font-normal text-gray-500">
-              Sat, 18 Dec 2021 - 05:45PM
-            </p>
-          </div>
-          <div className="font-medium text-sm">
-            <p>Processed order</p>
-            <p className="font-normal text-gray-500">
-              Thu, 16 Dec 2021 - 05:45PM
-            </p>
-          </div>
         </div>
-        <div className="space-y-2 border-dashed border-l-2 pl-6 pb-6">
-          <div className="flex space-x-2">
-            <div className="w-8 h-8 bg-teal-500 rounded-full -ml-[2.6rem] flex items-center justify-center text-white">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
-                <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z" />
-              </svg>
-            </div>
-            <h2 className="font-medium">Out for delivery</h2>
-          </div>
-        </div>
+
         <div className="space-y-2 border-dashed border-l-2 pl-6">
           <div className="flex space-x-2">
             <div className="w-8 h-8 bg-teal-500 rounded-full -ml-[2.6rem] flex items-center justify-center text-white">
@@ -183,7 +152,14 @@ const OrderDeliverStatus = () => {
                 />
               </svg>
             </div>
-            <h2 className="font-medium">Delivered</h2>
+            <h2 className="font-medium">
+              Delivered:{" "}
+              <span className="font-normal">
+                {statusDates.delivered > statusDates.shipped
+                  ? humanTime(statusDates.delivered)
+                  : ""}
+              </span>
+            </h2>
           </div>
         </div>
       </div>

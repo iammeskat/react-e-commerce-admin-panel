@@ -39,7 +39,10 @@ const OrderDetails = () => {
                 discount={data.discount}
                 orderId={data.order_id}
               />
-              <OrderDeliverStatus />
+              <OrderDeliverStatus
+                placedAt={data.createdAt}
+                statusDates={data.statusDates}
+              />
             </div>
             {/* <!-- right side  --> */}
             <div className="min-w-[20rem] space-y-4">

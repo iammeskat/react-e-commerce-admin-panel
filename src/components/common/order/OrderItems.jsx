@@ -64,11 +64,11 @@ const OrderItems = (props) => {
                       </div>
                     </div>
                   </td>
-                  <td className="p-3">${item.product.price}</td>
+                  <td className="p-3">{item.product.price} Tk</td>
                   <td className="p-3">{item.count}</td>
 
                   <td className="p-3 text-right">
-                    ${item.product.price * item.count}
+                    {item.product.price * item.count} Tk
                   </td>
                 </tr>
               );

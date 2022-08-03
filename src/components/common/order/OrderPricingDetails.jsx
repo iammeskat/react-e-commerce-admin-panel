@@ -9,30 +9,30 @@ const OrderPricingDetails = (props) => {
           <tbody>
             <tr>
               <td className="py-2">Sub Total:</td>
-              <td className="py-2 text-right">${subTotalAmount}</td>
+              <td className="py-2 text-right">{subTotalAmount} Tk</td>
             </tr>
             <tr>
-              <td className="py-2">Discount (VELZONIC):</td>
-              <td className="py-2 text-right">-${discount ? discount : 0}</td>
+              <td className="py-2">Discount:</td>
+              <td className="py-2 text-right">-{discount ? discount : 0} Tk</td>
             </tr>
             <tr>
               <td className="py-2">Shipping Charge:</td>
-              <td className="py-2 text-right">${shippingCharge}*</td>
+              <td className="py-2 text-right">{shippingCharge} TK *</td>
             </tr>
             <tr>
               <td className="py-2">Estimated Tax:</td>
-              <td className="py-2 text-right">${estimatedTax}*</td>
+              <td className="py-2 text-right">{estimatedTax} Tk *</td>
             </tr>
           </tbody>
           <tfoot className="border-dashed border-t">
             <tr>
               <td className="py-2">Total:</td>
               <td className="py-2 text-right">
-                $
                 {subTotalAmount +
                   shippingCharge +
                   estimatedTax -
-                  (discount ? discount : 0)}
+                  (discount ? discount : 0)}{" "}
+                Tk
               </td>
             </tr>
           </tfoot>
