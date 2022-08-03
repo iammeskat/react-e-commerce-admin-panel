@@ -26,6 +26,7 @@ const OrderDetails = () => {
       .catch((error) => console.log(error));
     return () => (isLoaded = false);
   }, [orderId]);
+  document.title = `ORDER - ${data ? data.order_id : ""} | PUCShop`;
 
   return (
     data && (

@@ -5,6 +5,7 @@ import config from "../../config/config";
 import { isAuthenticated, setToken } from "../../utilities/auth";
 
 const Login = () => {
+  document.title = `Login | PUCShop`;
   const navigate = useNavigate();
   const [data, setData] = useState({
     email: "",

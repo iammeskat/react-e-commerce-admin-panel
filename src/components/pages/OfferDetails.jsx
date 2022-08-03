@@ -22,6 +22,7 @@ const OfferDetails = () => {
     return () => (isLoaded = false);
   }, [offerId]);
 
+  document.title = `Offer - ${data ? data.name : ""} | PUCShop`;
   return Object.keys(data).length > 0 ? (
     <div className="flex flex-col grow px-3 md:px-6 py-3 space-y-4  transition-all duration-200">
       <PageHeader title="offer DETAILS" />

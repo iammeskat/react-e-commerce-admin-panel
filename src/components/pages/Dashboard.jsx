@@ -28,6 +28,7 @@ ChartJS.register(
 );
 
 const Dashboard = () => {
+  document.title = `Dashboard | PUCShop`;
   const [catLabels, setCatlabel] = useState([]);
   const [catData, setCatData] = useState([]);
   const [sellingStatus, setSellingStatus] = useState([]);

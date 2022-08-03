@@ -15,6 +15,7 @@ import Table from "../common/table/Table";
 import TableHeader from "../common/table/TableHeader";
 
 const EmployeeList = () => {
+  document.title = `Employees | PUCShop`;
   const alert = useAlert();
   const contextData = useContext(GlobalContext);
   const [data, setData] = useState([]);

@@ -15,7 +15,7 @@ import Table from "../common/table/Table";
 import TableHeader from "../common/table/TableHeader";
 
 const CustomerList = () => {
-  console.log("render");
+  document.title = `Customers | PUCShop`;
   const alert = useAlert();
   const contextData = useContext(GlobalContext);
   const [data, setData] = useState([]);

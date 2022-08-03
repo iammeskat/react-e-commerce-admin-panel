@@ -2,6 +2,7 @@ import ProductUpdateForm from "../common/form/ProductUpdateForm";
 import PageHeader from "../common/PageHeader";
 
 const ProductUpdate = () => {
+  document.title = `Update Product | PUCShop`;
   // const params = useParams();
   // const productId = params.id;
   // console.log(productId);

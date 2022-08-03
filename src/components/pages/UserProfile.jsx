@@ -29,6 +29,9 @@ const CreateProduct = () => {
     });
     return count;
   };
+
+  document.title = `Profile - ${user ? user.name : ""} | PUCShop`;
+
   return user ? (
     <div
       id="main-section"

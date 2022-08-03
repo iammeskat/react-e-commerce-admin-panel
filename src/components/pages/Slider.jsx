@@ -15,6 +15,7 @@ import Table from "../common/table/Table";
 import TableHeader from "../common/table/TableHeader";
 
 const SliderList = () => {
+  document.title = `Sliders | PUCShop`;
   const alert = useAlert();
   const contextData = useContext(GlobalContext);
   const [data, setData] = useState([]);

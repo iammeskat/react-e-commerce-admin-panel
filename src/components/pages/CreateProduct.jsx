@@ -2,6 +2,7 @@ import ProductFormComp from "../common/form/ProductFormComp";
 import PageHeader from "../common/PageHeader";
 
 const CreateProduct = () => {
+  document.title = `Create Product | PUCShop`;
   return (
     <div
       id="main-section"

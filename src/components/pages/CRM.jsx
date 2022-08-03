@@ -6,6 +6,7 @@ import CRMOrder from "./CRMOrder";
 import CRMProducts from "./CRMProducts";
 
 const CRM = () => {
+  document.title = `CRM | PUCShop`;
   const [data, setData] = useState([]);
   const [locations, setLocation] = useState([]);
   const [section, setSection] = useState(1);

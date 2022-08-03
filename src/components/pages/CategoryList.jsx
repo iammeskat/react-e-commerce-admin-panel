@@ -16,6 +16,7 @@ import Table from "../common/table/Table";
 import TableHeader from "../common/table/TableHeader";
 
 const CategoryList = () => {
+  document.title = `Categories | PUCShop`;
   const alert = useAlert();
   const contextData = useContext(GlobalContext);
   const [categories, setCategories] = useState([]);

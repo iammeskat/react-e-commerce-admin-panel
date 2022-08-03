@@ -17,6 +17,7 @@ import Table from "../common/table/Table";
 import TableHeader from "../common/table/TableHeader";
 
 const ProductList = () => {
+  document.title = `Products | PUCShop`;
   const alert = useAlert();
   const contextData = useContext(GlobalContext);
   const [products, setProducts] = useState([]);

@@ -35,6 +35,8 @@ const ProductDetails = () => {
     return () => (isLoaded = false);
   }, [productId]);
   // product && console.log(product.reviews.length);
+
+  document.title = `Product - ${product ? product.name : ""} | PUCShop`;
   return product ? (
     <div
       className={`flex flex-col grow px-3 md:px-6 py-3 space-y-4  transition-all duration-200`}
