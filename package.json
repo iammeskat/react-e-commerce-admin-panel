@@ -1,5 +1,5 @@
 {
-  "homepageTest": "http://iammeskat.github.io/reacte-commerce-admin-panel",
+  "homepage": ".",
   "name": "myapp",
   "version": "0.1.0",
   "private": true,
