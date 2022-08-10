@@ -4,6 +4,7 @@ import { useAlert } from "react-alert";
 import config from "../../../config/config";
 import { GlobalContext } from "../../../context/GlobalContext";
 import IconPlusItem from "../icons/IconPlusItem";
+import ProgressingBar from "../ProgressingBar";
 import BtnCloseModal from "./BtnCloseModal";
 import BtnModalAdd from "./BtnModalAdd";
 import BtnModalCancel from "./BtnModalCancel";
@@ -14,6 +15,7 @@ import SelectComp from "./SelectComp";
 const FormDealer = () => {
   const alert = useAlert();
   const contextData = useContext(GlobalContext);
+  const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState(
     contextData.modal.mode === "create"
       ? {
@@ -64,6 +66,7 @@ const FormDealer = () => {
       console.log(errors);
       return;
     } else {
+      setSubmitting(true);
       if (contextData.modal.mode === "create") {
         axios
           .post(
@@ -89,7 +92,8 @@ const FormDealer = () => {
             } else {
               alert.error("Something went wrong! Please try again.");
             }
-          });
+          })
+          .then(() => setSubmitting(false));
       } else {
         axios
           .put(
@@ -115,7 +119,8 @@ const FormDealer = () => {
             } else {
               alert.error("Something went wrong! Please try again.");
             }
-          });
+          })
+          .then(() => setSubmitting(false));
       }
     }
   };
@@ -130,6 +135,7 @@ const FormDealer = () => {
               : "Update Dealer"}
           </span>
         </div>
+        {submitting && <ProgressingBar />}
         <form
           onSubmit={(e) => formSubmitHandler(e)}
           className="space-y-2 bg-slate-100 p-2 rounded"

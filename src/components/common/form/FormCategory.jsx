@@ -4,6 +4,7 @@ import { useAlert } from "react-alert";
 import config from "../../../config/config";
 import { GlobalContext } from "../../../context/GlobalContext";
 import IconPlusItem from "../icons/IconPlusItem";
+import ProgressingBar from "../ProgressingBar";
 import BtnCloseModal from "./BtnCloseModal";
 import BtnModalAdd from "./BtnModalAdd";
 import BtnModalCancel from "./BtnModalCancel";
@@ -14,6 +15,7 @@ import SelectComp from "./SelectComp";
 const FormCategory = () => {
   const alert = useAlert();
   const contextData = useContext(GlobalContext);
+  const [submitting, setSubmitting] = useState(false);
   const [categories, setCategories] = useState();
   const [formData, setFormData] = useState(
     contextData.modal.mode === "create"
@@ -60,6 +62,7 @@ const FormCategory = () => {
     if (!errorHandler()) {
       console.log(errors);
     } else {
+      setSubmitting(true);
       if (contextData.modal.mode === "create") {
         axios
           .post(
@@ -74,7 +77,8 @@ const FormCategory = () => {
           })
           .catch((error) => {
             alert.error(error.response.data.errors.name.msg);
-          });
+          })
+          .then(() => setSubmitting(false));
       } else {
         axios
           .put(
@@ -89,7 +93,8 @@ const FormCategory = () => {
           })
           .catch((error) => {
             alert.error(error.response.data.errors.name.msg);
-          });
+          })
+          .then(() => setSubmitting(false));
       }
     }
   };
@@ -117,6 +122,7 @@ const FormCategory = () => {
                 : "Update Category"}
             </span>
           </div>
+          {submitting && <ProgressingBar />}
           <form
             onSubmit={(e) => formSubmitHandler(e)}
             className="space-y-2 bg-slate-100 p-2 rounded"

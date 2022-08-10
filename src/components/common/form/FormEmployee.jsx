@@ -4,6 +4,7 @@ import { useAlert } from "react-alert";
 import config from "../../../config/config";
 import { GlobalContext } from "../../../context/GlobalContext";
 import IconPlusItem from "../icons/IconPlusItem";
+import ProgressingBar from "../ProgressingBar";
 import BtnCloseModal from "./BtnCloseModal";
 import BtnModalAdd from "./BtnModalAdd";
 import BtnModalCancel from "./BtnModalCancel";
@@ -14,6 +15,7 @@ import TextAreaComp from "./TextAreaComp";
 const FormEmployee = () => {
   const alert = useAlert();
   const contextData = useContext(GlobalContext);
+  const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState(
     contextData.modal.mode === "create"
       ? {
@@ -67,6 +69,7 @@ const FormEmployee = () => {
       console.log(errors);
       return;
     } else {
+      setSubmitting(true);
       if (contextData.modal.mode === "create") {
         axios
           .post(
@@ -92,7 +95,8 @@ const FormEmployee = () => {
             } else {
               alert.error("Something went wrong! Please try again.");
             }
-          });
+          })
+          .then(() => setSubmitting(false));
       } else {
         axios
           .put(
@@ -118,7 +122,8 @@ const FormEmployee = () => {
             } else {
               alert.error("Something went wrong! Please try again.");
             }
-          });
+          })
+          .then(() => setSubmitting(false));
       }
     }
   };
@@ -133,6 +138,7 @@ const FormEmployee = () => {
               : "Update Employee"}
           </span>
         </div>
+        {submitting && <ProgressingBar />}
         <form
           onSubmit={(e) => formSubmitHandler(e)}
           className="space-y-2 bg-slate-100 p-2 rounded"
