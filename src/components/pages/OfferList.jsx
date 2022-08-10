@@ -21,6 +21,7 @@ const OfferList = () => {
   const contextData = useContext(GlobalContext);
   const [data, setData] = useState([]);
   const [reload, setReload] = useState("");
+  const [resStatus, setResStatus] = useState(false);
   const [options, setOptions] = useState({
     activePage: 1,
     pageCount: 20,
@@ -105,9 +106,13 @@ const OfferList = () => {
       .get(`${config.SERVER_URL}/api/admin/offers`, config.headers)
       .then((res) => {
         isLoaded && setData(res.data.data.offers);
-        console.log(res.data.data.offers);
+        // console.log(res.data.data.offers);
+        isLoaded && setResStatus(true);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        setResStatus(true);
+        console.log(error);
+      });
     return () => (isLoaded = false);
   }, [reload]);
 
@@ -227,6 +232,7 @@ const OfferList = () => {
               }
             />
             <Table
+              resStatus={resStatus}
               columnHeader={columnHeader}
               columns={columnData}
               items={paginatedItems}

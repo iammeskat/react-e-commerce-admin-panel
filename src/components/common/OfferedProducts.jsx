@@ -311,6 +311,7 @@ const OfferedProducts = (props) => {
               }
             />
             <Table
+              resStatus={true}
               columnHeader={columnHeader}
               columns={columnData}
               items={paginatedItems}

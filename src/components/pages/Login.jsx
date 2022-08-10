@@ -1,12 +1,12 @@
 import axios from "axios";
 import { useState } from "react";
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import config from "../../config/config";
 import { isAuthenticated, setToken } from "../../utilities/auth";
 
 const Login = () => {
   document.title = `Login | PUCShop`;
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -46,7 +46,8 @@ const Login = () => {
           // console.log(res.data.data);
           if (setToken(res.data.data)) {
             // navigate("/");
-            window.location.reload();
+            // window.location.reload();
+            window.location.href = "./";
           } else {
             setErrors({ response: "Invalid email or password!" });
           }

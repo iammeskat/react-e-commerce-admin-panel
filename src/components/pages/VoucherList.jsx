@@ -21,6 +21,7 @@ const VoucherList = () => {
   const contextData = useContext(GlobalContext);
   const [data, setData] = useState([]);
   const [reload, setReload] = useState("");
+  const [resStatus, setResStatus] = useState(false);
   const [options, setOptions] = useState({
     activePage: 1,
     pageCount: 20,
@@ -105,9 +106,13 @@ const VoucherList = () => {
       .get(`${config.SERVER_URL}/api/admin/coupons`, config.headers)
       .then((res) => {
         isLoaded && setData(res.data.data.coupons);
-        console.log(res.data.data.coupons);
+        // console.log(res.data.data.coupons);
+        isLoaded && setResStatus(true);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        setResStatus(true);
+        console.log(error);
+      });
     return () => (isLoaded = false);
   }, [reload]);
 
@@ -230,6 +235,7 @@ const VoucherList = () => {
               }
             />
             <Table
+              resStatus={resStatus}
               columnHeader={columnHeader}
               columns={columnData}
               items={paginatedItems}

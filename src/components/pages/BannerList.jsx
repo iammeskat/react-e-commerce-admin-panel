@@ -20,6 +20,7 @@ const BannerList = () => {
   const contextData = useContext(GlobalContext);
   const [data, setData] = useState([]);
   const [reload, setReload] = useState("");
+  const [resStatus, setResStatus] = useState(false);
   const [options, setOptions] = useState({
     activePage: 1,
     pageCount: 20,
@@ -104,17 +105,18 @@ const BannerList = () => {
       .then((res) => {
         isLoaded && setData(res.data.data.banner);
         console.log(res);
+        isLoaded && setResStatus(true);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+        setResStatus(true);
+      });
     return () => (isLoaded = false);
   }, [reload]);
 
   const deleteItem = (itemId, itemName) => {
     axios
-      .delete(
-        `http://localhost:3050/api/admin/banners/${itemId}`,
-        config.headers
-      )
+      .delete(`${config.SERVER_URL}api/admin/banners/${itemId}`, config.headers)
       .then((res) => {
         const tempData = data.filter((item) => {
           if (item._id === itemId) return false;
@@ -228,6 +230,7 @@ const BannerList = () => {
               }
             />
             <Table
+              resStatus={resStatus}
               columnHeader={columnHeader}
               columns={columnData}
               items={paginatedItems}

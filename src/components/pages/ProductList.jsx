@@ -23,6 +23,7 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [resStatus, setResStatus] = useState(false);
   const [options, setOptions] = useState({
     activePage: 1,
     pageCount: 20,
@@ -127,8 +128,12 @@ const ProductList = () => {
       .get(`${config.SERVER_URL}/api/admin/products`, config.headers)
       .then((res) => {
         isLoaded && setProducts(res.data.data.products);
+        isLoaded && setResStatus(true);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        setResStatus(true);
+        console.log(error);
+      });
     return () => (isLoaded = false);
   }, []);
 
@@ -312,6 +317,7 @@ const ProductList = () => {
               }
             />
             <Table
+              resStatus={resStatus}
               columnHeader={columnHeader}
               columns={columnData}
               items={paginatedItems}

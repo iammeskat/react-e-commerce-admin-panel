@@ -21,6 +21,7 @@ const BrandList = () => {
   const contextData = useContext(GlobalContext);
   const [data, setData] = useState([]);
   const [reload, setReload] = useState("");
+  const [resStatus, setResStatus] = useState(false);
   const [options, setOptions] = useState({
     activePage: 1,
     pageCount: 20,
@@ -88,9 +89,13 @@ const BrandList = () => {
       .get(`${config.SERVER_URL}/api/admin/brands`, config.headers)
       .then((res) => {
         isLoaded && setData(res.data.data.brands);
-        console.log(res.data.data.brands);
+        // console.log(res.data.data.brands);
+        isLoaded && setResStatus(true);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        setResStatus(true);
+        console.log(error);
+      });
     return () => (isLoaded = false);
   }, [reload]);
 
@@ -210,6 +215,7 @@ const BrandList = () => {
               }
             />
             <Table
+              resStatus={resStatus}
               columnHeader={columnHeader}
               columns={columnData}
               items={paginatedItems}

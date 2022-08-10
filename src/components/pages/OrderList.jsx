@@ -20,6 +20,7 @@ const OrderList = () => {
   const alert = useAlert();
   const contextData = useContext(GlobalContext);
   const [data, setData] = useState([]);
+  const [resStatus, setResStatus] = useState(false);
   const [options, setOptions] = useState({
     activePage: 1,
     pageCount: 20,
@@ -155,8 +156,12 @@ const OrderList = () => {
       .then((res) => {
         isLoaded && setData(res.data.data.orders);
         // console.log(res.data.data.orders);
+        isLoaded && setResStatus(true);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        setResStatus(true);
+        console.log(error);
+      });
     return () => (isLoaded = false);
   }, []);
 
@@ -291,6 +296,7 @@ const OrderList = () => {
               }
             />
             <Table
+              resStatus={resStatus}
               columnHeader={columnHeader}
               columns={columnData}
               items={paginatedItems}

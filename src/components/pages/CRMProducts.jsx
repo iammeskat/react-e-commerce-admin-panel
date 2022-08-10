@@ -236,7 +236,7 @@ const CRMProducts = (props) => {
                 onChange={(e) => setFilterOptions("city", e.target.value)}
               >
                 <option value="all">All</option>
-                <option value="Chittagong">Chittagong</option>
+                <option value="chittagong">Chittagong</option>
                 <option disabled>Dhaka</option>
                 <option disabled>Sylhet</option>
                 <option disabled>Rajshahi</option>
@@ -256,7 +256,7 @@ const CRMProducts = (props) => {
                 onChange={(e) => setFilterOptions("zone", e.target.value)}
               >
                 <option value="all">All</option>
-                {options.city === "Chittagong" &&
+                {options.city === "chittagong" &&
                   locations.map((item, indx) => {
                     return (
                       <>

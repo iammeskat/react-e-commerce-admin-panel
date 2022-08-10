@@ -20,6 +20,7 @@ const CategoryList = () => {
   const alert = useAlert();
   const contextData = useContext(GlobalContext);
   const [categories, setCategories] = useState([]);
+  const [resStatus, setResStatus] = useState(false);
   const [options, setOptions] = useState({
     activePage: 1,
     pageCount: 20,
@@ -111,9 +112,13 @@ const CategoryList = () => {
       .get(`${config.SERVER_URL}/api/admin/categories`, config.headers)
       .then((res) => {
         isLoaded && setCategories(res.data.data.categories);
-        console.log(res.data.data.categories);
+        // console.log(res.data.data.categories);
+        isLoaded && setResStatus(true);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        setResStatus(true);
+        console.log(error);
+      });
     return () => (isLoaded = false);
   }, [reload]);
 
@@ -249,6 +254,7 @@ const CategoryList = () => {
               }
             />
             <Table
+              resStatus={resStatus}
               columnHeader={columnHeader}
               columns={columnData}
               items={paginatedItems}

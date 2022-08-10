@@ -20,6 +20,7 @@ const SliderList = () => {
   const contextData = useContext(GlobalContext);
   const [data, setData] = useState([]);
   const [reload, setReload] = useState("");
+  const [resStatus, setResStatus] = useState(false);
   const [options, setOptions] = useState({
     activePage: 1,
     pageCount: 20,
@@ -102,9 +103,13 @@ const SliderList = () => {
       .get(`${config.SERVER_URL}/api/admin/carousels`, config.headers)
       .then((res) => {
         isLoaded && setData(res.data.data.carousel);
-        console.log(res.data.data.carousel);
+        // console.log(res.data.data.carousel);
+        isLoaded && setResStatus(true);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        setResStatus(true);
+        console.log(error);
+      });
     return () => (isLoaded = false);
   }, [reload]);
 
@@ -230,6 +235,7 @@ const SliderList = () => {
               }
             />
             <Table
+              resStatus={resStatus}
               columnHeader={columnHeader}
               columns={columnData}
               items={paginatedItems}

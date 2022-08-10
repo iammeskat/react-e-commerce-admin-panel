@@ -52,7 +52,7 @@ const MainRoutes = () => {
         <Route exact path="/messages" element={<h1>Messages</h1>} />
         <Route exact path="/invoices" element={<h1>Invoices</h1>} />
         <Route exact path="/settings" element={<h1>Settings</h1>} />
-        <Route exact path="/redirect" element={<Navigate to="/" />} />
+        <Route exact path="*" element={<Navigate to="/" />} />
       </Routes>
     </div>
   );

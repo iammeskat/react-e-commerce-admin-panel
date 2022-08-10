@@ -20,6 +20,7 @@ const DealerList = () => {
   const contextData = useContext(GlobalContext);
   const [data, setData] = useState([]);
   const [reload, setReload] = useState("");
+  const [resStatus, setResStatus] = useState(false);
   const [options, setOptions] = useState({
     activePage: 1,
     pageCount: 20,
@@ -102,9 +103,13 @@ const DealerList = () => {
       .get(`${config.SERVER_URL}/api/admin/dealers`, config.headers)
       .then((res) => {
         isLoaded && setData(res.data.data.dealer);
-        console.log(res.data.data.dealer);
+        // console.log(res.data.data.dealer);
+        isLoaded && setResStatus(true);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        setResStatus(true);
+        console.log(error);
+      });
     return () => (isLoaded = false);
   }, [reload]);
 
@@ -231,6 +236,7 @@ const DealerList = () => {
               }
             />
             <Table
+              resStatus={resStatus}
               columnHeader={columnHeader}
               columns={columnData}
               items={paginatedItems}

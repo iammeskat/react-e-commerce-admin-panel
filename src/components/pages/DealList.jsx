@@ -20,6 +20,7 @@ const DealList = () => {
   const contextData = useContext(GlobalContext);
   const [data, setData] = useState([]);
   const [reload, setReload] = useState("");
+  const [resStatus, setResStatus] = useState(false);
   const [options, setOptions] = useState({
     activePage: 1,
     pageCount: 20,
@@ -102,9 +103,13 @@ const DealList = () => {
       .get(`${config.SERVER_URL}/api/admin/deals`, config.headers)
       .then((res) => {
         isLoaded && setData(res.data.data.deal);
-        console.log(res.data.data.deal);
+        // console.log(res.data.data.deal);
+        isLoaded && setResStatus(true);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        setResStatus(true);
+        console.log(error);
+      });
     return () => (isLoaded = false);
   }, [reload]);
 
@@ -227,6 +232,7 @@ const DealList = () => {
               }
             />
             <Table
+              resStatus={resStatus}
               columnHeader={columnHeader}
               columns={columnData}
               items={paginatedItems}
