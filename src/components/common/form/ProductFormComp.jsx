@@ -84,20 +84,6 @@ const ProductFormComp = () => {
     }
   };
 
-  // const errorHandler = () => {
-  //   let error = {};
-  //   for (let [key, value] of Object.entries({ ...data })) {
-  //     if (!value) {
-  //       error[key] = `${key} is required`;
-  //     }
-  //   }
-  //   if (!error) {
-  //     return false;
-  //   } else {
-  //     setError(error);
-  //     return true;
-  //   }
-  // };
   const hasError = () => {
     let error = {};
     for (let [key, value] of Object.entries({ ...data })) {

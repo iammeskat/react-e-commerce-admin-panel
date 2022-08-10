@@ -36,7 +36,7 @@ const sidebarList = [
   },
   {
     title: "CRM",
-    icon: "/icons/order.svg",
+    icon: "/icons/crm.svg",
     to: "/crm",
   },
   {
@@ -61,17 +61,17 @@ const sidebarList = [
   },
   {
     title: "Deals",
-    icon: "/icons/banner.svg",
+    icon: "/icons/deal.svg",
     to: "/deals",
   },
   {
     title: "Dealer",
-    icon: "/icons/banner.svg",
+    icon: "/icons/dealer.svg",
     to: "/dealers",
   },
   {
     title: "Employee",
-    icon: "/icons/banner.svg",
+    icon: "/icons/customer.svg",
     to: "/employees",
   },
   // {
