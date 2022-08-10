@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import config from "../../config/config";
+import Loader from "../common/Loader";
 import PageHeader from "../common/PageHeader";
 import ProductColors from "../common/products/ProductColors";
 import ProductDescription from "../common/products/ProductDescription";
@@ -81,7 +82,7 @@ const ProductDetails = () => {
       </div>
     </div>
   ) : (
-    "Loading...!"
+    <Loader />
   );
 };
 

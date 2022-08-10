@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import config from "../../config/config";
+import Loader from "../common/Loader";
 import OfferedProducts from "../common/OfferedProducts";
 import OfferInfo from "../common/OfferInfo";
 import PageHeader from "../common/PageHeader";
@@ -41,7 +42,7 @@ const OfferDetails = () => {
       </div>
     </div>
   ) : (
-    ""
+    <Loader />
   );
 };
 
