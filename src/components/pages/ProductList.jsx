@@ -31,6 +31,7 @@ const ProductList = () => {
     selectedBrand: "all",
     status: "all",
     searchKey: "all",
+    isExclusive: "all",
     sortBy: 0,
     // sortColumn: { path: "asc", order: "createdAt" },
   });
@@ -44,7 +45,7 @@ const ProductList = () => {
     "PRODUCT NAME",
     // "CATEGORY",
     "BRAND",
-    "QTY",
+    "stock",
     "SALE",
     "CREATED AT",
     "MRP",
@@ -190,11 +191,14 @@ const ProductList = () => {
       setOptions({ ...options, selectedBrand: value, activePage: 1 });
     } else if (option === "status") {
       setOptions({ ...options, status: value, activePage: 1 });
+    } else if (option === "isExclusive") {
+      setOptions({ ...options, isExclusive: value, activePage: 1 });
     }
   };
 
   const filterItems = () => {
-    const { selectedCategory, selectedBrand, status, searchKey } = options;
+    const { selectedCategory, selectedBrand, status, searchKey, isExclusive } =
+      options;
 
     let filteredItems = [...products];
 
@@ -209,6 +213,14 @@ const ProductList = () => {
     if (status !== "all") {
       const tempItems = filteredItems.filter((item) => {
         if (item.status === status) return true;
+        else return false;
+      });
+      filteredItems = [...tempItems];
+    }
+    if (isExclusive !== "all") {
+      const tempItems = filteredItems.filter((item) => {
+        const flag = isExclusive === "no" ? false : true;
+        if (item.isExclusive === flag) return true;
         else return false;
       });
       filteredItems = [...tempItems];
@@ -280,6 +292,15 @@ const ProductList = () => {
               numberOfItem={filteredItems.length}
               filterOptions={
                 <>
+                  <FilterOption
+                    label="Exclusive"
+                    filterBy="isExclusive"
+                    options={[
+                      { name: "Yes", value: "yes" },
+                      { name: "No", value: "no" },
+                    ]}
+                    onChangeHandler={setFilterOptions}
+                  />
                   <FilterOption
                     label="Category"
                     filterBy="category"

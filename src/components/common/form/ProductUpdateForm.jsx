@@ -156,6 +156,16 @@ const ProductUpdateForm = (props) => {
 
               <TextAreaComp
                 handler={handleFormData}
+                errMsg={errors.shortDescription}
+                label="Short Description"
+                id="shortDescription"
+                name="shortDescription"
+                placeholder="Enter short description"
+                rows="2"
+              />
+
+              <TextAreaComp
+                handler={handleFormData}
                 errMsg={errors.description}
                 label="Full Description"
                 id="full-description"
@@ -164,19 +174,33 @@ const ProductUpdateForm = (props) => {
                 placeholder="Enter full description"
                 rows="8"
               />
-              <SelectComp
-                handler={handleFormData}
-                errMsg={errors.status}
-                label="Status"
-                id="status"
-                name="status"
-                value={data.status}
-                options={[
-                  { value: "active", name: "Active" },
-                  { value: "inactive", name: "Inactive" },
-                  { value: "discontinued", name: "Discontinued" },
-                ]}
-              />
+              <div className="grid grid-cols-2 gap-2">
+                <SelectComp
+                  handler={handleFormData}
+                  errMsg={errors.isExclusive}
+                  label="Is Exclusive"
+                  id="isExclusive"
+                  name="isExclusive"
+                  value={data.isExclusive}
+                  options={[
+                    { value: "true", name: "Yes" },
+                    { value: "false", name: "No" },
+                  ]}
+                />
+                <SelectComp
+                  handler={handleFormData}
+                  errMsg={errors.status}
+                  label="Status"
+                  id="status"
+                  name="status"
+                  value={data.status}
+                  options={[
+                    { value: "active", name: "Active" },
+                    { value: "inactive", name: "Inactive" },
+                    { value: "discontinued", name: "Discontinued" },
+                  ]}
+                />
+              </div>
             </div>
           </div>
           {/* <!-- right side  --> */}

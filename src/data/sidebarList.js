@@ -74,21 +74,21 @@ const sidebarList = [
     icon: "/icons/banner.svg",
     to: "/employees",
   },
-  {
-    title: "Message",
-    icon: "/icons/message.svg",
-    to: "/messages",
-  },
-  {
-    title: "Invocie",
-    icon: "/icons/invoice.svg",
-    to: "/invoices",
-  },
-  {
-    title: "Setting",
-    icon: "/icons/setting.svg",
-    to: "/settings",
-  },
+  // {
+  //   title: "Message",
+  //   icon: "/icons/message.svg",
+  //   to: "/messages",
+  // },
+  // {
+  //   title: "Invocie",
+  //   icon: "/icons/invoice.svg",
+  //   to: "/invoices",
+  // },
+  // {
+  //   title: "Setting",
+  //   icon: "/icons/setting.svg",
+  //   to: "/settings",
+  // },
 ];
 
 export { sidebarList };
