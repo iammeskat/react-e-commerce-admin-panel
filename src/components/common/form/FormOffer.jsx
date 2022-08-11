@@ -219,7 +219,7 @@ const FormOffer = () => {
                 label="Status"
                 id="status"
                 name="status"
-                value={formData.status}
+                value={formData.status ? formData.status : "active"}
                 options={[
                   { value: "active", name: "Active" },
                   { value: "inactive", name: "Inactive" },

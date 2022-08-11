@@ -84,7 +84,7 @@ const FormDeal = () => {
   const hasError = () => {
     let error = {};
     for (let [key, value] of Object.entries({ ...formData })) {
-      if (!value) {
+      if (!value && key !== "due") {
         error[key] = `${key} is required`;
       }
     }

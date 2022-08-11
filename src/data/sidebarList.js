@@ -5,29 +5,9 @@ const sidebarList = [
     to: "/",
   },
   {
-    title: "Customer",
-    icon: "/icons/customer.svg",
-    to: "/customers",
-  },
-  {
-    title: "Admin",
-    icon: "/icons/admin.svg",
-    to: "/admins",
-  },
-  {
     title: "Products",
     icon: "/icons/product.svg",
     to: "/products",
-  },
-  {
-    title: "Category",
-    icon: "/icons/category.svg",
-    to: "/categories",
-  },
-  {
-    title: "Brand",
-    icon: "/icons/brand.svg",
-    to: "/brands",
   },
   {
     title: "Order",
@@ -38,6 +18,16 @@ const sidebarList = [
     title: "CRM",
     icon: "/icons/crm.svg",
     to: "/crm",
+  },  
+  {
+    title: "Category",
+    icon: "/icons/category.svg",
+    to: "/categories",
+  },
+  {
+    title: "Brand",
+    icon: "/icons/brand.svg",
+    to: "/brands",
   },
   {
     title: "Offer",
@@ -58,6 +48,16 @@ const sidebarList = [
     title: "Banner",
     icon: "/icons/banner.svg",
     to: "/banners",
+  },
+  {
+    title: "Customer",
+    icon: "/icons/customer.svg",
+    to: "/customers",
+  },
+  {
+    title: "Admin",
+    icon: "/icons/admin.svg",
+    to: "/admins",
   },
   {
     title: "Deals",

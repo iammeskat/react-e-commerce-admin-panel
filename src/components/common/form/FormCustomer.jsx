@@ -21,8 +21,6 @@ const FormCustomer = () => {
           name: "",
           status: "",
           email: "",
-          password: "",
-          passwordConfirmation: "",
           role: "user",
         }
       : contextData.modal.data
@@ -157,28 +155,6 @@ const FormCustomer = () => {
                 type="email"
                 value={formData.email}
                 placeholder="Enter email"
-              />
-            </div>
-
-            <div className="grid grid-cols-2 gap-2">
-              <InputComp
-                handler={handleFormData}
-                errMsg={errors.password}
-                label="Password"
-                id="password"
-                name="password"
-                type="password"
-                value={formData.password}
-                placeholder="Enter password"
-              />
-              <InputComp
-                handler={handleFormData}
-                errMsg={errors.passwordConfirmation}
-                label="Confirm Password"
-                id="passwordConfirmation"
-                name="passwordConfirmation"
-                type="password"
-                placeholder="Confirm password"
               />
             </div>
 

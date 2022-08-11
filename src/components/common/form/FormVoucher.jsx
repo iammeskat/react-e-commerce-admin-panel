@@ -197,7 +197,7 @@ const FormVoucher = () => {
                 id="offer_limit"
                 name="offer_limit"
                 type="number"
-                value={formData.offer_limit}
+                value={1}
                 placeholder="Enter limit"
               />
 
@@ -207,7 +207,7 @@ const FormVoucher = () => {
                 label="Status"
                 id="status"
                 name="status"
-                value={formData.status}
+                value={formData.status ? formData.status : "active"}
                 options={[
                   { value: "active", name: "Active" },
                   { value: "inactive", name: "Inactive" },

@@ -43,8 +43,13 @@ const FormAdmin = () => {
     }
   };
   const hasError = () => {
+    let tempFormData = { ...formData };
+    if (!tempFormData.password && contextData.modal.mode !== "create") {
+      delete tempFormData.password;
+      delete tempFormData.passwordConfirmation;
+    }
     let error = {};
-    for (let [key, value] of Object.entries({ ...formData })) {
+    for (let [key, value] of Object.entries({ ...tempFormData })) {
       if (!value) {
         error[key] = `${key} is required`;
       }
@@ -93,10 +98,15 @@ const FormAdmin = () => {
           })
           .then(() => setSubmitting(false));
       } else {
+        let tempFormData = { ...formData };
+        if (!tempFormData.password) {
+          delete tempFormData.password;
+          delete tempFormData.passwordConfirmation;
+        }
         axios
           .put(
             `${config.SERVER_URL}/api/admin/users/${formData._id}`,
-            formData,
+            tempFormData,
             config.headers
           )
           .then((res) => {
