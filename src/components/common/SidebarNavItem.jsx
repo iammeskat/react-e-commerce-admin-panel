@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { GlobalContext } from "../../context/GlobalContext";
-import SidebarSubMenuButton from "./SidebarSubMenuButton";
 const SidebarNavItem = (props) => {
   const { title, icon, to, indx } = props;
 
@@ -20,7 +19,7 @@ const SidebarNavItem = (props) => {
       >
         <div className="w-[0.20rem] flex items-center">
           <div
-            className={`bg-blue-600 w-full rounded-r-lg ${
+            className={`bg-white w-full rounded-r-lg ${
               contextData.activeTab === indx
                 ? "h-full transition-all duration-500"
                 : "h-0"
@@ -48,7 +47,6 @@ const SidebarNavItem = (props) => {
               </span>
             </div>
           </NavLink>
-          {contextData.sidebar.showSubMenuButton && <SidebarSubMenuButton />}
         </div>
       </div>
     </li>

@@ -116,7 +116,7 @@ const SliderList = () => {
   const deleteItem = (itemId, itemName) => {
     axios
       .delete(
-        `http://localhost:3050/api/admin/carousels/${itemId}`,
+        `${config.SERVER_URL}/api/admin/carousels/${itemId}`,
         config.headers
       )
       .then((res) => {

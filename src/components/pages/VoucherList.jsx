@@ -119,7 +119,7 @@ const VoucherList = () => {
   const deleteItem = (itemId, itemName) => {
     axios
       .delete(
-        `http://localhost:3050/api/admin/coupons/${itemId}`,
+        `${config.SERVER_URL}/api/admin/coupons/${itemId}`,
         config.headers
       )
       .then((res) => {

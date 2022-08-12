@@ -167,10 +167,7 @@ const OrderList = () => {
 
   const deleteItem = (itemId, itemName) => {
     axios
-      .delete(
-        `http://localhost:3050/api/admin/orders/${itemId}`,
-        config.headers
-      )
+      .delete(`${config.SERVER_URL}/api/admin/orders/${itemId}`, config.headers)
       .then((res) => {
         const tempData = data.filter((item) => {
           if (item._id === itemId) return false;

@@ -161,7 +161,7 @@ const OfferedProducts = (props) => {
   useEffect(() => {
     let isLoaded = true;
     axios
-      .get(`http://localhost:3050/api/admin/brands`, config.headers)
+      .get(`${config.SERVER_URL}/api/admin/brands`, config.headers)
       .then((res) => {
         isLoaded && setBrands(res.data.data.brands);
       })

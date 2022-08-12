@@ -35,7 +35,7 @@ const ProductPhotoCrud = (props) => {
   const removePhoto = (photoId) => {
     axios
       .delete(
-        `http://localhost:3050/api/admin/products/remove-photo/${productId}/${photoId}`,
+        `${config.SERVER_URL}/api/admin/products/remove-photo/${productId}/${photoId}`,
         config.headers
       )
       .then((res) => {
@@ -74,7 +74,7 @@ const ProductPhotoCrud = (props) => {
             <div key={indx} className="space-y-1">
               <img
                 className="w-20 h-20"
-                src={`http://localhost:3050/file/images/${item}`}
+                src={`${config.SERVER_URL}/public/storage/images/${item}`}
                 alt=""
               />
               <button

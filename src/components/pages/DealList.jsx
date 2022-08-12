@@ -115,7 +115,7 @@ const DealList = () => {
 
   const deleteItem = (itemId, itemName) => {
     axios
-      .delete(`http://localhost:3050/api/admin/deals/${itemId}`, config.headers)
+      .delete(`${config.SERVER_URL}/api/admin/deals/${itemId}`, config.headers)
       .then((res) => {
         const tempData = data.filter((item) => {
           if (item._id === itemId) return false;

@@ -125,7 +125,7 @@ const CategoryList = () => {
   const deleteItem = (itemId, itemName) => {
     axios
       .delete(
-        `http://localhost:3050/api/admin/categories/${itemId}`,
+        `${config.SERVER_URL}/api/admin/categories/${itemId}`,
         config.headers
       )
       .then((res) => {
