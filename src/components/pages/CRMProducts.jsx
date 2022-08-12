@@ -100,12 +100,17 @@ const CRMProducts = (props) => {
     }
     if (zone !== "all") {
       const tempItems = filteredItems.filter((item) => {
-        if (item.address.state === zone) return true;
+        if (item.address.address1 === zone) return true;
         else return false;
       });
       filteredItems = [...tempItems];
     }
     if (area !== "all") {
+      const tempItems = filteredItems.filter((item) => {
+        if (item.address.state === area) return true;
+        else return false;
+      });
+      filteredItems = [...tempItems];
     }
     return filteredItems;
   };
@@ -279,6 +284,7 @@ const CRMProducts = (props) => {
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:outline-none focus:border focus:border-gray-500 block w-full p-1"
                 name=""
                 id=""
+                onChange={(e) => setFilterOptions("area", e.target.value)}
               >
                 <option value="all">All</option>
                 {area.map((item, indx) => {

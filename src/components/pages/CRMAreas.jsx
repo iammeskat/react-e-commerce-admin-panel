@@ -173,12 +173,6 @@ const CRMAreas = (props) => {
     return filteredItems;
   };
 
-  const search = (keyword) => {
-    setTimeout(() => {
-      setOptions({ ...options, searchKey: keyword, activePage: 1 });
-    }, 300);
-  };
-
   let filteredItems = data ? filterItems() : [];
 
   const mostAreas = () => {
@@ -195,6 +189,7 @@ const CRMAreas = (props) => {
     let sorted = entries.sort((b, a) => a[1] - b[1]);
     return sorted;
   };
+  // childs of city
   const showZone = (city) => {
     setArea([]);
     setActiveCity(city);
@@ -206,7 +201,7 @@ const CRMAreas = (props) => {
 
     let zones = {};
     for (let i = 0; i < cityProducts.length; i++) {
-      const zone = cityProducts[i].address.state;
+      const zone = cityProducts[i].address.address1;
       if (zones.hasOwnProperty(zone)) {
         zones[zone] = zones[zone] + 1;
       } else {
@@ -218,16 +213,18 @@ const CRMAreas = (props) => {
     setZone(sorted);
     console.log(sorted);
   };
+
+  // childs of upazila
   const showArea = (zone) => {
     setActiveZone(zone);
     const cityProducts = filteredItems.filter((item) => {
-      if (item.address.state === zone) return true;
+      if (item.address.address1 === zone) return true;
       else return false;
     });
 
     let zones = {};
     for (let i = 0; i < cityProducts.length; i++) {
-      const zone = cityProducts[i].address.address1;
+      const zone = cityProducts[i].address.state;
       if (zones.hasOwnProperty(zone)) {
         zones[zone] = zones[zone] + 1;
       } else {
