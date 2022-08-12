@@ -26,7 +26,7 @@ const FormOffer = () => {
           description: "",
           discountAmount: "",
           limit: "",
-          status: "",
+          status: "active",
           photo: "",
         }
       : contextData.modal.data

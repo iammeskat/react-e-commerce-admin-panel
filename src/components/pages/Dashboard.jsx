@@ -101,9 +101,9 @@ const Dashboard = () => {
       <PageHeader title="dashboard" />
       <div className="space-y-4">
         <Summary />
-        <div className="grid grid-cols-2 gap-12 pt-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 pt-6">
           <StockSummary />
-          <div className="bg-white p-2 m-4">
+          <div className="bg-white p-2 border">
             <select
               className="w-full p-2 border"
               name=""
@@ -122,7 +122,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="bg-white p-2 m-4">
+        <div className="bg-white p-2 ">
           <div className="flex space-x-2">
             <select
               className="w-full p-2 border"

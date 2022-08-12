@@ -23,8 +23,8 @@ const FormVoucher = () => {
           min_shopping_amount: "",
           start_form: "",
           expired_in: "",
-          offer_limit: "",
-          status: "",
+          offer_limit: "1",
+          status: "active",
         }
       : contextData.modal.data
   );

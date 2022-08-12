@@ -20,7 +20,7 @@ const FormBrand = () => {
     contextData.modal.mode === "create"
       ? {
           name: "",
-          status: "",
+          status: "active",
           icon: "",
         }
       : contextData.modal.data

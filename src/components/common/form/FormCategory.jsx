@@ -22,7 +22,7 @@ const FormCategory = () => {
     contextData.modal.mode === "create"
       ? {
           name: "",
-          status: "",
+          status: "active",
           photo: "",
           isFeatured: "false",
         }

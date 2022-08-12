@@ -19,7 +19,7 @@ const StockSummary = () => {
     return () => (isLoaded = false);
   }, []);
   return (
-    <div className=" border rounded shadow-md bg-slate-50 p-6 text-center space-y-6">
+    <div className=" border rounded  bg-white p-6 text-center space-y-6">
       <div className="text-3xl font-medium text-gray-600 border-b pb-4 border-gray-300">
         Product Stocks
       </div>
