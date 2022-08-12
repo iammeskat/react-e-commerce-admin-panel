@@ -21,7 +21,7 @@ const ProductPhotoSlider = (props) => {
   console.log(props.name.split(" "));
 
   return (
-    <div className="flex flex-col space-y-2 min-w-[20rem] 2xl:sticky 2xl:top-[5rem] mb-10">
+    <div className="flex flex-col space-y-2 min-w-[20rem] max-w-[20rem] 2xl:sticky 2xl:top-[5rem] mb-10">
       <ImageGallery items={images} />
     </div>
   );

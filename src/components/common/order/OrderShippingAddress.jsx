@@ -29,36 +29,36 @@ const OrderShippingAddress = (props) => {
         <table>
           <tbody>
             <tr>
-              <td>Name</td>
+              <td>Name:</td>
               <td>{address.name}</td>
             </tr>
             <tr>
-              <td>Phone</td>
+              <td>Phone:</td>
               <td>{address.phone}</td>
             </tr>
             <tr>
-              <td>Address</td>
-              <td>{address.address1}</td>
-            </tr>
-            <tr>
-              <td></td>
+              <td>Address:</td>
               <td>{address.address2}</td>
             </tr>
             <tr>
-              <td>State</td>
+              <td></td>
+              <td>{address.address1}</td>
+            </tr>
+            <tr>
+              <td>Area:</td>
               <td>{address.state}</td>
             </tr>
             <tr>
-              <td>City</td>
+              <td>City:</td>
               <td>{address.city}</td>
             </tr>
 
             <tr>
-              <td>Postal Code</td>
+              <td>Postal Code:</td>
               <td>{address.postalCode}</td>
             </tr>
             <tr>
-              <td>Country</td>
+              <td>Country:</td>
               <td>{address.country}</td>
             </tr>
           </tbody>

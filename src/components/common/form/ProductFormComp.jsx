@@ -4,6 +4,7 @@ import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
 import config from "../../../config/config";
 import IconSpin from "../icons/IconSpin";
+import Loader from "../Loader";
 import InputCatComp from "./InputCatComp";
 import InputComp from "./InputComp";
 import InputMultipleImgComp from "./InputMultipleImgComp";
@@ -133,7 +134,7 @@ const ProductFormComp = () => {
     }
   };
 
-  return brands ? (
+  return brands && categories ? (
     <form
       action=""
       encType="multipart/form-data"
@@ -198,7 +199,7 @@ const ProductFormComp = () => {
               id="photos"
               name="photos"
             />
-            <InputComp
+            {/* <InputComp
               handler={handleFormData}
               errMsg={errors.tags}
               label="Product Tags"
@@ -206,7 +207,7 @@ const ProductFormComp = () => {
               name="tags"
               type="text"
               placeholder="Enter product tags"
-            />
+            /> */}
           </div>
         </div>
         {/* <!-- right side  --> */}
@@ -295,14 +296,14 @@ const ProductFormComp = () => {
               ]}
             />
 
-            <InputComp
+            {/* <InputComp
               handler={handleFormData}
               errMsg={errors.publishDate}
               label="Publish Date"
               id="publish-date"
               name="publishdate"
               type="date"
-            />
+            /> */}
           </div>
         </div>
       </div>
@@ -329,7 +330,7 @@ const ProductFormComp = () => {
       </div>
     </form>
   ) : (
-    ""
+    <Loader />
   );
 };
 

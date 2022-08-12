@@ -45,7 +45,7 @@ const EmployeeList = () => {
       content: (data) => (
         <h1
           onClick={() =>
-            contextData.handleModal("employeeDetails", "show", data)
+            contextData.handleModal("employeeDetails", "show", setReload, data)
           }
           className="text-gray-900 hover:text-indigo-600 cursor-pointer"
         >

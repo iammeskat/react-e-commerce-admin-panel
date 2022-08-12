@@ -26,9 +26,8 @@ const InputMultipleImgComp = (props) => {
     setPhotosString([...photosString, ...photos]);
     console.log("new length " + photos.length);
 
-    // handler(name, photos);
-    handler(name, photosString);
-    console.log(photosString.length);
+    handler(name, photos);
+    // console.log(photosString);
   };
 
   return (

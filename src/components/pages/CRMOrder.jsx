@@ -669,7 +669,7 @@ const CRMOrder = (props) => {
                 }
               />
               <Table
-                resStatus={true}
+                // resStatus={true}
                 columnHeader={columnHeader}
                 columns={columnData}
                 items={paginatedItems}
