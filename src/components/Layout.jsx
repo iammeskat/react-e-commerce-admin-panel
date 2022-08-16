@@ -52,7 +52,6 @@ function Layout() {
     setSidebar(sidebarData);
   };
   const showMobileSidebar = () => {
-    console.log("I'm form showSidebar");
     let sidebarData = { ...sidebar };
     if (sidebarData.showMobileSidebar) {
       sidebarData.showMobileSidebar = false;
