@@ -559,10 +559,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   grid-column: span 2 / span 2;
 }
 
-.m-4 {
-  margin: 1rem;
-}
-
 .m-1 {
   margin: 0.25rem;
 }
@@ -796,6 +792,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: fit-content;
 }
 
+.h-\[calc\(100\%\+2rem\)\] {
+  height: calc(100% + 2rem);
+}
+
 .h-5 {
   height: 1.25rem;
 }
@@ -822,6 +822,78 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .h-\[5px\] {
   height: 5px;
+}
+
+.h-\[calc\(100\%-20rem\)\] {
+  height: calc(100% - 20rem);
+}
+
+.h-\[calc\(100vw-20rem\)\] {
+  height: calc(100vw - 20rem);
+}
+
+.h-\[calc\(100vw-30rem\)\] {
+  height: calc(100vw - 30rem);
+}
+
+.h-\[calc\(100vw-40rem\)\] {
+  height: calc(100vw - 40rem);
+}
+
+.h-\[calc\(100vw-50rem\)\] {
+  height: calc(100vw - 50rem);
+}
+
+.h-\[calc\(100vw-70rem\)\] {
+  height: calc(100vw - 70rem);
+}
+
+.h-\[calc\(100vw-60rem\)\] {
+  height: calc(100vw - 60rem);
+}
+
+.h-\[calc\(100vw-55rem\)\] {
+  height: calc(100vw - 55rem);
+}
+
+.h-\[calc\(100vw-58rem\)\] {
+  height: calc(100vw - 58rem);
+}
+
+.h-\[calc\(100vw-65rem\)\] {
+  height: calc(100vw - 65rem);
+}
+
+.h-\[calc\(100vw-62rem\)\] {
+  height: calc(100vw - 62rem);
+}
+
+.h-\[calc\(100vw-61rem\)\] {
+  height: calc(100vw - 61rem);
+}
+
+.h-\[calc\(100vw-61\.5rem\)\] {
+  height: calc(100vw - 61.5rem);
+}
+
+.h-\[calc\(100vh-62rem\)\] {
+  height: calc(100vh - 62rem);
+}
+
+.h-\[calc\(100vh-20rem\)\] {
+  height: calc(100vh - 20rem);
+}
+
+.h-\[calc\(100vh-10rem\)\] {
+  height: calc(100vh - 10rem);
+}
+
+.h-\[calc\(100vh-12rem\)\] {
+  height: calc(100vh - 12rem);
+}
+
+.h-\[calc\(100vh-12\.5rem\)\] {
+  height: calc(100vh - 12.5rem);
 }
 
 .max-h-\[15rem\] {
@@ -1115,12 +1187,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.grid-cols-4 {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.grid-cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .flex-row {
@@ -2470,10 +2542,6 @@ Ensure the default browser behavior of the `hidden` attribute.
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .md\:grid-cols-3 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
   .md\:flex-row {
     flex-direction: row;
   }
@@ -2521,16 +2589,12 @@ Ensure the default browser behavior of the `hidden` attribute.
     flex-grow: 1;
   }
 
-  .lg\:grid-cols-3 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .lg\:grid-cols-4 {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
   .lg\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .lg\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .lg\:flex-row {
