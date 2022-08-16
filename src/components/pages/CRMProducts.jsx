@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useAlert } from "react-alert";
 import config from "../../config/config";
 import PageFooter from "../common/PageFooter";
 import BtnSorting from "../common/table/BtnSorting";
@@ -8,8 +7,8 @@ import ItemImg from "../common/table/ItemImg";
 import Table from "../common/table/Table";
 import TableHeader from "../common/table/TableHeader";
 const CRMProducts = (props) => {
-  const { data, setData, locations, setLocation } = props;
-  const alert = useAlert();
+  const { data, locations } = props;
+
   const [area, setArea] = useState([]);
   const [products, setProducts] = useState([]);
   //   let products = [];

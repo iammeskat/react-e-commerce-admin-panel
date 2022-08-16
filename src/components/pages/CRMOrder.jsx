@@ -11,7 +11,7 @@ import Table from "../common/table/Table";
 import TableHeader from "../common/table/TableHeader";
 
 const CRMOrder = (props) => {
-  const { data, setData, locations, setLocation } = props;
+  const { data, setData, locations } = props;
   const alert = useAlert();
   const [area, setArea] = useState([]);
   const [options, setOptions] = useState({
