@@ -6,6 +6,7 @@ import config from "../../../config/config";
 import IconSpin from "../icons/IconSpin";
 import Loader from "../Loader";
 import InputCatComp from "./InputCatComp";
+import InputColor from "./InputColor";
 import InputComp from "./InputComp";
 import InputMultipleImgComp from "./InputMultipleImgComp";
 import SelectComp from "./SelectComp";
@@ -242,7 +243,7 @@ const ProductFormComp = () => {
             />
           </div>
           <div className="p-4 rounded bg-white space-y-4">
-            <InputComp
+            <InputColor
               handler={handleFormData}
               errMsg={errors.color}
               label="Color"
