@@ -25,7 +25,6 @@ const FormBrand = () => {
         }
       : contextData.modal.data
   );
-  // console.log(formData);
   const [errors, setError] = useState({});
   const handleFormData = (key, value) => {
     let tempData = { ...formData };
@@ -42,14 +41,11 @@ const FormBrand = () => {
   };
   const errorHandler = () => {
     let error = {};
-    // console.log(Object.entries({ ...formData }));
     for (let [key, value] of Object.entries({ ...formData })) {
-      // console.log("key: " + key);
       if (!value) {
         error[key] = `${key} is required`;
       }
     }
-    console.log(error);
     if (!error) {
       return false;
     } else {
@@ -61,7 +57,6 @@ const FormBrand = () => {
     e.preventDefault();
 
     if (!errorHandler()) {
-      console.log(errors);
     } else {
       setSubmitting(true);
       if (contextData.modal.mode === "create") {
@@ -72,7 +67,6 @@ const FormBrand = () => {
             config.headers
           )
           .then((res) => {
-            // console.log(res.data.data);
             contextData.handleModal();
             contextData.modal.reload(Math.random());
             alert.success(res.data.message);
@@ -80,7 +74,6 @@ const FormBrand = () => {
           })
           .catch((error) => {
             alert.error(error.response.data.errors.name.msg);
-            // console.log(error.response.data.errors);
           })
           .then(() => setSubmitting(false));
       } else {
@@ -91,7 +84,6 @@ const FormBrand = () => {
             config.headers
           )
           .then((res) => {
-            // console.log(res.data.data);
             contextData.handleModal();
             contextData.modal.reload(Math.random());
             alert.success(res.data.message);
@@ -99,7 +91,6 @@ const FormBrand = () => {
           })
           .catch((error) => {
             alert.error(error.response.data.errors.name.msg);
-            // console.log(error.response.data.errors);
           })
           .then(() => setSubmitting(false));
       }

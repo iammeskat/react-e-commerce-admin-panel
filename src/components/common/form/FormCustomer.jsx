@@ -47,7 +47,6 @@ const FormCustomer = () => {
         error[key] = `${key} is required`;
       }
     }
-    console.log(error);
     if (Object.keys(error).length > 0) {
       setError({ ...error });
       return true;
@@ -59,7 +58,6 @@ const FormCustomer = () => {
     e.preventDefault();
 
     if (hasError()) {
-      console.log(errors);
       return;
     } else {
       setSubmitting(true);
@@ -84,7 +82,6 @@ const FormCustomer = () => {
                 }
               );
               setError(getErrors);
-              console.log(error.response.data.errors);
             } else {
               alert.error("Something went wrong! Please try again.");
             }
@@ -111,7 +108,6 @@ const FormCustomer = () => {
                 }
               );
               setError(getErrors);
-              console.log(error.response.data.errors);
             } else {
               alert.error("Something went wrong! Please try again.");
             }

@@ -33,7 +33,7 @@ const CRMOrder = (props) => {
     area: "all",
   });
   const [notReceived, setNotReceived] = useState("");
-  console.log(notReceived);
+  // console.log(notReceived);
 
   const columnHeader = [
     "ORDER ID",
@@ -65,7 +65,7 @@ const CRMOrder = (props) => {
       })
       .catch((error) => {
         alert.error("Something wrong please try again");
-        console.log(error);
+        // console.log(error);
       });
   };
   const columnData = [

@@ -11,7 +11,7 @@ axios.interceptors.response.use(function (response) {
         error.response.status < 500
 
         if(!expectedError){
-            console.log('Logging the error', error)
+            // console.log('Logging the error', error)
             alert('An unexpected error occured. Please try again later.')
         }
         else if(error.response.status === 400){

@@ -27,7 +27,7 @@ const Header = () => {
     setShowNotification(!showNotification);
     setShowIndicator(false);
     localStorage.setItem("totalNotification", notifications.totalNotification);
-    console.log(notifications.totalNotification);
+    // console.log(notifications.totalNotification);
   };
 
   useEffect(() => {

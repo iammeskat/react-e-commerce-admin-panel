@@ -29,7 +29,7 @@ const ProductPhotoCrud = (props) => {
       })
       .catch((error) => {
         alert.error(`Failed`);
-        console.log(error.response.data.errors);
+        // console.log(error.response.data.errors);
       });
   };
   const removePhoto = (photoId) => {
@@ -49,12 +49,12 @@ const ProductPhotoCrud = (props) => {
       })
       .catch((error) => {
         alert.error(`Failed`);
-        console.log(error.response.data.errors);
+        // console.log(error.response.data.errors);
       });
   };
   const handleImage = async (e) => {
     let files = e.target.files;
-    console.log(files.length);
+    // console.log(files.length);
     await getBase64(files[0])
       .then((result) => {
         // console.log(result);

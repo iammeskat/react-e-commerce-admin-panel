@@ -7,7 +7,7 @@ const InputMultipleImgComp = (props) => {
   // let photos = [];
   const handleImage = async (e) => {
     let files = e.target.files;
-    console.log(files.length);
+    // console.log(files.length);
     let photos = [];
 
     for (let i = 0; i < files.length; i++) {
@@ -24,7 +24,7 @@ const InputMultipleImgComp = (props) => {
     // console.log(photos);
     // setPhotosString((photosString) => [...photosString, ...photos]);
     setPhotosString([...photosString, ...photos]);
-    console.log("new length " + photos.length);
+    // console.log("new length " + photos.length);
 
     handler(name, photos);
     // console.log(photosString);

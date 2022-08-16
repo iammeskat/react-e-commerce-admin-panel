@@ -179,7 +179,7 @@ const ProductList = () => {
       })
       .catch((error) => {
         contextData.handlerDeleteModal();
-        console.log(error);
+        // console.log(error);
         alert.error("Failed to delete the product!");
       });
   };

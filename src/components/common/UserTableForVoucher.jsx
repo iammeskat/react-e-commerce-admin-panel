@@ -10,7 +10,6 @@ import Table from "./table/Table";
 import TableHeader from "./table/TableHeader";
 
 const UserTableForVoucher = (props) => {
-  // console.log(props.users);
   const alert = useAlert();
   const [users, setUsers] = useState([...props.users]);
   const [selectedUsers, setSelectedUsers] = useState([]);
@@ -117,10 +116,8 @@ const UserTableForVoucher = (props) => {
 
   let filteredItems = users ? filterItems() : [];
   let paginatedItems = users ? paginateItems(filteredItems) : [];
-  // console.log(products);
 
   const updateOffer = (data) => {
-    console.log("I'm from update offer");
     axios
       .put(
         `${config.SERVER_URL}/api/admin/coupons/${props.offerId}`,
@@ -179,7 +176,6 @@ const UserTableForVoucher = (props) => {
     updateOffer({
       users: tempUserIds,
     });
-    // console.log(tempProductIds);
   };
   const selectProduct = (id) => {
     let tempProducts = [...selectedUsers];
@@ -190,10 +186,8 @@ const UserTableForVoucher = (props) => {
       tempProducts.push(id);
       setSelectedUsers(tempProducts);
     }
-    console.log(tempProducts.length);
   };
   const selectAllProducts = (checked) => {
-    // console.log(e);
     let tempProducts = [...selectedUsers];
     if (checked) {
       for (let i = 0; i < filteredItems.length; i++) {
@@ -205,7 +199,6 @@ const UserTableForVoucher = (props) => {
       tempProducts = [];
     }
     setSelectedUsers(tempProducts);
-    console.log(tempProducts);
   };
 
   return (

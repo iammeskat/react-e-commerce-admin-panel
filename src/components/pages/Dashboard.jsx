@@ -50,7 +50,7 @@ const Dashboard = () => {
 
   const [year, setYear] = useState(new Date().getFullYear());
   const [catYear, setCatYear] = useState(null);
-  console.log(year);
+  // console.log(year);
 
   useEffect(() => {
     let isLoaded = true;

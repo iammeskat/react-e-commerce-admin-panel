@@ -5,7 +5,7 @@ const InputImgComp = (props) => {
 
   const handleImage = async (e) => {
     let files = e.target.files;
-    console.log(files.length);
+    // console.log(files.length);
     await getBase64(files[0])
       .then((result) => {
         handler(name, result);

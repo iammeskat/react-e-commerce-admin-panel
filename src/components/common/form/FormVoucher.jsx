@@ -50,7 +50,7 @@ const FormVoucher = () => {
         error[key] = `${key} is required`;
       }
     }
-    console.log(error);
+    // console.log(error);
     if (Object.keys(error).length > 0) {
       setError({ ...error });
       return true;
@@ -62,7 +62,7 @@ const FormVoucher = () => {
     e.preventDefault();
 
     if (hasError()) {
-      console.log(errors);
+      // console.log(errors);
       return;
     } else {
       setSubmitting(true);
@@ -87,7 +87,7 @@ const FormVoucher = () => {
                 }
               );
               setError(getErrors);
-              console.log(error.response.data.errors);
+              // console.log(error.response.data.errors);
             } else {
               alert.error("Something went wrong! Please try again.");
             }
@@ -114,7 +114,7 @@ const FormVoucher = () => {
                 }
               );
               setError(getErrors);
-              console.log(error.response.data.errors);
+              // console.log(error.response.data.errors);
             } else {
               alert.error("Something went wrong! Please try again.");
             }

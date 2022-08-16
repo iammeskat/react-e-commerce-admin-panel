@@ -10,7 +10,6 @@ const Summary = () => {
       .get(`${config.SERVER_URL}/api/admin/dashboard`, config.headers)
       .then((res) => {
         isLoaded && setData(res.data.data);
-        // console.log(res.data.data);
       })
       .catch((error) => console.log(error));
     return () => (isLoaded = false);

@@ -170,7 +170,7 @@ const CRMProducts = (props) => {
         config.headers
       )
       .then((res) => {
-        console.log(res.data.data.products);
+        // console.log(res.data.data.products);
         setProducts(res.data.data.products);
         // return res.data.data.products;
       })

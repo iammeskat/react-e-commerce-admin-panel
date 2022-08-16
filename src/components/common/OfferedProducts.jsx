@@ -11,7 +11,6 @@ import Table from "./table/Table";
 import TableHeader from "./table/TableHeader";
 
 const OfferedProducts = (props) => {
-  //   console.log(props.products);
   const alert = useAlert();
   const [products, setProducts] = useState([...props.products]);
   const [brands, setBrands] = useState([]);
@@ -145,7 +144,7 @@ const OfferedProducts = (props) => {
 
   let filteredItems = products ? filterItems() : [];
   let paginatedItems = products ? paginateItems(filteredItems) : [];
-  // console.log(products);
+
   // fetch categories
   useEffect(() => {
     let isLoaded = true;
@@ -169,7 +168,6 @@ const OfferedProducts = (props) => {
     return () => (isLoaded = false);
   }, []);
   const updateOffer = (data) => {
-    // console.log("I'm from update offer");
     axios
       .put(
         `${config.SERVER_URL}/api/admin/${props.section}/${props.offerId}`,
@@ -230,7 +228,6 @@ const OfferedProducts = (props) => {
     updateOffer({
       products: tempProductIds,
     });
-    // console.log(tempProductIds);
   };
   const selectProduct = (id) => {
     let tempProducts = [...selectedProducts];
@@ -244,7 +241,6 @@ const OfferedProducts = (props) => {
     console.log(tempProducts.length);
   };
   const selectAllProducts = (checked) => {
-    // console.log(e);
     let tempProducts = [...selectedProducts];
     if (checked) {
       for (let i = 0; i < filteredItems.length; i++) {
@@ -256,7 +252,6 @@ const OfferedProducts = (props) => {
       tempProducts = [];
     }
     setSelectedProducts(tempProducts);
-    console.log(tempProducts);
   };
 
   return (

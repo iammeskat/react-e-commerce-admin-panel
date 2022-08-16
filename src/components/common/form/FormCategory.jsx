@@ -49,7 +49,6 @@ const FormCategory = () => {
         error[key] = `${key} is required`;
       }
     }
-    console.log(error);
     if (!error) {
       return false;
     } else {
@@ -61,7 +60,6 @@ const FormCategory = () => {
     e.preventDefault();
 
     if (!errorHandler()) {
-      console.log(errors);
     } else {
       setSubmitting(true);
       if (contextData.modal.mode === "create") {
@@ -106,7 +104,6 @@ const FormCategory = () => {
       .get(`${config.SERVER_URL}/api/admin/categories`, config.headers)
       .then((res) => {
         isLoaded && setCategories(res.data.data.categories);
-        // console.log(res.data.data.categories);
       })
       .catch((error) => console.log(error));
     return () => (isLoaded = false);

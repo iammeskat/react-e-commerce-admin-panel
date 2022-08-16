@@ -26,7 +26,7 @@ const FormBanner = () => {
         }
       : contextData.modal.data
   );
-  //   console.log(formData);
+
   const [errors, setError] = useState({});
   const handleFormData = (key, value) => {
     let tempData = { ...formData };
@@ -48,7 +48,6 @@ const FormBanner = () => {
         error[key] = `${key} is required`;
       }
     }
-    console.log(error);
     if (!error) {
       return false;
     } else {
@@ -60,7 +59,6 @@ const FormBanner = () => {
     e.preventDefault();
 
     if (!errorHandler()) {
-      console.log(errors);
     } else {
       setSubmitting(true);
       // setTimeout(() => {

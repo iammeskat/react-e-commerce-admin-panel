@@ -28,7 +28,6 @@ const FormSlider = () => {
         }
       : contextData.modal.data
   );
-  // console.log(formData);
   const [errors, setError] = useState({});
   const handleFormData = (key, value) => {
     let tempData = { ...formData };
@@ -45,14 +44,12 @@ const FormSlider = () => {
   };
   const errorHandler = () => {
     let error = {};
-    // console.log(Object.entries({ ...formData }));
     for (let [key, value] of Object.entries({ ...formData })) {
       // console.log("key: " + key);
       if (!value) {
         error[key] = `${key} is required`;
       }
     }
-    console.log(error);
     if (!error) {
       return false;
     } else {
@@ -100,7 +97,6 @@ const FormSlider = () => {
           })
           .catch((error) => {
             alert.error("Failed");
-            console.log(error.response);
           })
           .then(() => setSubmitting(false));
       }

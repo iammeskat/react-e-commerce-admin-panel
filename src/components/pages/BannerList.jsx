@@ -104,11 +104,11 @@ const BannerList = () => {
       .get(`${config.SERVER_URL}/api/admin/banners`, config.headers)
       .then((res) => {
         isLoaded && setData(res.data.data.banner);
-        console.log(res);
+        // console.log(res);
         isLoaded && setResStatus(true);
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
         setResStatus(true);
       });
     return () => (isLoaded = false);

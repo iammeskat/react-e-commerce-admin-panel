@@ -41,7 +41,6 @@ const FormDeal = () => {
       .get(`${config.SERVER_URL}/api/admin/dealers`, config.headers)
       .then((res) => {
         isLoaded && setDealers(res.data.data.dealer);
-        console.log(res.data.data.dealer);
       })
       .catch((error) => console.log(error));
     return () => (isLoaded = false);
@@ -70,7 +69,7 @@ const FormDeal = () => {
   }, []);
   const handleFormData = (key, value) => {
     let tempData = { ...formData };
-    console.log(value);
+
     tempData[key] = value;
 
     setFormData(tempData);
@@ -88,7 +87,7 @@ const FormDeal = () => {
         error[key] = `${key} is required`;
       }
     }
-    console.log(error);
+
     if (Object.keys(error).length > 0) {
       setError({ ...error });
       return true;
@@ -100,7 +99,6 @@ const FormDeal = () => {
     e.preventDefault();
 
     if (hasError()) {
-      console.log(errors);
       return;
     } else {
       setSubmitting(true);
@@ -125,7 +123,6 @@ const FormDeal = () => {
                 }
               );
               setError(getErrors);
-              console.log(error.response.data.errors);
             } else {
               alert.error("Something went wrong! Please try again.");
             }
@@ -152,7 +149,6 @@ const FormDeal = () => {
                 }
               );
               setError(getErrors);
-              console.log(error.response.data.errors);
             } else {
               alert.error("Something went wrong! Please try again.");
             }

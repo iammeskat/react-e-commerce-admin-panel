@@ -13,7 +13,6 @@ const StockSummary = () => {
       )
       .then((res) => {
         isLoaded && setData(res.data.data);
-        // console.log(res.data.data);
       })
       .catch((error) => console.log(error));
     return () => (isLoaded = false);

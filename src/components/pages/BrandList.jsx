@@ -94,7 +94,7 @@ const BrandList = () => {
       })
       .catch((error) => {
         setResStatus(true);
-        console.log(error);
+        // console.log(error);
       });
     return () => (isLoaded = false);
   }, [reload]);
@@ -115,7 +115,7 @@ const BrandList = () => {
       })
       .catch((error) => {
         contextData.handlerDeleteModal();
-        console.log(error);
+        // console.log(error);
         alert.error("Failed to delete the product!");
       });
   };

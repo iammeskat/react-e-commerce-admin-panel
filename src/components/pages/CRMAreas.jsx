@@ -211,7 +211,7 @@ const CRMAreas = (props) => {
     let entries = Object.entries(zones);
     let sorted = entries.sort((b, a) => a[1] - b[1]);
     setZone(sorted);
-    console.log(sorted);
+    // console.log(sorted);
   };
 
   // childs of upazila
@@ -234,7 +234,7 @@ const CRMAreas = (props) => {
     let entries = Object.entries(zones);
     let sorted = entries.sort((b, a) => a[1] - b[1]);
     setArea(sorted);
-    console.log(sorted);
+    // console.log(sorted);
   };
 
   return (

@@ -39,7 +39,7 @@ const Login = () => {
   };
   const submitForm = () => {
     if (isDataValid()) {
-      console.log("success");
+      // console.log("success");
       axios
         .post(`${config.SERVER_URL}/api/user`, data)
         .then((res) => {

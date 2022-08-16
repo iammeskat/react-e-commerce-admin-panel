@@ -34,7 +34,7 @@ const InputAddProducts = (props) => {
         error[key] = `${key} is required`;
       }
     }
-    console.log(error);
+    // console.log(error);
     if (Object.keys(error).length > 0) {
       setErrors({ ...error });
       return true;
@@ -46,7 +46,7 @@ const InputAddProducts = (props) => {
     e.preventDefault();
 
     if (hasError()) {
-      console.log(errors);
+      // console.log(errors);
       return;
     } else {
       let tempProducts = [...products];
